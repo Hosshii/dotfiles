@@ -1,14 +1,8 @@
 #!/bin/bash
 
-
-
 GITHUB_URL="https://github.com/WistreHosshii/"
 DOTPATH="dotfiles"
 WORKDIR=$(pwd)/"$DOTPATH"
-
-echo $WORKDIR
-echo "$GITHUB_URL""$DOTPATH"
-exit 0
 
 #コマンド確認
 #gitコマンドが使えるか
