@@ -1,6 +1,9 @@
 #!/bin/bash
 
-DOTPATH=~/.dotfiles
+DOTPATH=~/dotfiles
+GITHUB_URL="https://github.com/WistreHosshii/"
+DOTPATH="dotfiles"
+WORKDIR=pwd/"$DOTPATH"
 
 #コマンド確認
 #gitコマンドが使えるか
@@ -25,7 +28,7 @@ else
 fi
 
 #移動
-cd ~/.dotfiles
+cd "$WORKDIR"
 if [ $? -ne 0 ]; then
     echo "$DOTPATH not found"
     exit 1
