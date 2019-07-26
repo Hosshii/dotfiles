@@ -10,7 +10,7 @@ if type git >/dev/null 2>&1; then
    $( git clone --recursive "$GITHUB_URL""$DOTPATH"".git")
 
 #使えなかったらcurlかwgetを探す
-elif type curl wget >/dev/null 2>&1; then
+elif type curl ||type wget >/dev/null 2>&1; then
     tarball="url"
     if type curl >/dev/null 2>&1; then
         curl -L "$tarball"
