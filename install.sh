@@ -33,7 +33,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-for f in .??
+for f in .??*
 do
     [ "$f" = ".git" ] && continue
     ln -snfv "$DOTPATH/$f" "$HOME"_"$f"
