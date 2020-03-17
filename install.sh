@@ -13,7 +13,7 @@ if type git >/dev/null 2>&1; then
 elif type curl ||type wget >/dev/null 2>&1; then
     tarball="url"
     if type curl >/dev/null 2>&1; then
-        curl -L "$tarball"
+        curl -LO "$tarball"
         
     elif type wget >/dev/null 2>&1; then
         wget -O - "$tarball"
