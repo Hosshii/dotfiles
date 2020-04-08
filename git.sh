@@ -1,11 +1,21 @@
-
 export FZF_DEFAULT_OPTS="--reverse --border -0 -1"
-# hfbr - checkout git branch (including remote branches)
+
+# return commit
+alias -g C='`glNoGraph |
+    fzf --no-sort --reverse --tiebreak=index --no-multi \
+        --ansi --preview="$_viewGitLogLine" | \
+        sed "s/ .*//"`'
+
+# rerutn branch
+alias -g B='`git branch --all --color | grep -v HEAD | fzf -m --ansi | sed "s/.* //" | sed "s#remotes/[^/]*/##"`'
+
+# return files
+alias -g F='`unbuffer git status -s | fzf -m --ansi --preview="echo {} | awk '\''{print \$2}'\'' | xargs git diff --color --|diff-so-fancy" | awk '\''{print $2}'\'' | tr '\''\n'\'' '\'' '\''`'
+
+# fbr - checkout git branch (including remote branches)
 fbr() {
   local branches branch
-  branches=$(git branch --all | grep -v HEAD) &&
-  branch=$(echo "$branches" |
-           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+  branch=$(echo B)
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
@@ -71,10 +81,8 @@ fshow_preview() {
 # fcoc_preview - checkout git commit with previews
 fcoc_preview() {
   local commit
-  commit=$( glNoGraph |
-    fzf --no-sort --reverse --tiebreak=index --no-multi \
-        --ansi --preview="$_viewGitLogLine" ) &&
-  git checkout $(echo "$commit" | sed "s/ .*//")
+  commit=$( echo C )
+  git checkout $(echo "$commit")
 }
 
 fstash() {
@@ -103,7 +111,7 @@ fstash() {
 
 gadd() {
     local selected
-    selected=$(unbuffer git status -s | fzf -m --ansi --preview="echo {} | awk '{print \$2}' | xargs git diff --color --" | awk '{print $2}' | tr '\n' ' ')
+    selected=$(echo F)
     if [[ -n "$selected" ]]; then
         echo $selected
         git add $(echo $selected)
@@ -111,15 +119,3 @@ gadd() {
     fi
 }
 
-# return commit
-alias -g C='`glNoGraph |
-    fzf --no-sort --reverse --tiebreak=index --no-multi \
-        --ansi --preview="$_viewGitLogLine" | \
-        sed "s/ .*//"`'
-
-# rerutn branch
-alias -g B='`git branch --all --color | grep -v HEAD | fzf -m --ansi | sed "s/.* //" | sed "s#remotes/[^/]*/##"`'
-
-
-# return files
-alias -g F='`unbuffer git status -s | fzf -m --ansi --preview="echo {} | awk '\''{print \$2}'\'' | xargs git diff --color --" | awk '\''{print $2}'\'' | tr '\''\n'\'' '\'' '\''`'
