@@ -1,4 +1,4 @@
-#
+
 #
 # Executes commands at the start of an interactive session.
 #
@@ -23,6 +23,7 @@ alias c="clear"
 alias cdu='cd-gitroot'
 alias k='kubectl'
 alias py="python"
+# global alias is added in ~/.zsh/config/*
 
 # pathの設定
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_141.jdk/Contents/Home"
@@ -35,9 +36,10 @@ export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
 #export PATH="$PATH:./node_modules/.bin"
 export TEXPATH="$HOME/tex"
-export ATCODER="$HOME/Workspace/atcoder"
+export ATCODER="$HOME/localWorkspace/atcoder"
 #export FPATH="$FPATH:$HOME/.zsh/completion:$HOME/.zsh/pure"
 export FPATH="$FPATH:$HOME/.zsh/completion"
+export FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 export MANPATH="/usr/local/opt/findutils/libexec/gnuman:$MANPATH"
 # lsはgnuのやつの表示が嫌だったのでmacのやつを使ってる
@@ -63,8 +65,8 @@ export PATH="$PATH:$GOPATH/bin"
 export EDITOR=vim
 
 #cddの設定
-source $HOME/tools/cdd-bash/cdd-manager.sh
-source $HOME/tools/cdd-bash/cdd.sh
+#source $HOME/tools/cdd-bash/cdd-manager.sh
+#source $HOME/tools/cdd-bash/cdd.sh
 
 # 直前のコマンドの重複を削除
 setopt hist_ignore_dups
@@ -78,12 +80,20 @@ setopt share_history
 #コマンドミス修正
 setopt correct
 
+# 単語の入力途中でもTab補完を有効化
+setopt complete_in_word
+
 # 全履歴を一覧表示
 function history-all { history -E 1 }
 
 #ssh keyの設定
 #.ssh/configで設定したので消してみる
 #ssh-add -K
+#
+# fzfとかの関数の設定
+for i in `ls  /Users/wistre/.zsh/config`;do
+    source /Users/wistre/.zsh/config/${i}
+done
 
 # 補完関数の設定
 for file in `find $HOME/.zsh/functions -mindepth 1 -type f`;do
@@ -127,3 +137,5 @@ if [ -f '/Users/wistre/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/wistre/g
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/wistre/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/wistre/google-cloud-sdk/completion.zsh.inc'; fi
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
