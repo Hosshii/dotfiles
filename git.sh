@@ -11,14 +11,14 @@ alias -g B='`git branch --all --color | grep -v HEAD | fzf -m --ansi | sed "s/.*
 alias -g F='`unbuffer git status -s | fzf -m --ansi --preview="echo {} | awk '\''{print \$2}'\'' | xargs git diff --color --|diff-so-fancy" | awk '\''{print $2}'\'' | tr '\''\n'\'' '\'' '\''`'
 
 # fbr - checkout git branch (including remote branches)
-fbr() {
+gchb() {
   local branches branch
   branch=$(echo B)
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
 # fco - checkout git branch/tag
-fco() {
+gcht() {
   local tags branches target
   branches=$(
     git --no-pager branch --all \
@@ -35,7 +35,7 @@ fco() {
 
 
 # fco_preview - checkout git branch/tag, with a preview showing the commits between the tag/branch and HEAD
-fco_preview() {
+gcht_preview() {
   local tags branches target
   branches=$(
     git --no-pager branch --all \
@@ -50,7 +50,7 @@ fco_preview() {
   git checkout $(awk '{print $2}' <<<"$target" )
 }
 
-fshow() {
+gshow() {
   git log --graph --color=always \
       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
   fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
@@ -67,7 +67,7 @@ _gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
 _viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always % | diff-so-fancy'"
 
 # fshow_preview - git commit browser with previews
-fshow_preview() {
+gshow_preview() {
     glNoGraph |
         fzf --no-sort --reverse --tiebreak=index --no-multi \
             --ansi --preview="$_viewGitLogLine" \
@@ -76,14 +76,14 @@ fshow_preview() {
                 --bind "alt-y:execute:$_gitLogLineToHash | xclip"
 }
 
-# fcoc_preview - checkout git commit with previews
+# gchc_preview - checkout git commit with previews
 fcoc_preview() {
   local commit
   commit=$( echo C )
   git checkout $(echo "$commit")
 }
 
-fstash() {
+gstash() {
   local out q k sha
   while out=$(
     git stash list --pretty="%C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
