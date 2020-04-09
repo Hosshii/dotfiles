@@ -1,6 +1,6 @@
 #ctr+rでfzfで履歴検索
 setopt hist_ignore_all_dups
-export FZF_DEFAULT_OPTS="--reverse --border -0 -1 --bind '?:toggle-preview'"
+export FZF_DEFAULT_OPTS="--reverse --border -0  --bind '?:toggle-preview'"
 
 function fzf_select_history() {
   local tac
@@ -20,12 +20,15 @@ bindkey '^r' fzf_select_history
 function fzf-src () {
   local mygitfull="/Users/wistre/localWorkspace"
   local mygit="localWorkspace"
-  local dir=$(echo "$(basename $(ghq root))\n${mygit}"|fzf --prompt "WORKSPACE>")
+  local bm="BookMark"
+  local dir=$(echo "$(basename $(ghq root))\n${mygit}\n$bm"|fzf --prompt "WORKSPACE>")
 
   if [ $dir = $mygit ];then
-      local selected_dir="${mygitfull}/$(ls $mygitfull|fzf --prompt "Repository>" --query "$LBUFFER")"
+      local selected_dir="${mygitfull}/$(ls $mygitfull|fzf --ansi --prompt "Repository>" --query "$LBUFFER")"
   elif [ $dir = "$(basename $(ghq root))" ];then
           local selected_dir="$(ghq root)/$(ghq list | fzf --prompt "Repository>" --query "$LBUFFER")"
+  elif [ $dir = $bm ];then
+      local selected_dir=$(cdd-manager list | fzf --ansi --prompt "BookMark" --query "$LBUFFER" | awk '{print $3}')
       fi
 
   if [ -n "$selected_dir" ]; then
@@ -39,7 +42,15 @@ bindkey '^g' fzf-src
 
 # 今いるディレクトリの検索
 function fzf-path() {
-local filepath="$(exa -d --group-directories-first --git-ignore --color=always  $( find . -mindepth 1 -not -iwholename *.git/* 2>/dev/null | head -100) | fzf --ansi --prompt 'PATH>' --preview 'if [ -d {} ];then exa --color=always  -T --git-ignore  {}|head -200;elif [ -f {} ];then bat --color=always --style=header,grid --line-range :100 {};fi ')"
+local tmp=${LBUFFER: -1}
+if [ "$tmp" = "/" ];then
+    tmp=$(echo $LBUFFER | awk '{print $NF}')
+    if [ -d $tmp ];then
+        local search=$tmp
+    fi
+fi
+
+local filepath="$(fd . $search -H -E ".git" -c always | fzf --ansi --prompt 'PATH>' --preview 'if [ -d {} ];then exa   -T --git-ignore  {}|head -200;elif [ -f {} ];then bat --color=always --style=header,grid --line-range :100 {};fi ')"
   [ -z "$filepath" ] && return
   if [ -n "$LBUFFER" ]; then
       BUFFER="$LBUFFER$filepath"
@@ -60,3 +71,15 @@ zle -N fzf-path
 bindkey '^j' fzf-path # Ctrl+f で起動
 
 
+fzf-z-search() {
+    local res=$(z | sort -rn | cut -c 12- | fzf)
+    if [ -n "$res" ]; then
+        BUFFER+="cd $res"
+        zle accept-line
+    else
+        return 1
+    fi
+}
+
+zle -N fzf-z-search
+bindkey '^k' fzf-z-search

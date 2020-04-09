@@ -1,5 +1,3 @@
-export FZF_DEFAULT_OPTS="--reverse --border -0 -1"
-
 # return commit
 alias -g C='`glNoGraph |
     fzf --no-sort --reverse --tiebreak=index --no-multi \
