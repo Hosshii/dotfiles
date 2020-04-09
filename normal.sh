@@ -1,6 +1,6 @@
 #ctr+rでfzfで履歴検索
 setopt hist_ignore_all_dups
-export FZF_DEFAULT_OPTS="--reverse --border -0  --bind '?:toggle-preview'"
+export FZF_DEFAULT_OPTS="--reverse --border -0 --marker "⇡"  --bind '?:toggle-preview'"
 
 function fzf_select_history() {
   local tac
