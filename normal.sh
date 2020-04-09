@@ -44,7 +44,7 @@ bindkey '^g' fzf-src
 function fzf-path() {
 local tmp=${LBUFFER: -1}
 if [ "$tmp" = "/" ];then
-    tmp=$(echo $LBUFFER | awk '{print $NF}')
+    tmp=$(echo $LBUFFER | awk '{print $NF}' | sed -e "s#~#$HOME#")
     if [ -d $tmp ];then
         local search=$tmp
     fi
@@ -52,6 +52,11 @@ fi
 
 local filepath="$(fd . $search -H -E ".git" -c always | fzf --ansi --prompt 'PATH>' --preview 'if [ -d {} ];then exa   -T --git-ignore  {}|head -200;elif [ -f {} ];then bat --color=always --style=header,grid --line-range :100 {};fi ')"
   [ -z "$filepath" ] && return
+
+  if [ ! -z $search ];then
+      filepath=$(echo $filepath|sed -e "s#$search##")
+  fi
+
   if [ -n "$LBUFFER" ]; then
       BUFFER="$LBUFFER$filepath"
   else
