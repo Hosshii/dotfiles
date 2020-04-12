@@ -23,6 +23,7 @@ alias c="clear"
 alias cdu='cd-gitroot'
 alias k='kubectl'
 alias py="python"
+alias cddm="cdd-manager"
 # global alias is added in ~/.zsh/config/*
 
 # pathの設定
@@ -42,6 +43,7 @@ export FPATH="$FPATH:$HOME/.zsh/completion"
 export FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 export MANPATH="/usr/local/opt/findutils/libexec/gnuman:$MANPATH"
+export CDD_DIR="$HOME/.cdd"
 # lsはgnuのやつの表示が嫌だったのでmacのやつを使ってる
 
 #コマンド履歴
@@ -91,16 +93,20 @@ function history-all { history -E 1 }
 #ssh-add -K
 #
 # fzfとかの関数の設定
-for i in `ls  /Users/wistre/.zsh/config`;do
+for i in `\ls  /Users/wistre/.zsh/config`;do
     source /Users/wistre/.zsh/config/${i}
 done
 
 # 補完関数の設定
-for file in `find $HOME/.zsh/functions -mindepth 1 -type f`;do
+source $HOME/.zsh/load/init.sh
+for file in `find $HOME/.zsh/functions -mindepth 1`;do
     autoload -Uz $file
 done
 autoload -Uz compinit
 compinit -u
+
+# zの読み込み
+source "$(ghq root)/github.com/rupa/z/z.sh"
 
 
 zstyle ':completion:*:*:docker:*' option-stacking yes
