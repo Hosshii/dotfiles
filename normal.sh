@@ -28,7 +28,7 @@ function fzf-src () {
   if [ $dir = $mygit ];then
       local selected_dir="${mygitfull}/$(ls $mygitfull|fzf --ansi --prompt "Repository>" --query "$LBUFFER")"
   elif [ $dir = "$(basename $(ghq root))" ];then
-          local selected_dir="$(ghq root)/$(ghq list | fzf --prompt "Repository>" --query "$LBUFFER")"
+          local selected_dir="$(ghq root)/$(ghq list | fzf --prompt "Repository>" --query "$LBUFFER" --preview "bat --color=always --style=header,grid --line-range :100 $(ghq root)/{}/README.*")"
   elif [ $dir = $bm ];then
       local selected_dir=$(cdd-manager list | fzf --ansi --prompt "BookMark" --query "$LBUFFER" | awk '{print $3}')
       fi
@@ -66,7 +66,8 @@ fi
 # そうじゃない時は、カレンとディレクトリ 
 # previewには、選択しているものがディレクトリならexaでツリー状に表示(カラーにするとうまくいかなかったのでしてない)
 # ファイルならbatコマンドで表示している
-local filepath="$(fd . $search -H -E ".git" -c always | fzf --ansi --prompt 'PATH>' --preview 'if [ -d {} ];then exa   -T --git-ignore  {}|head -200;elif [ -f {} ];then bat --color=always --style=header,grid --line-range :100 {};fi ')"
+#local filepath="$(fd . $search -H -E ".git" -c always | fzf --ansi --prompt 'PATH>' --preview 'if [ -d {} ];then exa   -T --git-ignore  {}|head -200;elif [ -f {} ];then bat --color=always --style=header,grid --line-range :100 {} | head -100;fi ')"
+local filepath="$(fd . $search -H -E ".git" -c always | fzf --ansi --prompt 'PATH>' --preview 'if [ -d {} ];then tree  {}|head -200;elif [ -f {} ];then bat --color=always --style=header,grid --line-range :100 {} | head -100;fi ')"
   [ -z "$filepath" ] && return
 
   # filepathは$searchのところも含まれているので、そこを除く。ディレクトリなら最後に/をつける。

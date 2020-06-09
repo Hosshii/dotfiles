@@ -11,7 +11,7 @@ if type git >/dev/null 2>&1; then
 
 #使えなかったらcurlかwgetを探す
 elif type curl ||type wget >/dev/null 2>&1; then
-    tarball="url"
+    tarball="url" #TODO
     if type curl >/dev/null 2>&1; then
         curl -LO "$tarball"
         
