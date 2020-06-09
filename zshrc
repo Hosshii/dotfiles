@@ -24,6 +24,7 @@ alias cdu='cd-gitroot'
 alias k='kubectl'
 alias py="python"
 alias cddm="cdd-manager"
+alias cat="cat -v"
 # global alias is added in ~/.zsh/config/*
 
 # pathの設定
@@ -35,6 +36,8 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 #export PATH="$PATH:./node_modules/.bin"
 export TEXPATH="$HOME/tex"
 export ATCODER="$HOME/localWorkspace/atcoder"
