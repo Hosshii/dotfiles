@@ -1,0 +1,51 @@
+#!/bin/bash
+
+PROGNAME="$( basename $0 )"
+
+# Usage
+function usage() {
+  cat << EOS >&2
+Usage: ${PROGNAME} [-h,--help] [-c,--source_code] [--normal]
+
+Options:
+  --normal               Make template file with minimam code.
+  -c,--source_code       Make template file with sample source code.
+  -h, --help             Show usage.
+EOS
+  exit 1
+}
+
+# オプションをパース
+PARAM=()
+for opt in "$@"; do
+    case "${opt}" in
+        '--c'|'--source_code' )
+            # 通常のオプションの場合
+            TEMPLATE="$TEXPATH/.template/source_code"
+            ;;
+        '--normal')
+            # オプションに続く値が 任意 の場合
+            FUGA=true; shift
+            if [[ -n "$1" ]] && [[ ! "$1" =~ ^-+ ]]; then
+                FUGA_VALUE="$1"; shift
+            fi
+            ;;
+        '-h' | '--help' )
+            usage
+            ;;
+        '--' | '-' )
+            shift
+            PARAM+=( "$@" )
+            break
+            ;;
+        -* )
+            echo "${PROGNAME}: illegal option -- '$( echo $1 | sed 's/^-*//' )'" 1>&2
+            exit 1
+            ;;
+        * )
+            if [[ -n "$1" ]] && [[ ! "$1" =~ ^-+ ]]; then
+                PARAM+=( "$1" ); shift
+            fi
+            ;;
+    esac
+done

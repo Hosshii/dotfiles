@@ -1,0 +1,30 @@
+#!/bin/bash
+
+
+for FILE in "$@"; do
+    ext=${FILE##*.}
+    FILENAME=${FILE%.*}
+    case $ext in
+        'c')
+            PROGRAM_LANG="c"
+        ;;
+        'py')
+            PROGRAM_LANG="python"
+        ;;
+        'js')
+            PROGRAM_LANG='javascript'
+        ;;
+        *)
+            echo "illegal FILE extention $FILE:$ext"
+    esac
+    echo "converting file : $FILE => ${FILENAME}.pdf"
+    enscript --highlight=$PROGRAM_LANG -H1 --color -C $FILE -o ${FILENAME}.ps&& ps2pdf ${FILENAME}.ps&& rm -f ${FILENAME}.ps
+    RESULT=$?
+    if [ $RESULT != 0 ]; then
+        echo "error occurd in converting the $FILE"
+        echo ""
+    else
+        echo "success to convert the file : $FILE => ${FILENAME}.pdf"
+        echo ""
+    fi
+done

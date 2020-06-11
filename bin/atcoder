@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ -n $1 ]; then
+    mkdir -p $ATCODER/$1/{A,B,C,D,E,F}
+else
+    echo "plese set directory name"
+fi

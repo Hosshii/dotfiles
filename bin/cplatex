@@ -1,0 +1,117 @@
+#!/bin/bash
+
+TEMPLATE_FILE="template.tex"
+# set WORKSPACE
+if [ $# = 0  ]; then
+    WORKSPACE="$TEXPATH/practice"
+    FILE="practice.tex"
+    echo "move default workspace : $WORKSPACE"
+fi
+
+# set template directory
+PROGNAME="$( basename $0 )"
+
+# Usage
+function usage() {
+  cat << EOS >&2
+Usage: ${PROGNAME} [dir_name] [file name] [-h,--help] [-c,--source_code] [--normal]
+
+Options:
+  --normal,no option     Make template file with minimam code.
+  -c,--source_code       Make template file with sample source code.
+  -h, --help             Show usage.
+EOS
+    exit 1
+}
+
+# オプションをパース
+PARAM=()
+for opt in "$@"; do
+    case "${opt}" in
+        '-c'|'--source_code' )
+            # 通常のオプションの場合
+            TEMPLATE_DIR="$TEXPATH/.template/source_code"
+        ;;
+        '--normal')
+            # オプションに続く値が 任意 の場合
+            TEMPLATE_DIR="$TEXPATH/.template/normal"
+        ;;
+        '-h' | '--help' )
+            usage
+        ;;
+        '--' | '-' )
+            shift
+            PARAM+=( "$@" )
+            break
+        ;;
+        -* )
+            echo "${PROGNAME}: illegal option -- '$( echo $1 | sed 's/^-*//' )'" 1>&2
+            exit 1
+        ;;
+        * )
+            if [[ -n "$opt" ]] && [[ ! "$opt" =~ ^-+ ]]; then
+                if [[ -z $WORKSPACE ]]; then
+                    WORKSPACE=$TEXPATH/$opt
+                else
+                    FILE=$opt.tex
+                fi
+                shift
+            fi
+        ;;
+    esac
+done
+if [ -z $TEMPLATE_DIR ]; then
+    TEMPLATE_DIR="$TEXPATH/.template/normal"
+fi
+echo $WORKSPACE
+echo $TEMPLATE_DIR
+
+# set tex file name
+if [ -z "$FILE" ]; then
+    FILE="main.tex"
+fi
+
+# move to workspace
+if [ -e $WORKSPACE ];then
+    cd $WORKSPACE
+else
+    echo "$WORKSPACE is not exist"
+    echo "Do you make $WORKSPACE? [Y/n]"
+    read ANS
+    case "$ANS" in
+        '' |[Yy]* )
+            echo "make workspace : $WORKSPACE"
+            mkdir -p $WORKSPACE
+            cd $WORKSPACE
+            cp -a $TEMPLATE_DIR/. $WORKSPACE
+            mv  ./template.tex $FILE
+        ;;
+        [^Yy]* )
+            echo "do not make new workspace"
+            exit 1
+        ;;
+    esac
+fi
+
+echo $FILE
+# check file exist
+if [ -e $FILE ]; then
+    echo "open VSCode"
+    code . $FILE
+else
+    echo "$FILE is not exist in $WORKSPACE"
+    echo "Do you make template $FILE file? [Y/n]"
+    read ANS
+    case "$ANS" in
+        '' |[Yy]* )
+            echo "make template file : $FILE "
+            cp $TEMPLATE_DIR/$TEMPLATE_FILE $WORKSPACE/$FILE
+            echo "open VSCode"
+            code . $FILE
+        ;;
+        [Nn]* )
+            echo "do not make template file"
+            exit 1
+        ;;
+    esac
+fi

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd ~/Workspace/traQ-UI
+sleep 13 && open  http://localhost:8080/ &
+npm run serve 

@@ -1,0 +1,71 @@
+#!/bin/bash
+
+# set template directory
+TEMPLATE="$TEXPATH/.template"
+
+# set tex file name
+if [ -n "$2" ]; then    
+    FILE="$2.tex"
+else
+    FILE="main.tex"
+fi
+
+# set WORKSPACE
+if [ $# = 0  ]; then
+        WORKSPACE="$TEXPATH/practice"
+        FILE="practice.tex"
+        echo "move default workspace : $WORKSPACE"
+
+elif [ $# -gt 2 ]; then
+    echo "argument is too many"
+    echo "plese set 2 (or 1 or 0 ) argument"
+    exit 1
+else
+    WORKSPACE="$TEXPATH/$1"
+fi
+
+# move to workspace
+if [ -e $WORKSPACE ];then
+    cd $WORKSPACE
+else
+    echo "$WORKSPACE is not exist"
+    echo "Do you make $WORKSPACE? [Y/n]"
+    read ANS
+    case "$ANS" in
+        '' |[Yy]* )
+            echo "make workspace : $WORKSPACE"
+            mkdir -p $WORKSPACE
+            cd $WORKSPACE
+            cp -a $TEMPLATE/. $WORKSPACE
+            mv  ./template.tex $FILE
+            break
+            ;;
+        [^Yy]* )
+            echo "do not make new workspace"
+            exit 1
+            ;;
+    esac
+fi
+
+# check file exist
+if [ -e $FILE ]; then
+    echo "open VSCode"
+    code . $FILE
+else
+    echo "$FILE is not exist in $WORKSPACE"
+    echo "Do you make template $FILE file? [Y/n]"
+    read ANS
+    case "$ANS" in
+        '' |[Yy]* )
+            echo "make template file : $FILE "
+            cp $TEXPATH/.template/template.tex $WORKSPACE/$FILE
+            echo "open VSCode"
+            code . $FILE
+            break
+            ;;
+        [Nn]* )
+            echo "do not make template file"
+            exit 1
+            ;;
+    esac
+fi
