@@ -21,6 +21,7 @@ Plugin 'Shougo/neocomplete.vim'
 Plugin 'davidhalter/jedi-vim'
 "Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'Yggdroot/indentLine'
+Plugin 'hotwatermorning/auto-git-diff'
 
 
 
@@ -68,6 +69,10 @@ noremap <C-e> <Esc>$a
 noremap <C-a> <Esc>^a
 map <C-n> :NERDTreeToggle<CR>
 
+" 'hotwatermorning/auto-git-diff'の設定
+let g:auto_git_diff_show_window_at_right = 1
+"let g:auto_git_diff_command_options = '--color '
+"let g:auto_git_diff_command_pipes = 'diff-so-fancy'
 
 " 以下neocomplete.vimの設定
 " Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
@@ -162,6 +167,8 @@ set background=dark
 "カラーテーマは入れたら有効にしてください
 let g:hybrid_use_iTerm_colors = 1
 colorscheme iceberg
+hi NonText    ctermbg=None ctermfg=59
+hi SpecialKey ctermbg=None ctermfg=59
 
 "行番号の色や現在行の設定
 autocmd ColorScheme * highlight LineNr ctermfg=12
