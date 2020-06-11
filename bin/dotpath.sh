@@ -1,3 +1,0 @@
-dotpath() {
-    echo "${HOME}/.dotfiles"
-}
