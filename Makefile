@@ -1,7 +1,9 @@
 DOTPATH    := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 
+.PHONY: init
 init:
-	@./bin/init.sh
+	@./etc/init/init.sh
 
+.PHONY: deploy_fish
 deploy-fish:
-	@./bin/deploy_fish.sh
+	@./etc/init/fish/deploy_fish.sh
