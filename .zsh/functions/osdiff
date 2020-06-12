@@ -1,0 +1,9 @@
+osdiff(){
+    DIR_NAME=$(pwd |awk -F "/" '{print $(NF-1)"/"$NF}')
+    ZISAKU="30nichideosjisaku"
+
+    for x in $@ ;do
+        echo "opendiff $x"
+        opendiff $x ../../../../$ZISAKU/$DIR_NAME/$x
+    done
+}
