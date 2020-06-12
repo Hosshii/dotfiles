@@ -22,5 +22,12 @@ brew doctor
 echo "brew update"
 brew update
 
-echo "brew bundle --global"
-brew bundle --global
+if [ $1 = "-s" ]; then
+    echo "brew bundle --file './Brewfile'"
+    echo "light mode."
+    brew bundle --file './Brewfile'
+else
+    echo "normal mode."
+    brew bundle --file './Brewfile'
+    brew bundle --file './_Brewfile'
+fi

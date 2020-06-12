@@ -19,3 +19,15 @@ deploy:
 	@echo ''
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 	@$(foreach val, $(BINFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val); )
+
+.PHONY: brew
+brew:
+	@echo '==> Start to install homebrew formula.'
+	@echo ''
+	@./etc/init/brew/init.sh
+
+.PHONY: brew_light
+brew_short:
+	@echo '==> Start to install homebrew formula in light mode.'
+	@echo ''
+	@./etc/init/brew/init.sh
