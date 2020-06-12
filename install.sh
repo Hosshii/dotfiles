@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GITHUB_URL="https://github.com/WistreHosshii/"
+GITHUB_URL="https://github.com/Hosshii/"
 REPO_NAME="dotfiles"
 DOTPATH=".dotfiles"
 WORKDIR=$(pwd)/"$DOTPATH"
