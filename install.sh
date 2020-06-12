@@ -35,7 +35,7 @@ if [ $? -ne 0 ]; then
 fi
 
 make init
+make install_zinit
 make deploy
 make deploy_fish
-make install_zinit
 make brew
