@@ -13,6 +13,10 @@ init:
 deploy-fish:
 	@./etc/init/fish/deploy_fish.sh
 
+.PHONY: install_zinit
+install_zinit:
+	@./etc/init/zsh/init.sh
+
 .PHONY: deploy
 deploy:
 	@echo '==> Start to deploy dotfiles to home directory.'
