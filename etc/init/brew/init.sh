@@ -1,9 +1,9 @@
 #!/bin/bash
 
-SCRIPT_DIR=$(dirname $(
+SCRIPT_DIR=$(
     cd $(dirname $0)
     pwd
-))
+)
 
 if ! type brew >/dev/null 2>&1; then
     echo "installing homebrew"
@@ -22,12 +22,16 @@ brew doctor
 echo "brew update"
 brew update
 
-if [ $1 = "-s" ]; then
-    echo "brew bundle --file './Brewfile'"
+if [ "$1" = "-s" ]; then
+    echo "brew bundle --file $SCRIPT_DIR/Brewfile"
     echo "light mode."
-    brew bundle --file './Brewfile'
+    brew bundle --file "$SCRIPT_DIR/Brewfile"
 else
     echo "normal mode."
-    brew bundle --file './Brewfile'
-    brew bundle --file './_Brewfile'
+    echo "brew bundle --file $SCRIPT_DIR/Brewfile"
+    brew bundle --file "$SCRIPT_DIR//Brewfile"
+    brew bundle --file "$SCRIPT_DIR/_Brewfile"
 fi
+
+echo ""
+echo "brew process finished!"

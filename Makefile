@@ -30,4 +30,4 @@ brew:
 brew_short:
 	@echo '==> Start to install homebrew formula in light mode.'
 	@echo ''
-	@./etc/init/brew/init.sh
+	@./etc/init/brew/init.sh -s

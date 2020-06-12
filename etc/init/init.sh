@@ -11,4 +11,6 @@ else
     echo "${HOME}/.dotfile already exist"
 fi
 
+xcode-select --install
+
 # source ./bin/dotpath.sh
