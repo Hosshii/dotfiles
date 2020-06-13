@@ -35,3 +35,9 @@ brew_short:
 	@echo '==> Start to install homebrew formula in light mode.'
 	@echo ''
 	@./etc/init/brew/init.sh -s
+
+.PHONY: setup_vim
+setup_vim: deploy
+	@echo '==> Setup vim'
+	@echo ''
+	@./etc/init/vim/init.sh

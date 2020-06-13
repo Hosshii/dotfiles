@@ -22,6 +22,7 @@ Plugin 'davidhalter/jedi-vim'
 "Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'Yggdroot/indentLine'
 Plugin 'hotwatermorning/auto-git-diff'
+Plugin 'cocopon/iceberg.vim'
 
 
 
