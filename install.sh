@@ -8,7 +8,7 @@ WORKDIR=$(pwd)/"$DOTPATH"
 #コマンド確認
 #gitコマンドが使えるか
 if type git >/dev/null 2>&1; then
-    $(git clone --recursive "$GITHUB_URL""$REPONAME"".git $DOTPATH")
+    $(git clone --recursive "$GITHUB_URL""$REPO_NAME".git "$DOTPATH")
 
 #使えなかったらcurlかwgetを探す
 elif type curl || type wget >/dev/null 2>&1; then
