@@ -41,3 +41,9 @@ setup_vim: deploy
 	@echo '==> Setup vim'
 	@echo ''
 	@./etc/init/vim/init.sh
+
+.PHONY: setup_mac_default
+setup_mac_default:
+	@echo '==> Setup mac default write'
+	@echo ''
+	@./etc/init/default_write/init.sh
