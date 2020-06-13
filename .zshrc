@@ -178,11 +178,11 @@ zinit for \
                 sindresorhus/pure \
     # light-mode  zsh-users/zsh-completions 
 
-zinit for \
-    snippet PZT::modules/environment \
-    snippet PZT::modules/directory \
-    snippet PZT::modules/terminal \
-    snippet PZT::modules/completion
 
-zinit ice svn pick"init.zsh"
-zinit snippet PZT::modules/git
+zinit snippet PZT::modules/environment 
+zinit snippet PZT::modules/directory 
+zinit snippet PZT::modules/terminal 
+zinit snippet PZT::modules/completion
+
+# zinit ice svn pick"init.zsh"
+# zinit snippet PZT::modules/git

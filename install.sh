@@ -34,6 +34,10 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+if [ ! -d $HOME/bin ]; then
+    mkdir "${HOME}/bin"
+fi
+
 make init
 make install_zinit
 make deploy
