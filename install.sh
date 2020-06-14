@@ -43,3 +43,5 @@ make install_zinit
 make deploy
 make deploy_fish
 make brew
+make setup_vim
+make setup_mac_default
