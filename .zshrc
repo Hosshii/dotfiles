@@ -13,7 +13,7 @@ fi
 
 # Customize to your needs...
 #エイリアスの設定
-alias ls='ls -GF'
+alias ls='ls -F --color=auto'
 alias la='ls -a'
 alias ll='ls -l'
 alias c="clear"
@@ -25,6 +25,7 @@ alias k='kubectl'
 alias py="python"
 alias cddm="cdd-manager"
 alias cat="cat -v"
+alias g="git"
 # global alias is added in ~/.zsh/config/*
 
 # pathの設定
@@ -173,10 +174,10 @@ zinit light-mode for \
 zinit for \
     light-mode  zsh-users/zsh-autosuggestions \
     light-mode  zdharma/fast-syntax-highlighting \
-                zdharma/history-search-multi-word \
     light-mode pick"async.zsh" src"pure.zsh" \
                 sindresorhus/pure \
     # light-mode  zsh-users/zsh-completions 
+    # zdharma/history-search-multi-word \
 
 
 zinit snippet PZT::modules/environment 
