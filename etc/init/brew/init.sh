@@ -33,5 +33,11 @@ else
     brew bundle --file "$SCRIPT_DIR/_Brewfile"
 fi
 
+echo "linking  gcc and g++"
+echo ""
+ln -sfnv /usr/local/bin/gcc-9 /usr/local/bin/gcc
+ln -sfnv /usr/local/bin/g++-9 /usr/local/bin/g++
+echo "done"
+
 echo ""
 echo "brew process finished!"
