@@ -40,7 +40,7 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 # Hide the battery percentage from the menu bar （バッテリーのパーセントを非表示にする）
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 # Date options: Show the day of the week: on （日付表示設定、曜日を表示）
-defaults write com.apple.menuextra.clock 'DateFormat' -string 'EEE H:mm'
+defaults write com.apple.menuextra.clock 'DateFormat' -string 'M\\U6708d\\U65e5(EEE)  H:mm'
 
 echo ""
 echo "finished"
