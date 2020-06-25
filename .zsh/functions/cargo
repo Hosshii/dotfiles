@@ -1,0 +1,23 @@
+function cargo() {
+    local cur_dir="$(pwd)"
+    local dir=""
+    while [ $(pwd) != "/" ]; do
+        if [ -f ./Cargo.toml ]; then
+            dir=$(pwd)
+            break
+        else
+            cd ../
+        fi
+    done
+
+    cd $cur_dir
+
+    if [ "$dir" = "" ]; then
+        echo "Cargo.toml not found"
+    elif [ -d $dir ]; then
+        docker run --rm --mount type=bind,src=$dir,dst=$dir -it rust:alpine /bin/sh -c "cd $dir && RUST_BACKTRACE=1 cargo $@"
+    else
+        echo "error occured"
+    fi
+
+}
