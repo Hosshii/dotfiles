@@ -1,0 +1,27 @@
+ function dcargo() {
+     local cur_dir="$(pwd)"
+     local dir=""
+     if [ $1 = "run" ]; then
+         while [ $(pwd) != "/" ]; do
+             if [ -f ./Cargo.toml ]; then
+                 dir=$(pwd)
+                 break
+             else
+                 cd ../
+             fi
+         done
+     else
+         dir=$(pwd)
+         echo "$@"
+     fi
+     cd $cur_dir
+     local user="$(git config --get user.name) <$(git config --get user.email)>"
+     if [ "$dir" = "" ]; then
+         echo "Cargo.toml not found"
+     elif [ -d $dir ]; then
+         docker run --rm --mount type=bind,src=$dir,dst=$dir -w $dir -e USER=$user -it rust:alpine cargo $*
+     else
+         echo "error occured"
+     fi
+
+ }
