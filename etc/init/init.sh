@@ -6,7 +6,7 @@ SCRIPT_DIR=$(dirname $(
 ))
 
 if [ ! -d "${HOME}/.dotfiles" ]; then
-    ln -s "$SCRIPT_DIR" "${HOME}/.dotfiles"
+    ln -sfnv "$SCRIPT_DIR" "${HOME}/.dotfiles"
 else
     echo "${HOME}/.dotfile already exist"
 fi

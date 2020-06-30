@@ -6,11 +6,6 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
-
 # Customize to your needs...
 #エイリアスの設定
 alias ls='ls -F --color=auto'
@@ -26,6 +21,7 @@ alias py="python"
 alias cddm="cdd-manager"
 # alias cat="cat -v"
 alias g="git"
+alias lzd="lazydocker"
 # global alias is added in ~/.zsh/config/*
 
 # pathの設定
@@ -38,9 +34,11 @@ export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/binutils/bin:$PATH"
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
-#export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="/usr/local/opt/qt/bin:$PATH"
 #export PATH="$PATH:./node_modules/.bin"
 export TEXPATH="$HOME/tex"
 export ATCODER="$HOME/localWorkspace/atcoder"
@@ -58,23 +56,11 @@ export HISTSIZE=10000
 export SAVEHIST=100000
 setopt EXTENDED_HISTORY
 
-#pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-eval "$(pyenv init -)"
-
-#goenv
-#export GOENV_ROOT="$HOME/.goenv"
-#export PATH="$GOENV_ROOT/bin:$PATH"
-#eval "$(goenv init -)"
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
 
 #kubectl
 export EDITOR=vim
-
-#cddの設定
-#source $HOME/tools/cdd-bash/cdd-manager.sh
-#source $HOME/tools/cdd-bash/cdd.sh
 
 # 直前のコマンドの重複を削除
 setopt hist_ignore_dups
@@ -123,31 +109,25 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 
 # func of bandit
-banditssh()
-{
-    host="bandit.labs.overthewire.org"
-    echo "now connecting to $host"
-    echo -e "your user name is bandit\033[0;32m$@\033[0;39m"
-    ssh bandit"$@"@$host -p 2220
+#banditssh()
+#{
+#    host="bandit.labs.overthewire.org"
+#    echo "now connecting to $host"
+#    echo -e "your user name is bandit\033[0;32m$@\033[0;39m"
+#    ssh bandit"$@"@$host -p 2220
+#}
+#
+#lsos()
+#{
+#    pwd | awk -F "/" '{print "../../../30nichideosjisaku/"$(NF-1)"/"$NF}'|xargs -I {} ls -GF {}
+#}
+
+function llvm (){
+    export PATH="/usr/local/opt/llvm/bin:$PATH"
+    export LDFLAGS="-L/usr/local/opt/llvm/lib"
+    export CPPFLAGS="-I/usr/local/opt/llvm/include"
+    unset -f llvm
 }
-
-lsos()
-{
-    pwd | awk -F "/" '{print "../../../30nichideosjisaku/"$(NF-1)"/"$NF}'|xargs -I {} ls -GF {}
-}
-
-#k8s
-#source <(kubectl completion zsh)
-#source "/usr/local/opt/kube-ps1/share/kube-ps1.sh"
-#PS1STRING='$(kube_ps1)'
-#PS1='$(kube_ps1)'$(PS1)
-
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/wistre/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/wistre/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/wistre/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/wistre/google-cloud-sdk/completion.zsh.inc'; fi
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
