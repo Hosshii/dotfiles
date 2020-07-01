@@ -22,6 +22,7 @@ alias cddm="cdd-manager"
 # alias cat="cat -v"
 alias g="git"
 alias lzd="lazydocker"
+alias lg="lazygit"
 # global alias is added in ~/.zsh/config/*
 
 # pathの設定
