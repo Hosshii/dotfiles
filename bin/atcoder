@@ -2,6 +2,7 @@
 
 if [ -n $1 ]; then
     mkdir -p $ATCODER/$1/{A,B,C,D,E,F}
+    cp -r $ATCODER/template/.vscode $ATCODER/$1
 else
     echo "plese set directory name"
 fi
