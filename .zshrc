@@ -36,6 +36,7 @@ export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/binutils/bin:$PATH"
+export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -53,8 +54,8 @@ export CDD_DIR="$HOME/.cdd"
 
 #コマンド履歴
 export HISTFILE=${HOME}/.zsh_history
-export HISTSIZE=10000
-export SAVEHIST=100000
+export HISTSIZE=1000000
+export SAVEHIST=1000000
 setopt EXTENDED_HISTORY
 
 export GOPATH="$HOME/go"
