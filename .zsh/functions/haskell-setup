@@ -1,5 +1,5 @@
 function haskell-setup() {
     local dir="$(pwd)"
 
-    docker run --rm --mount type=bind,src=$dir,dst=$dir -w $dir -i haskell:8.10.2 $*
+    docker run --rm --mount type=bind,src=$dir,dst=$dir -w $dir -i haskell:8.8.4 $*
 }
