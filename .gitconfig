@@ -32,3 +32,5 @@
 	cm = commit
 [ghq]
 	root = /Users/wistre/Workspace
+[pull]
+	ff = only
