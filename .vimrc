@@ -1,32 +1,51 @@
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+"dein Scripts-----------------------------
+if &compatible
+  set nocompatible               " Be iMproved
+endif
 
-Plugin 'VundleVim/Vundle.vim'
+" Required:
+set runtimepath+=~/.vim/bundles/repos/github.com/Shougo/dein.vim
 
-" 導入したいプラグインを以下に列挙
-" Plugin '[Github Author]/[Github repo]' の形式で記入
-Plugin 'airblade/vim-gitgutter'
-Plugin 'w0rp/ale'
-Plugin 'dhruvasagar/vim-table-mode'
-"Plugin 'mattn/sonictemplate-vim'
-Plugin 'fatih/vim-go'
-Plugin 'prettier/vim-prettier'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'junegunn/fzf.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'Shougo/neocomplete.vim'
-"Plugin 'w0ng/vim-hybrid'
-Plugin 'davidhalter/jedi-vim'
-"Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'Yggdroot/indentLine'
-Plugin 'hotwatermorning/auto-git-diff'
-Plugin 'cocopon/iceberg.vim'
+" Required:
+if dein#load_state('~/.vim/bundles')
+  call dein#begin('~/.vim/bundles')
 
+  " Let dein manage dein
+  " Required:
+  call dein#add('~/.vim/bundles/repos/github.com/Shougo/dein.vim')
 
+  " Add or remove your plugins here like this:
+  "call dein#add('Shougo/neosnippet.vim')
+  "call dein#add('Shougo/neosnippet-snippets')
+  
+  call dein#add('airblade/vim-gitgutter')
+  call dein#add('w0rp/ale')
+  call dein#add('dhruvasagar/vim-table-mode')
+  call dein#add('fatih/vim-go')
+  call dein#add('prettier/vim-prettier')
+  call dein#add('ctrlpvim/ctrlp.vim')
+  call dein#add('junegunn/fzf.vim')
+  call dein#add('scrooloose/nerdtree')
+  call dein#add('Shougo/neocomplete.vim')
+  call dein#add('Yggdroot/indentLine')
+  call dein#add('hotwatermorning/auto-git-diff')
+  call dein#add('cocopon/iceberg.vim')
 
-call vundle#end()
+  " Required:
+  call dein#end()
+  call dein#save_state()
+endif
+
+" Required:
+filetype plugin indent on
+syntax enable
+
+" If you want to install not installed plugins on startup.
+"if dein#check_install()
+"  call dein#install()
+"endif
+
+"End dein Scripts-------------------------
 filetype plugin indent on
 
 " ~~~~~aleの設定~~~~~~
