@@ -7,6 +7,7 @@
 	excludesfile = /Users/wistre/.gitignore_global
 	editor = vim
 	attributesfile = /Users/wistre/.gitattributes_global
+    pager = delta
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
@@ -34,3 +35,15 @@
 	root = /Users/wistre/Workspace
 [pull]
 	ff = only
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    features = side-by-side line-numbers decorations
+    whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
