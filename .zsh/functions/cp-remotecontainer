@@ -4,6 +4,8 @@ function cp-remotecontainer(){
         "haskell") repo_name=$1 ;;
         "node_14") repo_name=$1 ;;
         "yarn") repo_name=$1 ;;
+        "latex") repo_name=$1 ;;
+        "vue") repo_name=$1;;
         *) echo "inavalid argument"
                 exit(1) ;;
     esac

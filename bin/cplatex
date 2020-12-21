@@ -85,6 +85,14 @@ else
             cd $WORKSPACE
             cp -a $TEMPLATE_DIR/. $WORKSPACE
             mv  ./template.tex $FILE
+            __dir="${HOME}/Workspace/github.com/hosshii/devcontainer/latex"
+            echo ${__dir}
+            #if [ -n "$__dir" ]; then
+            #    cp -r ${__dir}/.* ${__dir}/* .
+            #else
+            #    echo "devcontainer dir not found"
+            #    exit 1
+            #fi
         ;;
         [^Yy]* )
             echo "do not make new workspace"
