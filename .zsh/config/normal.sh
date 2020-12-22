@@ -29,7 +29,7 @@ function fzf-src() {
     local selected_dir="${mygitfull}/$(ls $mygitfull | fzf --ansi --prompt "Repository>" --query "$LBUFFER")"
   elif [ $dir = "$(basename $(ghq root))" ]; then
     # local selected_dir="$(ghq root)/$(ghq list | fzf --prompt "Repository>" --query "$LBUFFER" --preview "bat --color=always --style=header,grid --line-range :100 $(ghq root)/{}/README.*")"
-    local selected_dir="$(ghq root)/$(ghq list | fzf --prompt "Repository>" --query "$LBUFFER" --preview "unbuffer onefetch | bat --color=always --style=header,grid --line-range :100 - $(ghq root)/{}/README.*")"
+    local selected_dir="$(ghq root)/$(ghq list | fzf --prompt "Repository>" --query "$LBUFFER" --preview "unbuffer onefetch $(ghq root)/{};bat --color=always --style=header,grid --line-range :100 "$(ghq root)/{}/README.md" "$(ghq root)/{}/readme.md" 2>/dev/null ")"
   elif [ $dir = $bm ]; then
     local selected_dir=$(cdd-manager list | fzf --ansi --prompt "BookMark" --query "$LBUFFER" | awk '{print $3}')
   fi
