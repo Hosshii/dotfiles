@@ -12,6 +12,7 @@ defaults write com.apple.finder ShowStatusBar -bool true            # ステー�
 defaults write com.apple.finder ShowTabView -bool true              # タブバーを表示する
 defaults write com.apple.Safari AutoOpenSafeDownloads -bool false   # ファイルのダウンロード後に自動でファイルを開くのを無効化する
 defaults write com.apple.dock autohide -bool true                   # Automatically hide or show the Dock （Dock を自動的に隠す）
+defaults write -g ApplePressAndHoldEnabled -bool false              # キー長押しした時にアクセント文字を表示しない
 
 # finder
 # 新しいウィンドウでデフォルトでホームフォルダを開く

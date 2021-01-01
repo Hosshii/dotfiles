@@ -1,12 +1,10 @@
 #!/bin/bash
 
-if [ ! -d "${HOME}/.vim/bundle/Vundle.vim" ]; then
-    echo "set up vim vundle"
-    echo "install vundle"
+if [ ! -d "${HOME}/.cache/dein" ]; then
+    echo "set up vim dein"
+    echo "install dein"
     echo ""
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh >installer.sh
+    sh ./installer.sh ~/.cache/dein
+    rm ./installer.sh
 fi
-
-echo "install plugin"
-echo ""
-vim +PluginInstall +qall
