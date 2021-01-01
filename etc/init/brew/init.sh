@@ -23,14 +23,14 @@ echo "brew update"
 brew update
 
 if [ "$1" = "-s" ]; then
-    echo "brew bundle --file $SCRIPT_DIR/Brewfile"
-    echo "light mode."
-    brew bundle --file "$SCRIPT_DIR/Brewfile"
+    echo "brew bundle --file $SCRIPT_DIR/Core"
+    echo "install core."
+    brew bundle --file "$SCRIPT_DIR/Core"
 else
-    echo "normal mode."
-    echo "brew bundle --file $SCRIPT_DIR/Brewfile"
-    brew bundle --file "$SCRIPT_DIR//Brewfile"
-    brew bundle --file "$SCRIPT_DIR/_Brewfile"
+    echo "install core and sub."
+    echo "brew bundle --file $SCRIPT_DIR/Core"
+    brew bundle --file "$SCRIPT_DIR/Core"
+    brew bundle --file "$SCRIPT_DIR/Sub"
 fi
 
 echo "linking  gcc and g++"

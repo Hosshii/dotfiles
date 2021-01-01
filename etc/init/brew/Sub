@@ -1,0 +1,7 @@
+brew "ansible"
+brew "tectonic"
+cask "postman"
+brew "qemu"
+cask "stoplight-studio"
+cask "vagrant"
+cask "virtualbox"
