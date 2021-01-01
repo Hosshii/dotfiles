@@ -4,9 +4,9 @@
 [color]
 	ui = auto
 [core]
-	excludesfile = /Users/wistre/.gitignore_global
+	excludesfile = /Users/hosshii/.gitignore_global
 	editor = vim
-	attributesfile = /Users/wistre/.gitattributes_global
+	attributesfile = /Users/hosshii/.gitattributes_global
     pager = delta
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
@@ -32,7 +32,7 @@
 	br = branch
 	cm = commit
 [ghq]
-	root = /Users/wistre/Workspace
+	root = /Users/hosshii/Workspace
 [pull]
 	ff = only
 

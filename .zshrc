@@ -41,7 +41,7 @@ export PATH="/usr/local/opt/openjdk/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="/usr/local/opt/qt/bin:$PATH"
-export PATH="$PATH:/Users/wistre/localWorkspace/nand2tetris/tools"
+export PATH="$PATH:${HOME}/localWorkspace/nand2tetris/tools"
 #export PATH="$PATH:./node_modules/.bin"
 export TEXPATH="$HOME/tex"
 export ATCODER="$HOME/localWorkspace/atcoder"
@@ -88,8 +88,8 @@ function history-all { history -E 1 }
 #ssh-add -K
 #
 # fzfとかの関数の設定
-for i in `\ls  /Users/wistre/.zsh/config`;do
-    source /Users/wistre/.zsh/config/${i}
+for i in `\ls  ${HOME}/.zsh/config`;do
+    source ${HOME}/.zsh/config/${i}
 done
 
 # 補完関数の設定

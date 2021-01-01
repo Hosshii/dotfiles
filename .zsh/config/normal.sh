@@ -20,7 +20,7 @@ bindkey '^r' fzf_select_history
 function fzf-src() {
   # いきたい候補ふえたので分けた。
   # パスがざつなので他だとうまく動かないかも
-  local mygitfull="/Users/wistre/localWorkspace"
+  local mygitfull="${HOME}/localWorkspace"
   local mygit="localWorkspace"
   local bm="BookMark"
   local dir=$(echo "$(basename $(ghq root))\n${mygit}\n$bm" | fzf --prompt "WORKSPACE>")
