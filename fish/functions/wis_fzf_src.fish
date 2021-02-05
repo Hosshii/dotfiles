@@ -1,7 +1,7 @@
 function wis_fzf_src
   # いきたい候補ふえたので分けた。
   # パスがざつなので他だとうまく動かないかも
-  set --local mygitfull "/Users/wistre/localWorkspace"
+  set --local mygitfull "/Users/hosshii/localWorkspace"
   set --local mygit "localWorkspace"
   set --local bm "BookMark"
   set --local dir (echo (basename (ghq root))\n{$mygit}\n$bm | fzf --prompt "WORKSPACE>")

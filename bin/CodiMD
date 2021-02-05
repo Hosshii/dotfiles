@@ -33,7 +33,7 @@ for opt in "$@"; do
 done
 
 
-cd /Users/wistre/Workspace/docker-hackmd
+cd /Users/hosshii/Workspace/docker-hackmd
 END_TIME=$(($(date +%s) + 300))
 (while [ $(date +%s) -lt $END_TIME ]
 do 
