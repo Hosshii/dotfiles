@@ -62,9 +62,10 @@ setopt EXTENDED_HISTORY
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
 
-#kubectl
 export EDITOR=vim
 
+# homebrewで勝手にアップデートしない
+export HOMEBREW_NO_AUTO_UPDATE=1
 # 直前のコマンドの重複を削除
 setopt hist_ignore_dups
 
