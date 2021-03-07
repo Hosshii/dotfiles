@@ -17,8 +17,8 @@
 # [commit]
 # 	template = /Users/wistre/.stCommitMsg
 [alias]
-  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-  lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	st = status
 	cmm = commit -m
 	cmam = commit --amend --no-edit
@@ -31,6 +31,7 @@
 	ad = add
 	br = branch
 	cm = commit
+    dmer =!git branch -d `git branch --merged | grep -v master | grep -v main`
 [ghq]
 	root = /Users/hosshii/Workspace
 [pull]
