@@ -20,6 +20,7 @@ bindkey '^r' fzf_select_history
 function fzf-src() {
   # いきたい候補ふえたので分けた。
   # パスがざつなので他だとうまく動かないかも
+  local workspace="$(basename $(ghq root))"
   local mygitfull="${HOME}/localWorkspace"
   local mygit="localWorkspace"
   local bm="BookMark"
@@ -27,7 +28,7 @@ function fzf-src() {
 
   if [ $dir = $mygit ]; then
     local selected_dir="${mygitfull}/$(ls $mygitfull | fzf --ansi --prompt "Repository>" --query "$LBUFFER")"
-  elif [ $dir = "$(basename $(ghq root))" ]; then
+  elif [ $dir = "$workspace" ]; then
     # local selected_dir="$(ghq root)/$(ghq list | fzf --prompt "Repository>" --query "$LBUFFER" --preview "bat --color=always --style=header,grid --line-range :100 $(ghq root)/{}/README.*")"
     local selected_dir="$(ghq root)/$(ghq list | fzf --prompt "Repository>" --query "$LBUFFER" --preview "unbuffer onefetch $(ghq root)/{} ;bat --color=always --style=header,grid --line-range :100 "$(ghq root)/{}/README.md" "$(ghq root)/{}/$(find . -maxdepth 1 -type f -iname "readme*" | sed 's!^.*/!!')" 2>/dev/null ")"
   elif [ $dir = $bm ]; then
@@ -35,8 +36,11 @@ function fzf-src() {
   fi
 
   if [ -n "$selected_dir" ]; then
-    BUFFER="cd ${selected_dir}"
-    zle accept-line
+    case "$selected_dir" in
+        "${mygitfull}/" | "$(ghq root)/")  ;;
+        * )  BUFFER="cd ${selected_dir}"
+             zle accept-line ;;
+    esac
   fi
   zle clear-screen
 }
