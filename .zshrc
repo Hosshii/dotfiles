@@ -1,16 +1,7 @@
-
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
+alias x86="arch -x86_64 /bin/zsh -l"
+alias arm="arch -arm64 /bin/zsh -l"
 # Customize to your needs...
 #エイリアスの設定
-alias ls='ls -F --color=auto'
-alias la='ls -a'
-alias ll='ls -l'
 alias c="clear"
 #alias cdd="cd ../"
 #alias cddd="cd ../../"
@@ -30,18 +21,26 @@ alias lg="lazygit"
 export JAVA_HOME=""
 export NODE_ENV="development"
 #export PATH="$HOME/.nodebrew/current/bin:$PATH"
-export PATH="$(brew --prefix)/opt/gnu-tar/libexec/gnubin:$PATH"
-#export PATH="$PYENV_ROOT/bin:$PATH"
-export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH"
-export PATH="$(brew --prefix)/opt/findutils/libexec/gnubin:$PATH"
-export PATH="$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$PATH"
-export PATH="$(brew --prefix)/opt/binutils/bin:$PATH"
-export PATH="$(brew --prefix)/opt/grep/libexec/gnubin:$PATH"
-export PATH="$(brew --prefix)/opt/openjdk/bin:$PATH"
-export PATH="$(brew --prefix)/opt/qt/bin:$PATH"
+if [ "$(uname -m)" = arm64 ];then
+    alias ls='ls -F --color=auto'
+    alias la='ls -a'
+    alias ll='ls -l'
+    export PATH="$(brew --prefix)/opt/gnu-tar/libexec/gnubin:$PATH"
+    #export PATH="$PYENV_ROOT/bin:$PATH"
+    export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH"
+    export PATH="$(brew --prefix)/opt/findutils/libexec/gnubin:$PATH"
+    export PATH="$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$PATH"
+    export PATH="$(brew --prefix)/opt/binutils/bin:$PATH"
+    export PATH="$(brew --prefix)/opt/grep/libexec/gnubin:$PATH"
+    export PATH="$(brew --prefix)/opt/openjdk/bin:$PATH"
+    export PATH="$(brew --prefix)/opt/qt/bin:$PATH"
+fi
+
+source ${HOME}/.ghcup/env
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$PATH:${HOME}/localWorkspace/nand2tetris/tools"
+export PATH="$PATH:${HOME}/.local/bin"
 #export PATH="$PATH:./node_modules/.bin"
 export TEXPATH="$HOME/tex"
 export ATCODER="$HOME/localWorkspace/atcoder"
@@ -66,6 +65,7 @@ export EDITOR=vim
 
 # homebrewで勝手にアップデートしない
 export HOMEBREW_NO_AUTO_UPDATE=1
+
 # 直前のコマンドの重複を削除
 setopt hist_ignore_dups
 
