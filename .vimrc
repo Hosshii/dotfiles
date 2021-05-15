@@ -186,7 +186,7 @@ set number
 set background=dark
 "カラーテーマは入れたら有効にしてください
 let g:hybrid_use_iTerm_colors = 1
-colorscheme iceberg
+" colorscheme iceberg
 hi NonText    ctermbg=None ctermfg=59
 hi SpecialKey ctermbg=None ctermfg=59
 
