@@ -1,0 +1,5 @@
+opam-version: "2.0"  # => opam自体のバージョンが2以上でも"2.0"と書いておけばOK
+depends: [           # => 必要なパッケージを記載
+  "satysfi-easytable"
+  "satysfi-azmath" # {= "2.7.1"} # => バージョン指定したい場合の書き方
+]

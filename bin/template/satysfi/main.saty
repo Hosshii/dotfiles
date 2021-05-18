@@ -1,0 +1,10 @@
+@require: stdjareport
+
+document (|
+  title = {\SATySFi;};
+  author = {\SATySFi;};
+|) '<
+    +p {
+      \SATySFi;
+    }
+>
