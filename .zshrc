@@ -7,13 +7,14 @@ alias c="clear"
 #alias cddd="cd ../../"
 #alias cdddd="cd ../../../"
 alias cdu='cd-gitroot'
-alias k='kubectl'
+# alias k='kubectl'
 alias py="python"
 alias cddm="cdd-manager"
 # alias cat="cat -v"
 alias g="git"
 alias lzd="lazydocker"
 alias lg="lazygit"
+alias ks="ls"
 # global alias is added in ~/.zsh/config/*
 
 # pathの設定
@@ -25,16 +26,38 @@ if [ "$(uname -m)" = arm64 ];then
     alias ls='ls -F --color=auto'
     alias la='ls -a'
     alias ll='ls -l'
-    export PATH="$(brew --prefix)/opt/gnu-tar/libexec/gnubin:$PATH"
+    # brew --prefixは遅いのでベタ書きする
+    # export PATH="$(brew --prefix)/opt/gnu-tar/libexec/gnubin:$PATH"
+    # #export PATH="$PYENV_ROOT/bin:$PATH"
+    # export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH"
+    # export PATH="$(brew --prefix)/opt/findutils/libexec/gnubin:$PATH"
+    # export PATH="$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$PATH"
+    # export PATH="$(brew --prefix)/opt/binutils/bin:$PATH"
+    # export PATH="$(brew --prefix)/opt/grep/libexec/gnubin:$PATH"
+    # export PATH="$(brew --prefix)/opt/openjdk/bin:$PATH"
+    # export PATH="$(brew --prefix)/opt/qt/bin:$PATH"
+    # export OPENSSL_INCLUDE_DIR=$(brew --prefix openssl)/include
+    # export OPENSSL_LIB_DIR=$(brew --prefix openssl)/lib
+    export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
     #export PATH="$PYENV_ROOT/bin:$PATH"
-    export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH"
-    export PATH="$(brew --prefix)/opt/findutils/libexec/gnubin:$PATH"
-    export PATH="$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$PATH"
-    export PATH="$(brew --prefix)/opt/binutils/bin:$PATH"
-    export PATH="$(brew --prefix)/opt/grep/libexec/gnubin:$PATH"
-    export PATH="$(brew --prefix)/opt/openjdk/bin:$PATH"
-    export PATH="$(brew --prefix)/opt/qt/bin:$PATH"
+    export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+    export PATH="/opt/homebrew/opt/findutils/libexec/gnubin:$PATH"
+    export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+    export PATH="/opt/homebrew/opt/binutils/bin:$PATH"
+    export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
+    export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+    export PATH="/opt/homebrew/opt/qt/bin:$PATH"
+    export OPENSSL_INCLUDE_DIR="h/opt/homebrew/opt/openssl@1.1/include"
+    export OPENSSL_LIB_DIR="/opt/homebrew/opt/openssl@1.1/lib"
 fi
+
+# brew --prefixは遅いのでベタ書きする
+# export FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
+# export MANPATH="$(brew --prefix)/opt/coreutils/libexec/gnuman:$MANPATH"
+# export MANPATH="$(brew --prefix)/opt/findutils/libexec/gnuman:$MANPATH"
+export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
+export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
+export MANPATH="/opt/homebrew/opt/findutils/libexec/gnuman:$MANPATH"
 
 source ${HOME}/.ghcup/env
 export PATH="$HOME/bin:$PATH"
@@ -46,13 +69,11 @@ export TEXPATH="$HOME/tex"
 export ATCODER="$HOME/localWorkspace/atcoder"
 #export FPATH="$FPATH:$HOME/.zsh/completion:$HOME/.zsh/pure"
 export FPATH="$FPATH:$HOME/.zsh/completion"
-export FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
-export MANPATH="$(brew --prefix)/opt/coreutils/libexec/gnuman:$MANPATH"
-export MANPATH="$(brew --prefix)/opt/findutils/libexec/gnuman:$MANPATH"
 export CDD_DIR="$HOME/.cdd"
+export TOOLBOX_TEMPLATE_DIR="${HOME}/.dotfiles/bin/template"
 # lsはgnuのやつの表示が嫌だったのでmacのやつを使ってる
 
-#コマンド履歴
+# #コマンド履歴
 export HISTFILE=${HOME}/.zsh_history
 export HISTSIZE=1000000
 export SAVEHIST=1000000
@@ -63,7 +84,7 @@ export PATH="$PATH:$GOPATH/bin"
 
 export EDITOR=vim
 
-# homebrewで勝手にアップデートしない
+# # homebrewで勝手にアップデートしない
 export HOMEBREW_NO_AUTO_UPDATE=1
 
 # 直前のコマンドの重複を削除
@@ -94,12 +115,12 @@ for i in `\ls  ${HOME}/.zsh/config`;do
 done
 
 # 補完関数の設定
-source $HOME/.zsh/load/init.sh
+# source $HOME/.zsh/load/init.sh
 for file in `find $HOME/.zsh/functions -mindepth 1`;do
     autoload -Uz $file
 done
-autoload -Uz compinit
-compinit -u
+# autoload -Uz compinit
+# compinit -u
 
 # zの読み込み
 source "$(ghq root)/github.com/rupa/z/z.sh"
@@ -162,6 +183,7 @@ zinit for \
     light-mode  zdharma/fast-syntax-highlighting \
     light-mode pick"async.zsh" src"pure.zsh" \
                 sindresorhus/pure \
+    light-mode supercrabtree/k \
     # light-mode  zsh-users/zsh-completions 
     # zdharma/history-search-multi-word \
 
@@ -169,8 +191,18 @@ zinit for \
 zinit snippet PZT::modules/environment 
 zinit snippet PZT::modules/directory 
 zinit snippet PZT::modules/terminal 
+
+zinit ice wait'0' lucid
 zinit snippet PZT::modules/completion
 
-# zinit ice svn pick"init.zsh"
-# zinit snippet PZT::modules/git
-#export PATH="$HOME/.anyenv/bin:$PATH"
+autoload -Uz compinit
+compinit
+
+zinit cdreplay -q
+
+# # zinit ice svn pick"init.zsh"
+# # zinit snippet PZT::modules/git
+# #export PATH="$HOME/.anyenv/bin:$PATH"
+# if (which zprof > /dev/null) ;then
+#   zprof | less
+# fi
