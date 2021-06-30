@@ -4,7 +4,8 @@
     "name": "satysfi-${workspaceFolderBasename}",
     "extensions": [
       "wraikny.wraikny-satysfi-extension",
-      "emeraldwalk.runonsave"
+      "emeraldwalk.runonsave",
+      "tomoki1207.pdf"
     ],
     "postCreateCommand": "./scripts/install-package.sh",
     "userEnvProbe": "loginInteractiveShell",
