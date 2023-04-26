@@ -1,4 +1,3 @@
 #!/bin/bash
 
-mkdir $HOME/.zinit
-git clone https://github.com/zdharma/zinit.git ~/.zinit/bin
+bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
