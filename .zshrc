@@ -60,7 +60,7 @@ export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
 export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
 export MANPATH="/opt/homebrew/opt/findutils/libexec/gnuman:$MANPATH"
 
-source ${HOME}/.ghcup/env
+# source ${HOME}/.ghcup/env
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$PATH:${HOME}/localWorkspace/nand2tetris/tools"
