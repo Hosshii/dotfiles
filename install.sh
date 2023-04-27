@@ -3,10 +3,9 @@
 set -eux
 
 DOTFILES_TOOL_SRC="https://github.com/rhysd/dotfiles.git"
-DOTFILES_TOOL="dotfiles_tool"
 GITHUB_USER="Hosshii"
 DOTFILES_DIR="$HOME/dotfiles"
-DOTFILES_TOOL_BIN="dotfiles"
+DOTFILES_TOOL_BIN="~/go/bin/dotfiles"
 
 function checkcommand() {
     if type $1 > /dev/null 2>&1; then
@@ -24,10 +23,8 @@ checkcommand "cargo"
 checkcommand "make"
 checkcommand "go"
 
-# clone rhysd/dotfiles
-git clone "$DOTFILES_TOOL_SRC" "$DOTFILES_TOOL"
-cd "$DOTFILES_TOOL" 
-go install .
+# install rhysd/dotfiles
+go install github.com/rhysd/dotfiles@latest
 
 cd "$HOME"
 

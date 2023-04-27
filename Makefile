@@ -13,13 +13,6 @@ deploy-fish:
 install_zinit:
 	@./etc/init/zsh/init.sh
 
-.PHONY: deploy
-deploy:
-	@echo '==> Start to deploy dotfiles to home directory.'
-	@echo ''
-	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
-	@$(foreach val, $(BINFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val); )
-
 .PHONY: brew
 brew:
 	@echo '==> Start to install homebrew formula.'
@@ -33,7 +26,7 @@ brew_short:
 	@./etc/init/brew/init.sh -s
 
 .PHONY: setup_vim
-setup_vim: deploy
+setup_vim: 
 	@echo '==> Setup vim'
 	@echo ''
 	@./etc/init/vim/init.sh
