@@ -30,7 +30,7 @@
 	cm = commit
     dmer =!git branch -d `git branch --merged | grep -v master | grep -v main`
 [ghq]
-	root = /Users/hosshii/Workspace
+	root = ~/Workspace
 [pull]
 	ff = only
 
