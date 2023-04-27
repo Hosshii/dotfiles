@@ -1,6 +1,6 @@
 {
-    // "image": "amutake/satysfi",
-    "image": "hosshii/satysfi-test",
+    "image": "amutake/satysfi",
+    // "image": "hosshii/satysfi-test",
     "name": "satysfi-${workspaceFolderBasename}",
     "extensions": [
       "wraikny.wraikny-satysfi-extension",
@@ -9,6 +9,6 @@
     ],
     "postCreateCommand": "./scripts/install-package.sh",
     "userEnvProbe": "loginInteractiveShell",
-    // "remoteEnv": { "PATH": "${containerEnv:PATH}:/root/.opam/4.11.1/bin" }
+    "remoteEnv": { "PATH": "${containerEnv:PATH}:/root/.opam/4.11.1/bin" }
 
   }

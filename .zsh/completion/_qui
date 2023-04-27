@@ -1,0 +1,286 @@
+#compdef qui
+
+autoload -U is-at-least
+
+_qui() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" \
+'--completions=[Generates completions for your preferred shell]: :(bash zsh fish power-shell elvish)' \
+'--set-config[set server url]' \
+'--show-config[show config]' \
+'-h[Prints help information]' \
+'--help[Prints help information]' \
+'-V[Prints version information]' \
+'--version[Prints version information]' \
+":: :_qui_commands" \
+"*::: :->qui" \
+&& ret=0
+    case $state in
+    (qui)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:qui-command-$line[1]:"
+        case $line[1] in
+            (ch)
+_arguments "${_arguments_options[@]}" \
+'-h[Prints help information]' \
+'--help[Prints help information]' \
+'-V[Prints version information]' \
+'--version[Prints version information]' \
+":: :_qui__channel_commands" \
+"*::: :->channel" \
+&& ret=0
+case $state in
+    (channel)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:qui-channel-command-$line[1]:"
+        case $line[1] in
+            (ls)
+_arguments "${_arguments_options[@]}" \
+'-r[show channel recursively]' \
+'--recursive[show channel recursively]' \
+'-f[show full path of channel]' \
+'--full-path[show full path of channel]' \
+'-h[Prints help information]' \
+'--help[Prints help information]' \
+'-V[Prints version information]' \
+'--version[Prints version information]' \
+'::channel_name -- specify channel name:_files' \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" \
+'-r[show channel recursively]' \
+'--recursive[show channel recursively]' \
+'-f[show full path of channel]' \
+'--full-path[show full path of channel]' \
+'-h[Prints help information]' \
+'--help[Prints help information]' \
+'-V[Prints version information]' \
+'--version[Prints version information]' \
+'::channel_name -- specify channel name:_files' \
+&& ret=0
+;;
+(cd)
+_arguments "${_arguments_options[@]}" \
+'-h[Prints help information]' \
+'--help[Prints help information]' \
+'-V[Prints version information]' \
+'--version[Prints version information]' \
+':channel_name -- channel name:_files' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+'-h[Prints help information]' \
+'--help[Prints help information]' \
+'-V[Prints version information]' \
+'--version[Prints version information]' \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(channel)
+_arguments "${_arguments_options[@]}" \
+'-h[Prints help information]' \
+'--help[Prints help information]' \
+'-V[Prints version information]' \
+'--version[Prints version information]' \
+":: :_qui__channel_commands" \
+"*::: :->channel" \
+&& ret=0
+case $state in
+    (channel)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:qui-channel-command-$line[1]:"
+        case $line[1] in
+            (ls)
+_arguments "${_arguments_options[@]}" \
+'-r[show channel recursively]' \
+'--recursive[show channel recursively]' \
+'-f[show full path of channel]' \
+'--full-path[show full path of channel]' \
+'-h[Prints help information]' \
+'--help[Prints help information]' \
+'-V[Prints version information]' \
+'--version[Prints version information]' \
+'::channel_name -- specify channel name:_files' \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" \
+'-r[show channel recursively]' \
+'--recursive[show channel recursively]' \
+'-f[show full path of channel]' \
+'--full-path[show full path of channel]' \
+'-h[Prints help information]' \
+'--help[Prints help information]' \
+'-V[Prints version information]' \
+'--version[Prints version information]' \
+'::channel_name -- specify channel name:_files' \
+&& ret=0
+;;
+(cd)
+_arguments "${_arguments_options[@]}" \
+'-h[Prints help information]' \
+'--help[Prints help information]' \
+'-V[Prints version information]' \
+'--version[Prints version information]' \
+':channel_name -- channel name:_files' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+'-h[Prints help information]' \
+'--help[Prints help information]' \
+'-V[Prints version information]' \
+'--version[Prints version information]' \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(notif)
+_arguments "${_arguments_options[@]}" \
+'-h[Prints help information]' \
+'--help[Prints help information]' \
+'-V[Prints version information]' \
+'--version[Prints version information]' \
+':level -- notification level. 0: not subscribe, 1: unread only, 2: on:_files' \
+'::channel_names -- specify channel names:_files' \
+&& ret=0
+;;
+(notify)
+_arguments "${_arguments_options[@]}" \
+'-h[Prints help information]' \
+'--help[Prints help information]' \
+'-V[Prints version information]' \
+'--version[Prints version information]' \
+':level -- notification level. 0: not subscribe, 1: unread only, 2: on:_files' \
+'::channel_names -- specify channel names:_files' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" \
+'-h[Prints help information]' \
+'--help[Prints help information]' \
+'-V[Prints version information]' \
+'--version[Prints version information]' \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+}
+
+(( $+functions[_qui_commands] )) ||
+_qui_commands() {
+    local commands; commands=(
+        "channel:Channel api" \
+"ch:Channel api" \
+"notify:notification api" \
+"notif:notification api" \
+"help:Prints this message or the help of the given subcommand(s)" \
+    )
+    _describe -t commands 'qui commands' commands "$@"
+}
+(( $+functions[_qui__channel__cd_commands] )) ||
+_qui__channel__cd_commands() {
+    local commands; commands=(
+        
+    )
+    _describe -t commands 'qui channel cd commands' commands "$@"
+}
+(( $+functions[_ch_commands] )) ||
+_ch_commands() {
+    local commands; commands=(
+        "list:Channel api" \
+"ls:Channel api" \
+"cd:change channel" \
+"help:Prints this message or the help of the given subcommand(s)" \
+    )
+    _describe -t commands 'ch commands' commands "$@"
+}
+(( $+functions[_qui__channel_commands] )) ||
+_qui__channel_commands() {
+    local commands; commands=(
+        "list:Channel api" \
+"ls:Channel api" \
+"cd:change channel" \
+"help:Prints this message or the help of the given subcommand(s)" \
+    )
+    _describe -t commands 'qui channel commands' commands "$@"
+}
+(( $+functions[_qui__channel__help_commands] )) ||
+_qui__channel__help_commands() {
+    local commands; commands=(
+        
+    )
+    _describe -t commands 'qui channel help commands' commands "$@"
+}
+(( $+functions[_qui__help_commands] )) ||
+_qui__help_commands() {
+    local commands; commands=(
+        
+    )
+    _describe -t commands 'qui help commands' commands "$@"
+}
+(( $+functions[_qui__channel__list_commands] )) ||
+_qui__channel__list_commands() {
+    local commands; commands=(
+        
+    )
+    _describe -t commands 'qui channel list commands' commands "$@"
+}
+(( $+functions[_qui__channel__ls_commands] )) ||
+_qui__channel__ls_commands() {
+    local commands; commands=(
+        
+    )
+    _describe -t commands 'qui channel ls commands' commands "$@"
+}
+(( $+functions[_qui__ls_commands] )) ||
+_qui__ls_commands() {
+    local commands; commands=(
+        
+    )
+    _describe -t commands 'qui ls commands' commands "$@"
+}
+(( $+functions[_notif_commands] )) ||
+_notif_commands() {
+    local commands; commands=(
+        
+    )
+    _describe -t commands 'notif commands' commands "$@"
+}
+(( $+functions[_qui__notif_commands] )) ||
+_qui__notif_commands() {
+    local commands; commands=(
+        
+    )
+    _describe -t commands 'qui notif commands' commands "$@"
+}
+(( $+functions[_qui__notify_commands] )) ||
+_qui__notify_commands() {
+    local commands; commands=(
+        
+    )
+    _describe -t commands 'qui notify commands' commands "$@"
+}
+
+_qui "$@"
