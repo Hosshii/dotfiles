@@ -1,47 +1,55 @@
 #!/bin/bash
 
-GITHUB_URL="https://github.com/Hosshii/"
-REPO_NAME="dotfiles"
-DOTPATH=".dotfiles"
-WORKDIR=$(pwd)/"$DOTPATH"
+DOTFILES_TOOL_SRC="https://github.com/rhysd/dotfiles.git"
+DOTFILES_TOOL="dotfiles_tool"
+GITHUB_USER="Hosshii"
+DOTFILES_DIR="$HOME/dotfiles"
+DOTFILES_TOOK_BIN="dotfiles"
+
+function checkcommand() {
+    if type $1 > /dev/null 2>&1; then
+        echo "exist $1"
+    else
+        echo "not exist $1"
+        exit 1
+    fi
+}
 
 #コマンド確認
 #gitコマンドが使えるか
-if type git >/dev/null 2>&1; then
-    $(git clone --recursive "$GITHUB_URL""$REPO_NAME".git "$DOTPATH")
+checkcommand "git"
+checkcommand "cargo"
+checkcommand "make"
+checkcommand "go"
 
-#使えなかったらcurlかwgetを探す
-elif type curl || type wget >/dev/null 2>&1; then
-    tarball="url" #TODO
-    if type curl >/dev/null 2>&1; then
-        curl -LO "$tarball"
+# clone rhysd/dotfiles
+git clone "$DOTFILES_TOOK_SRC" "$DOTFILES_TOOL"
+cd "$DOTFILES_TOOL" 
+go install .
 
-    elif type wget >/dev/null 2>&1; then
-        wget -O - "$tarball"
+cd "$HOME"
 
-    fi | tar zxv
-    mv -f dotfiles-master "$DOTPATH"
-
-else
-    echo "curl or wget or git are required"
-    exit 1
-fi
-
-#移動
-cd "$WORKDIR"
-if [ $? -ne 0 ]; then
-    echo "$WORKDIR not found"
-    exit 1
-fi
+"$DOTFILES_TOOK_BIN" clone "$GITHUB_USER"
+cd "$DOTFILES_DIR"
 
 if [ ! -d $HOME/bin ]; then
     mkdir "${HOME}/bin"
 fi
 
-make init
-make install_zinit
-make deploy
-make deploy_fish
-make brew
-make setup_vim
-make setup_mac_default
+if [ "$(uname)" == 'Darwin' ]; then
+  xcode-select --install
+  "$DOTFILES_TOOK_BIN" link
+  make install_zinit
+#   make deploy_fish
+  make setup_vim
+  make brew
+  make setup_mac_default
+elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
+  "$DOTFILES_TOOK_BIN" link
+  make install_zinit
+#   make deploy_fish
+  make setup_vim
+else
+  echo "Your platform ($(uname -a)) is not supported."
+  exit 1
+fi

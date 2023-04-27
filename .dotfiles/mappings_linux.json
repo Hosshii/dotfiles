@@ -1,0 +1,4 @@
+{
+    ".config/leftwm/config.ron": "~/.config/leftwm/config.ron",
+    ".config/Xorg/10-keyboard.conf": "/etc/X11/xorg.conf.d/00-keyboard.conf"
+}

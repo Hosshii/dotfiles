@@ -5,10 +5,6 @@ DOTFILES   := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
 BINFILES   := $(wildcard bin/*)
 
 
-.PHONY: init
-init:
-	@./etc/init/init.sh
-
 .PHONY: deploy_fish
 deploy-fish:
 	@./etc/init/fish/deploy_fish.sh

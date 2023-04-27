@@ -50,6 +50,7 @@ if [ "$(uname -m)" = arm64 ];then
     export PATH="/opt/homebrew/opt/qt/bin:$PATH"
     export OPENSSL_INCLUDE_DIR="h/opt/homebrew/opt/openssl@1.1/include"
     export OPENSSL_LIB_DIR="/opt/homebrew/opt/openssl@1.1/lib"
+    . /opt/homebrew/opt/asdf/libexec/asdf.sh
 fi
 
 # brew --prefixは遅いのでベタ書きする
