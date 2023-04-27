@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eu
+set -eux
 
 DOTFILES_TOOL_SRC="https://github.com/rhysd/dotfiles.git"
 DOTFILES_TOOL="dotfiles_tool"
