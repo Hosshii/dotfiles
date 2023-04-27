@@ -5,7 +5,7 @@ set -eux
 DOTFILES_TOOL_SRC="https://github.com/rhysd/dotfiles.git"
 GITHUB_USER="Hosshii"
 DOTFILES_DIR="$HOME/dotfiles"
-DOTFILES_TOOL_BIN="~/go/bin/dotfiles"
+DOTFILES_TOOL_BIN="${GOPATHH-"${HOME}/go"}/bin/dotfiles"
 
 function checkcommand() {
     if type $1 > /dev/null 2>&1; then
