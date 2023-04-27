@@ -1,5 +1,5 @@
 {
     ".config/leftwm/config.ron": "~/.config/leftwm/config.ron",
     ".config/Xorg/10-keyboard.conf": "/etc/X11/xorg.conf.d/10-keyboard.conf",
-    ".config/wezterm/config.lua": "~/.config/wezterm/config.lua"
+    ".config/wezterm/config.lua": "~/.config/wezterm/wezterm.lua"
 }
