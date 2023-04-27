@@ -68,5 +68,9 @@ if [ "$(uname)" = 'Darwin' ]; then
   else 
       eval $(/usr/local/bin/brew shellenv)
   fi
+elif [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]; then
+  if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+    exec startx
+  fi
 fi
 
