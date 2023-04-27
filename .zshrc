@@ -1,3 +1,4 @@
+bindkey -e
 alias x86="arch -x86_64 /bin/zsh -l"
 alias arm="arch -arm64 /bin/zsh -l"
 # Customize to your needs...
@@ -15,6 +16,8 @@ alias g="git"
 alias lzd="lazydocker"
 alias lg="lazygit"
 alias ks="ls"
+alias la='ls -a'
+alias ll='ls -l'
 # global alias is added in ~/.zsh/config/*
 
 # pathの設定
@@ -24,8 +27,6 @@ export NODE_ENV="development"
 #export PATH="$HOME/.nodebrew/current/bin:$PATH"
 if [ "$(uname -m)" = arm64 ];then
     alias ls='ls -F --color=auto'
-    alias la='ls -a'
-    alias ll='ls -l'
     # brew --prefixは遅いのでベタ書きする
     # export PATH="$(brew --prefix)/opt/gnu-tar/libexec/gnubin:$PATH"
     # #export PATH="$PYENV_ROOT/bin:$PATH"
