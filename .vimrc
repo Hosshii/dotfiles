@@ -1,52 +1,52 @@
 "dein Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
+set nocompatible
+
+" Set dein base path (required)
+let s:dein_base = '~/.cache/dein/'
+
+" Set dein source path (required)
+let s:dein_src = '~/.cache/dein/repos/github.com/Shougo/dein.vim'
+
+" Set dein runtime path (required)
+execute 'set runtimepath+=' .. s:dein_src
+
+" Call dein initialization (required)
+call dein#begin(s:dein_base)
+
+call dein#add(s:dein_src)
+" Your plugins go here:
+
+call dein#add('airblade/vim-gitgutter')
+call dein#add('w0rp/ale')
+call dein#add('dhruvasagar/vim-table-mode')
+call dein#add('fatih/vim-go')
+call dein#add('prettier/vim-prettier')
+call dein#add('ctrlpvim/ctrlp.vim')
+call dein#add('junegunn/fzf.vim')
+call dein#add('scrooloose/nerdtree')
+call dein#add('Shougo/neocomplete.vim')
+call dein#add('Yggdroot/indentLine')
+call dein#add('hotwatermorning/auto-git-diff')
+call dein#add('cocopon/iceberg.vim')
+
+" Finish dein initialization (required)
+call dein#end()
+
+" Attempt to determine the type of a file based on its name and possibly its
+" contents. Use this to allow intelligent auto-indenting for each filetype,
+" and for plugins that are filetype specific.
+filetype indent plugin on
+
+" Enable syntax highlighting
+if has('syntax')
+  syntax on
 endif
 
-" Required:
-set runtimepath+=/Users/hosshii/.cache/dein/repos/github.com/Shougo/dein.vim
-
-" Required:
-if dein#load_state('/Users/hosshii/.cache/dein')
-  call dein#begin('/Users/hosshii/.cache/dein')
-
-  " Let dein manage dein
-  " Required:
-  call dein#add('/Users/hosshii/.cache/dein/repos/github.com/Shougo/dein.vim')
-
-  " Add or remove your plugins here like this:
-  "call dein#add('Shougo/neosnippet.vim')
-  "call dein#add('Shougo/neosnippet-snippets')
-
-  call dein#add('airblade/vim-gitgutter')
-  call dein#add('w0rp/ale')
-  call dein#add('dhruvasagar/vim-table-mode')
-  call dein#add('fatih/vim-go')
-  call dein#add('prettier/vim-prettier')
-  call dein#add('ctrlpvim/ctrlp.vim')
-  call dein#add('junegunn/fzf.vim')
-  call dein#add('scrooloose/nerdtree')
-  call dein#add('Shougo/neocomplete.vim')
-  call dein#add('Yggdroot/indentLine')
-  call dein#add('hotwatermorning/auto-git-diff')
-  call dein#add('cocopon/iceberg.vim')
-
-  " Required:
-  call dein#end()
-  call dein#save_state()
-endif
-
-" Required:
-filetype plugin indent on
-syntax enable
-
-" If you want to install not installed plugins on startup.
+" Uncomment if you want to install not-installed plugins on startup.
 if dein#check_install()
  call dein#install()
 endif
 
-"End dein Scripts-------------------------
-filetype plugin indent on
 
 " ~~~~~aleの設定~~~~~~
 " 保存時のみ実行する
