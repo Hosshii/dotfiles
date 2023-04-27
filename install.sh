@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eu
+
 DOTFILES_TOOL_SRC="https://github.com/rhysd/dotfiles.git"
 DOTFILES_TOOL="dotfiles_tool"
 GITHUB_USER="Hosshii"
