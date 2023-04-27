@@ -6,7 +6,7 @@ DOTFILES_TOOL_SRC="https://github.com/rhysd/dotfiles.git"
 DOTFILES_TOOL="dotfiles_tool"
 GITHUB_USER="Hosshii"
 DOTFILES_DIR="$HOME/dotfiles"
-DOTFILES_TOOK_BIN="dotfiles"
+DOTFILES_TOOL_BIN="dotfiles"
 
 function checkcommand() {
     if type $1 > /dev/null 2>&1; then
@@ -25,13 +25,13 @@ checkcommand "make"
 checkcommand "go"
 
 # clone rhysd/dotfiles
-git clone "$DOTFILES_TOOK_SRC" "$DOTFILES_TOOL"
+git clone "$DOTFILES_TOOL_SRC" "$DOTFILES_TOOL"
 cd "$DOTFILES_TOOL" 
 go install .
 
 cd "$HOME"
 
-"$DOTFILES_TOOK_BIN" clone "$GITHUB_USER"
+"$DOTFILES_TOOL_BIN" clone "$GITHUB_USER"
 cd "$DOTFILES_DIR"
 
 if [ ! -d $HOME/bin ]; then
@@ -40,14 +40,14 @@ fi
 
 if [ "$(uname)" == 'Darwin' ]; then
   xcode-select --install
-  "$DOTFILES_TOOK_BIN" link
+  "$DOTFILES_TOOL_BIN" link
   make install_zinit
 #   make deploy_fish
   make setup_vim
   make brew
   make setup_mac_default
 elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
-  "$DOTFILES_TOOK_BIN" link
+  "$DOTFILES_TOOL_BIN" link
   make install_zinit
 #   make deploy_fish
   make setup_vim
