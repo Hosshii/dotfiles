@@ -7,17 +7,19 @@ alias c="clear"
 #alias cdd="cd ../"
 #alias cddd="cd ../../"
 #alias cdddd="cd ../../../"
-alias cdu='cd-gitroot'
 # alias k='kubectl'
 alias py="python"
-alias cddm="cdd-manager"
 # alias cat="cat -v"
 alias g="git"
 alias lzd="lazydocker"
 alias lg="lazygit"
 alias ks="ls"
 alias la='ls -a'
-alias ll='ls -l'
+alias ll='ls -lgh --git'
+alias lla='ls -lgha --git'
+alias lal='ls -lgha --git'
+alias ls='exa --icons'
+alias cat='bat'
 # global alias is added in ~/.zsh/config/*
 
 # pathの設定
@@ -25,8 +27,7 @@ alias ll='ls -l'
 export JAVA_HOME=""
 export NODE_ENV="development"
 #export PATH="$HOME/.nodebrew/current/bin:$PATH"
-if [ "$(uname -m)" = arm64 ];then
-    alias ls='ls -F --color=auto'
+if [ "$(uname)" = 'Darwin' ];then
     # brew --prefixは遅いのでベタ書きする
     # export PATH="$(brew --prefix)/opt/gnu-tar/libexec/gnubin:$PATH"
     # #export PATH="$PYENV_ROOT/bin:$PATH"
@@ -51,20 +52,28 @@ if [ "$(uname -m)" = arm64 ];then
     export OPENSSL_INCLUDE_DIR="h/opt/homebrew/opt/openssl@1.1/include"
     export OPENSSL_LIB_DIR="/opt/homebrew/opt/openssl@1.1/lib"
     . /opt/homebrew/opt/asdf/libexec/asdf.sh
+    # brew --prefixは遅いのでベタ書きする
+    # export FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
+    # export MANPATH="$(brew --prefix)/opt/coreutils/libexec/gnuman:$MANPATH"
+    # export MANPATH="$(brew --prefix)/opt/findutils/libexec/gnuman:$MANPATH"
+    export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
+    export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
+    export MANPATH="/opt/homebrew/opt/findutils/libexec/gnuman:$MANPATH"
+    function llvm (){
+        export PATH="$(brew --prefix)/opt/llvm/bin:$PATH"
+        export LDFLAGS="-L$(brew --prefix)/opt/llvm/lib"
+        export CPPFLAGS="-I$(brew --prefix)/opt/llvm/include"
+        unset -f llvm
+    }
+elif [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]; then
+    
 fi
 
-# brew --prefixは遅いのでベタ書きする
-# export FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
-# export MANPATH="$(brew --prefix)/opt/coreutils/libexec/gnuman:$MANPATH"
-# export MANPATH="$(brew --prefix)/opt/findutils/libexec/gnuman:$MANPATH"
-export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
-export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
-export MANPATH="/opt/homebrew/opt/findutils/libexec/gnuman:$MANPATH"
 
 # source ${HOME}/.ghcup/env
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$PATH:${HOME}/localWorkspace/nand2tetris/tools"
+# export PATH="$PATH:${HOME}/localWorkspace/nand2tetris/tools"
 export PATH="$PATH:${HOME}/.local/bin"
 #export PATH="$PATH:./node_modules/.bin"
 export TEXPATH="$HOME/tex"
@@ -132,30 +141,6 @@ zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 #zstyle ':completion:*:*:kubectl:*' list-grouped false
 #kubectl completion zsh
-# 関数の読み込み
-
-
-# func of bandit
-#banditssh()
-#{
-#    host="bandit.labs.overthewire.org"
-#    echo "now connecting to $host"
-#    echo -e "your user name is bandit\033[0;32m$@\033[0;39m"
-#    ssh bandit"$@"@$host -p 2220
-#}
-#
-#lsos()
-#{
-#    pwd | awk -F "/" '{print "../../../30nichideosjisaku/"$(NF-1)"/"$NF}'|xargs -I {} ls -GF {}
-#}
-
-function llvm (){
-    export PATH="$(brew --prefix)/opt/llvm/bin:$PATH"
-    export LDFLAGS="-L$(brew --prefix)/opt/llvm/lib"
-    export CPPFLAGS="-I$(brew --prefix)/opt/llvm/include"
-    unset -f llvm
-}
-
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
