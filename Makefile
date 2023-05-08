@@ -36,3 +36,9 @@ setup_mac_default:
 	@echo '==> Setup mac default write'
 	@echo ''
 	@./etc/init/default_write/init.sh
+
+.PHONY: pacman
+pacman:
+	@echo '==> Start to install pacman package.'
+	@echo ''
+	@./etc/init/pacman/init.sh

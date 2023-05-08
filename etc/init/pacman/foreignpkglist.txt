@@ -1,0 +1,7 @@
+ghq
+lazydocker
+leftwm
+paru
+ttf-ricty
+visual-studio-code-bin
+wezterm-git

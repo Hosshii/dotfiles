@@ -46,6 +46,7 @@ if [ "$(uname)" == 'Darwin' ]; then
 elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
   "$DOTFILES_TOOL_BIN" link
   make install_zinit
+  make pacman
 #   make deploy_fish
   make setup_vim
 else
