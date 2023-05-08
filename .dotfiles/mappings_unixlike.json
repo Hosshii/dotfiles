@@ -1,4 +1,5 @@
 {
     ".tigrc": "~/.tigrc",
-    ".gitconfig": "~/.gitconfig"
+    ".gitconfig": "~/.gitconfig",
+    "bin": "~/bin"
 }

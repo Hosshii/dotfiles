@@ -40,6 +40,7 @@ if [ "$(uname)" = 'Darwin' ];then
     # export PATH="$(brew --prefix)/opt/qt/bin:$PATH"
     # export OPENSSL_INCLUDE_DIR=$(brew --prefix openssl)/include
     # export OPENSSL_LIB_DIR=$(brew --prefix openssl)/lib
+    alias ssh='~/bin/ssh-change-profile.sh'
     export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
     #export PATH="$PYENV_ROOT/bin:$PATH"
     export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
