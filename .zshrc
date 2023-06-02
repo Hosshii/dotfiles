@@ -28,6 +28,8 @@ export JAVA_HOME=""
 export NODE_ENV="development"
 #export PATH="$HOME/.nodebrew/current/bin:$PATH"
 if [ "$(uname)" = 'Darwin' ];then
+    # iterm2 のテーマをデフォルトにセット
+    echo -ne "\033]1337;SetProfile=Default\a"
     # brew --prefixは遅いのでベタ書きする
     # export PATH="$(brew --prefix)/opt/gnu-tar/libexec/gnubin:$PATH"
     # #export PATH="$PYENV_ROOT/bin:$PATH"
@@ -50,7 +52,7 @@ if [ "$(uname)" = 'Darwin' ];then
     export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
     export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
     export PATH="/opt/homebrew/opt/qt/bin:$PATH"
-    export OPENSSL_INCLUDE_DIR="h/opt/homebrew/opt/openssl@1.1/include"
+    export OPENSSL_INCLUDE_DIR="/opt/homebrew/opt/openssl@1.1/include"
     export OPENSSL_LIB_DIR="/opt/homebrew/opt/openssl@1.1/lib"
     . /opt/homebrew/opt/asdf/libexec/asdf.sh
     # brew --prefixは遅いのでベタ書きする

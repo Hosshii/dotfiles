@@ -27,7 +27,7 @@ function fzf-src() {
   local dir=$(echo "$(basename $(ghq root))\n${mygit}\n$bm" | fzf --prompt "WORKSPACE>")
 
   if [ $dir = $mygit ]; then
-    local selected_dir="${mygitfull}/$(ls $mygitfull | fzf --ansi --prompt "Repository>" --query "$LBUFFER")"
+    local selected_dir="${mygitfull}/$(\ls $mygitfull | fzf --ansi --prompt "Repository>" --query "$LBUFFER")"
   elif [ $dir = "$workspace" ]; then
     # local selected_dir="$(ghq root)/$(ghq list | fzf --prompt "Repository>" --query "$LBUFFER" --preview "bat --color=always --style=header,grid --line-range :100 $(ghq root)/{}/README.*")"
     local selected_dir="$(ghq root)/$(ghq list | fzf --prompt "Repository>" --query "$LBUFFER" --preview "unbuffer onefetch $(ghq root)/{} ;bat --color=always --style=header,grid --line-range :100 "$(ghq root)/{}/README.md" "$(ghq root)/{}/$(find . -maxdepth 1 -type f -iname "readme*" | sed 's!^.*/!!')" 2>/dev/null ")"
