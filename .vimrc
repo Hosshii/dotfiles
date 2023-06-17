@@ -87,7 +87,8 @@ inoremap <C-e> <Esc>$a
 inoremap <C-a> <Esc>^a
 noremap <C-e> <Esc>$a
 noremap <C-a> <Esc>^a
-map <C-n> :NERDTreeToggle<CR>
+noremap <C-n> :NERDTreeToggle<CR>
+noremap <leader>f :'<,'>! npx prettier --parser html --stdin-filepath<cr>
 
 " 'hotwatermorning/auto-git-diff'の設定
 let g:auto_git_diff_show_window_at_right = 1

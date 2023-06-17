@@ -69,7 +69,7 @@ if [ "$(uname)" = 'Darwin' ];then
         unset -f llvm
     }
 elif [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]; then
-    
+    . /opt/asdf-vm/asdf.sh
 fi
 
 
