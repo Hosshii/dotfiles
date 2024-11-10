@@ -1,3 +1,14 @@
+set -eu
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CACHE_HOME="$HOME/.cache"
+
+# xdg の設定　
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME}/zsh/zcompcache"
+export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+
+
 bindkey -e
 # Customize to your needs...
 #エイリアスの設定
@@ -84,6 +95,8 @@ done
 source "$(ghq root)/github.com/rupa/z/z.sh"
 
 
+
+
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 #zstyle ':completion:*:*:kubectl:*' list-grouped false
@@ -133,3 +146,4 @@ zinit cdreplay -q
 autoload -U +X bashcompinit && bashcompinit
 
 eval "$(starship init zsh)"
+set +eu
