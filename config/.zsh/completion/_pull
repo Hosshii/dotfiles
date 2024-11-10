@@ -1,7 +1,0 @@
- _pull(){
-    DIR_NAME=$(pwd |awk -F "/" '{print $(NF-1)"/"$NF}')
-    ZISAKU="30nichideosjisaku"
-
-    _files -W  ~/Workspace/hariboteOS/$ZISAKU/$DIR_NAME/ 
-}
-

@@ -1,6 +1,0 @@
-#compdef cp-remotecontainer
-
-function _cp-remotecontainer(){
-    _files -W  ~/Workspace/github.com/hosshii/devcontainer
-    #_values 'mode'
-}
