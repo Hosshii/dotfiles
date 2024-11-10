@@ -1,13 +1,7 @@
 bindkey -e
-alias x86="arch -x86_64 /bin/zsh -l"
-alias arm="arch -arm64 /bin/zsh -l"
 # Customize to your needs...
 #エイリアスの設定
 alias c="clear"
-#alias cdd="cd ../"
-#alias cddd="cd ../../"
-#alias cdddd="cd ../../../"
-# alias k='kubectl'
 alias py="python"
 # alias cat="cat -v"
 alias g="git"
@@ -24,81 +18,31 @@ alias code-arch='code --remote ssh-remote+arch'
 # global alias is added in ~/.zsh/config/*
 
 # pathの設定
-#export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_141.jdk/Contents/Home"
-export JAVA_HOME=""
-export NODE_ENV="development"
 #export PATH="$HOME/.nodebrew/current/bin:$PATH"
 if [ "$(uname)" = 'Darwin' ];then
+    alias x86="arch -x86_64 /bin/zsh -l"
+    alias arm="arch -arm64 /bin/zsh -l"
     # iterm2 のテーマをデフォルトにセット
     echo -ne "\033]1337;SetProfile=Default\a"
-    # brew --prefixは遅いのでベタ書きする
-    # export PATH="$(brew --prefix)/opt/gnu-tar/libexec/gnubin:$PATH"
-    # #export PATH="$PYENV_ROOT/bin:$PATH"
-    # export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH"
-    # export PATH="$(brew --prefix)/opt/findutils/libexec/gnubin:$PATH"
-    # export PATH="$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$PATH"
-    # export PATH="$(brew --prefix)/opt/binutils/bin:$PATH"
-    # export PATH="$(brew --prefix)/opt/grep/libexec/gnubin:$PATH"
-    # export PATH="$(brew --prefix)/opt/openjdk/bin:$PATH"
-    # export PATH="$(brew --prefix)/opt/qt/bin:$PATH"
-    # export OPENSSL_INCLUDE_DIR=$(brew --prefix openssl)/include
-    # export OPENSSL_LIB_DIR=$(brew --prefix openssl)/lib
 
     alias ssh='~/bin/ssh-change-profile.sh'
-    # export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
-    # #export PATH="$PYENV_ROOT/bin:$PATH"
-    # export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
-    # export PATH="/opt/homebrew/opt/findutils/libexec/gnubin:$PATH"
-    # export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
-    # export PATH="$PATH:/opt/homebrew/opt/binutils/bin"
-    # export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
-    # export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-    # export PATH="/opt/homebrew/opt/qt/bin:$PATH"
-    # # export OPENSSL_INCLUDE_DIR="/opt/homebrew/opt/openssl@1.1/include"
-    # # export OPENSSL_LIB_DIR="/opt/homebrew/opt/openssl@1.1/lib"
      . /opt/homebrew/opt/asdf/libexec/asdf.sh
-    # # brew --prefixは遅いのでベタ書きする
-    # # export FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
-    # # export MANPATH="$(brew --prefix)/opt/coreutils/libexec/gnuman:$MANPATH"
-    # # export MANPATH="$(brew --prefix)/opt/findutils/libexec/gnuman:$MANPATH"
     export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
-    # export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
-    # export MANPATH="/opt/homebrew/opt/findutils/libexec/gnuman:$MANPATH"
-    # function llvm (){
-    #     export PATH="$(brew --prefix)/opt/llvm/bin:$PATH"
-    #     export LDFLAGS="-L$(brew --prefix)/opt/llvm/lib"
-    #     export CPPFLAGS="-I$(brew --prefix)/opt/llvm/include"
-    #     unset -f llvm
-    # }
 elif [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]; then
     . /opt/asdf-vm/asdf.sh
 fi
 
-# export C_INCLUDE_PATH="/usr/local/Cellar/arm-none-eabi-gcc@8/8.5.0_1/arm-none-eabi/include:$C_INCLUDE_PATH"
-# export CPLUS_INCLUDE_PATH="/usr/local/Cellar/arm-none-eabi-gcc@8/8.5.0_1/arm-none-eabi/include:$CPLUS_INCLUDE_PATH"
-
-# source ${HOME}/.ghcup/env
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
-# export PATH="$PATH:${HOME}/localWorkspace/nand2tetris/tools"
 export PATH="$PATH:${HOME}/.local/bin"
-#export PATH="$PATH:./node_modules/.bin"
-export TEXPATH="$HOME/tex"
-export ATCODER="$HOME/localWorkspace/atcoder"
-#export FPATH="$FPATH:$HOME/.zsh/completion:$HOME/.zsh/pure"
+
 export FPATH="$FPATH:$HOME/.zsh/completion"
-export CDD_DIR="$HOME/.cdd"
-export TOOLBOX_TEMPLATE_DIR="${HOME}/.dotfiles/bin/template"
-# lsはgnuのやつの表示が嫌だったのでmacのやつを使ってる
 
 # #コマンド履歴
 export HISTFILE=${HOME}/.zsh_history
 export HISTSIZE=1000000
 export SAVEHIST=1000000
 setopt EXTENDED_HISTORY
-
-export GOPATH="$HOME/go"
-export PATH="$PATH:$GOPATH/bin"
 
 export EDITOR=vim
 
@@ -108,8 +52,6 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # 直前のコマンドの重複を削除
 setopt hist_ignore_dups
 
-# 同じコマンドをヒストリに残さない
-setopt hist_ignore_all_dups
 
 # 同時に起動したzshの間でヒストリを共有
 setopt share_history
@@ -137,8 +79,6 @@ done
 for file in `find $HOME/.zsh/functions -mindepth 1`;do
     autoload -Uz $file
 done
-# autoload -Uz compinit
-# compinit -u
 
 # zの読み込み
 source "$(ghq root)/github.com/rupa/z/z.sh"
@@ -189,13 +129,7 @@ compinit
 
 zinit cdreplay -q
 
-# # zinit ice svn pick"init.zsh"
-# # zinit snippet PZT::modules/git
-# #export PATH="$HOME/.anyenv/bin:$PATH"
-# if (which zprof > /dev/null) ;then
-#   zprof | less
-# fi
 
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
 eval "$(starship init zsh)"
