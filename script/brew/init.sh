@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Init Home Brew."
+
 SCRIPT_DIR=$(
     cd $(dirname $0)
     pwd
