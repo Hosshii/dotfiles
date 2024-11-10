@@ -1,1 +1,1 @@
-
+eval "$(sheldon source)"

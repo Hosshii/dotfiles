@@ -5,16 +5,17 @@ apply = ["defer"]
 [plugins]
 
 [plugins.dotfiles-init]
-local = "$HOME/.config/zsh/config"
+local = "~/.config/zsh/config"
 use = ["init.zsh"]
 apply = ["source"]
 
 [plugins.zsh-defer]
 github = "romkatv/zsh-defer"
+apply = ["source"]
 
 [plugins.dotfiles-defer]
-local = "$HOME/.config/zsh/config"
-use = ["{!init}.zsh"]
+local = "~/.config/zsh/config"
+use = ["{!init,*}.zsh"]
 
 [plugins.compinit]
 inline = 'autoload -Uz compinit && zsh-defer compinit'
