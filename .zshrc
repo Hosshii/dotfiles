@@ -18,8 +18,9 @@ alias la='ls -a'
 alias ll='ls -lgh --git'
 alias lla='ls -lgha --git'
 alias lal='ls -lgha --git'
-alias ls='exa --icons'
+alias ls='eza --icons=auto --git'
 alias cat='bat'
+alias code-arch='code --remote ssh-remote+arch'
 # global alias is added in ~/.zsh/config/*
 
 # pathの設定
@@ -42,36 +43,39 @@ if [ "$(uname)" = 'Darwin' ];then
     # export PATH="$(brew --prefix)/opt/qt/bin:$PATH"
     # export OPENSSL_INCLUDE_DIR=$(brew --prefix openssl)/include
     # export OPENSSL_LIB_DIR=$(brew --prefix openssl)/lib
+
     alias ssh='~/bin/ssh-change-profile.sh'
-    export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
-    #export PATH="$PYENV_ROOT/bin:$PATH"
-    export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
-    export PATH="/opt/homebrew/opt/findutils/libexec/gnubin:$PATH"
-    export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
-    export PATH="/opt/homebrew/opt/binutils/bin:$PATH"
-    export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
-    export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-    export PATH="/opt/homebrew/opt/qt/bin:$PATH"
-    export OPENSSL_INCLUDE_DIR="/opt/homebrew/opt/openssl@1.1/include"
-    export OPENSSL_LIB_DIR="/opt/homebrew/opt/openssl@1.1/lib"
-    . /opt/homebrew/opt/asdf/libexec/asdf.sh
-    # brew --prefixは遅いのでベタ書きする
-    # export FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
-    # export MANPATH="$(brew --prefix)/opt/coreutils/libexec/gnuman:$MANPATH"
-    # export MANPATH="$(brew --prefix)/opt/findutils/libexec/gnuman:$MANPATH"
+    # export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
+    # #export PATH="$PYENV_ROOT/bin:$PATH"
+    # export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+    # export PATH="/opt/homebrew/opt/findutils/libexec/gnubin:$PATH"
+    # export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+    # export PATH="$PATH:/opt/homebrew/opt/binutils/bin"
+    # export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
+    # export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+    # export PATH="/opt/homebrew/opt/qt/bin:$PATH"
+    # # export OPENSSL_INCLUDE_DIR="/opt/homebrew/opt/openssl@1.1/include"
+    # # export OPENSSL_LIB_DIR="/opt/homebrew/opt/openssl@1.1/lib"
+     . /opt/homebrew/opt/asdf/libexec/asdf.sh
+    # # brew --prefixは遅いのでベタ書きする
+    # # export FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
+    # # export MANPATH="$(brew --prefix)/opt/coreutils/libexec/gnuman:$MANPATH"
+    # # export MANPATH="$(brew --prefix)/opt/findutils/libexec/gnuman:$MANPATH"
     export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
-    export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
-    export MANPATH="/opt/homebrew/opt/findutils/libexec/gnuman:$MANPATH"
-    function llvm (){
-        export PATH="$(brew --prefix)/opt/llvm/bin:$PATH"
-        export LDFLAGS="-L$(brew --prefix)/opt/llvm/lib"
-        export CPPFLAGS="-I$(brew --prefix)/opt/llvm/include"
-        unset -f llvm
-    }
+    # export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
+    # export MANPATH="/opt/homebrew/opt/findutils/libexec/gnuman:$MANPATH"
+    # function llvm (){
+    #     export PATH="$(brew --prefix)/opt/llvm/bin:$PATH"
+    #     export LDFLAGS="-L$(brew --prefix)/opt/llvm/lib"
+    #     export CPPFLAGS="-I$(brew --prefix)/opt/llvm/include"
+    #     unset -f llvm
+    # }
 elif [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]; then
     . /opt/asdf-vm/asdf.sh
 fi
 
+# export C_INCLUDE_PATH="/usr/local/Cellar/arm-none-eabi-gcc@8/8.5.0_1/arm-none-eabi/include:$C_INCLUDE_PATH"
+# export CPLUS_INCLUDE_PATH="/usr/local/Cellar/arm-none-eabi-gcc@8/8.5.0_1/arm-none-eabi/include:$CPLUS_INCLUDE_PATH"
 
 # source ${HOME}/.ghcup/env
 export PATH="$HOME/bin:$PATH"
@@ -177,7 +181,7 @@ zinit snippet PZT::modules/environment
 zinit snippet PZT::modules/directory 
 zinit snippet PZT::modules/terminal 
 
-zinit ice wait'0' lucid
+zinit ice wait'0' lucid blockf
 zinit snippet PZT::modules/completion
 
 autoload -Uz compinit
@@ -191,3 +195,7 @@ zinit cdreplay -q
 # if (which zprof > /dev/null) ;then
 #   zprof | less
 # fi
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/bin/terraform terraform
+eval "$(starship init zsh)"
