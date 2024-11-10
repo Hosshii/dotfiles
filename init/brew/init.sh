@@ -22,22 +22,9 @@ brew doctor
 echo "brew update"
 brew update
 
-if [ "$1" = "-s" ]; then
-    echo "brew bundle --file $SCRIPT_DIR/Core"
-    echo "install core."
-    brew bundle --file "$SCRIPT_DIR/Core"
-else
-    echo "install core and sub."
-    echo "brew bundle --file $SCRIPT_DIR/Core"
-    brew bundle --file "$SCRIPT_DIR/Core"
-    brew bundle --file "$SCRIPT_DIR/Sub"
-fi
-
-echo "linking  gcc and g++"
-echo ""
-ln -sfnv /usr/local/bin/gcc-9 /usr/local/bin/gcc
-ln -sfnv /usr/local/bin/g++-9 /usr/local/bin/g++
-echo "done"
+echo "brew bundle --file $SCRIPT_DIR/Brewfile"
+echo "install core."
+brew bundle --file "$SCRIPT_DIR/Core"
 
 echo ""
 echo "brew process finished!"
