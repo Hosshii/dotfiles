@@ -19,7 +19,6 @@ function checkcommand() {
 #コマンド確認
 #gitコマンドが使えるか
 checkcommand "git"
-checkcommand "cargo"
 checkcommand "curl"
 checkcommand "unzip"
 
@@ -48,11 +47,13 @@ sudo echo 'export ZDOTDIR="$XDG_CONFIG_HOME"/zsh' >> /etc/zshenv
 if [ "$(uname)" == 'Darwin' ]; then
   xcode-select --install
   "$DOTFILES_TOOL_BIN" link
+  ./script/manual/init.sh
   ./script/brew/init.sh
   ./script/vim/init.sh
   ./script/default_write/init.sh
 elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
   "$DOTFILES_TOOL_BIN" link
+  ./script/manual/init.sh
   ./script/pacman/init.sh
   ./script/vim/init.sh
 else
