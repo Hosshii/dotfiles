@@ -1,5 +1,5 @@
 
-function set_change_profile() {
+function ssh_change_profile() {
     set -euo pipefail
 
     # Ctrl-C

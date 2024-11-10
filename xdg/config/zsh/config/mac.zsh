@@ -4,7 +4,7 @@ if [ "$(uname)" = 'Darwin' ];then
     # iterm2 のテーマをデフォルトにセット
     echo -ne "\033]1337;SetProfile=Default\a"
 
-    alias ssh='~/bin/ssh-change-profile.sh'
+    alias ssh='ssh_change_profile'
      . /opt/homebrew/opt/asdf/libexec/asdf.sh
     export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
 fi
