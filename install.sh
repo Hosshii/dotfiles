@@ -39,13 +39,16 @@ sudo mv dotfiles $DOTFILES_TOOL_BIN
 
 cd "$HOME"
 
+if [ "$(uname)" == 'Darwin' ]; then
+  xcode-select --install
+fi
+
 "$DOTFILES_TOOL_BIN" clone "$GITHUB_USER"
 cd "$DOTFILES_DIR"
 
 sudo echo 'export ZDOTDIR="$XDG_CONFIG_HOME"/zsh' >> /etc/zshenv
 
 if [ "$(uname)" == 'Darwin' ]; then
-  xcode-select --install
   "$DOTFILES_TOOL_BIN" link
   ./script/manual/init.sh
   ./script/brew/init.sh
