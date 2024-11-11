@@ -35,7 +35,7 @@ echo "Instal ${DOTFILE_DOWNLOAD_NAME}"
 curl -OL https://github.com/rhysd/dotfiles/releases/download/${DOTFILES_TOOL_VERSION}/${DOTFILE_DOWNLOAD_NAME}
 unzip ${DOTFILE_DOWNLOAD_NAME}
 rm ${DOTFILE_DOWNLOAD_NAME}
-mv dotfiles $DOTFILES_TOOL_BIN
+sudo mv dotfiles $DOTFILES_TOOL_BIN
 
 cd "$HOME"
 
