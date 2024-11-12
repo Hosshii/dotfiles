@@ -12,6 +12,8 @@ if ! type brew >/dev/null 2>&1; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 if ! type brew >/dev/null 2>&1; then
     echo "brew is not found"
     echo "exit"
@@ -26,7 +28,7 @@ brew update
 
 echo "brew bundle --file $SCRIPT_DIR/Brewfile"
 echo "install core."
-brew bundle --file "$SCRIPT_DIR/Core"
+brew bundle --file "$SCRIPT_DIR/Brewfile"
 
 echo ""
 echo "brew process finished!"

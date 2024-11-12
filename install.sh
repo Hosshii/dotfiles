@@ -42,7 +42,8 @@ cd "$HOME"
 "$DOTFILES_TOOL_BIN" clone "$GITHUB_USER"
 cd "$DOTFILES_DIR"
 
-echo 'export ZDOTDIR="$HOME"/.config/zsh' | sudo tee /etc/zshenv
+echo 'export ZDOTDIR="$HOME"/.config/zsh' | sudo tee -a /etc/zshenv
+source /etc/zshenv
 
 if [ "$(uname)" == 'Darwin' ]; then
   "$DOTFILES_TOOL_BIN" link
