@@ -64,9 +64,9 @@ fi
 
 if [ "$(uname)" = 'Darwin' ]; then
   if [ "$(uname -m)" = arm64 ];then
-     eval $(/opt/homebrew/bin/brew shellenv)
+    eval $(/opt/homebrew/bin/brew shellenv)
   else 
-      eval $(/usr/local/bin/brew shellenv)
+    eval $(/usr/local/bin/brew shellenv)
   fi
 elif [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]; then
   if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
@@ -74,3 +74,9 @@ elif [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]; then
   fi
 fi
 
+# ~/.zprofile
+if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+  eval "$($HOME/.local/bin/mise activate zsh --shims)"
+elif; then
+  eval "$($HOME/.local/bin/mise activate zsh)"
+fi

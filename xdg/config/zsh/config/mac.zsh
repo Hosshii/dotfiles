@@ -5,6 +5,5 @@ if [ "$(uname)" = 'Darwin' ];then
     echo -ne "\033]1337;SetProfile=Default\a"
 
     alias ssh='$XDG_CONFIG_HOME/zsh/functions/ssh-change-profile.sh'
-    . /opt/homebrew/opt/asdf/libexec/asdf.sh
     export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
 fi
