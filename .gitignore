@@ -1,1 +1,7 @@
-xdg/config/*
+script/brew/Brewfile.lock.json
+
+xdg/config/zsh/.zcompdump*
+xdg/config/zsh/.zsh_history
+xdg/config/zsh/.zsh_sessions
+xdg/config/htop
+xdg/config/iterm2
