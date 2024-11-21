@@ -74,9 +74,3 @@ elif [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]; then
   fi
 fi
 
-# ~/.zprofile
-if [[ "$TERM_PROGRAM" == "vscode" ]]; then
-  eval "$($HOME/.local/bin/mise activate zsh --shims)"
-elif; then
-  eval "$($HOME/.local/bin/mise activate zsh)"
-fi
