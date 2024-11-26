@@ -29,6 +29,7 @@
 	br = branch
 	cm = commit
     dmer =!git branch -d `git branch --merged | grep -v master | grep -v main`
+	swi = switch
 [ghq]
 	root = ~/Workspace
 [pull]

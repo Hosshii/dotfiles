@@ -47,6 +47,14 @@ style = "yellow"
 format = "[$virtualenv]($style) "
 style = "bright-black"
 
+[gradle]
+disabled = true
+
+[java]
+disabled = true
+
+[kotlin]
+disabled = true
 
 [rust]
 format = '[$symbol($version )]($style)'
