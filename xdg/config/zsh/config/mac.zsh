@@ -6,4 +6,7 @@ if [ "$(uname)" = 'Darwin' ];then
 
     alias ssh='$XDG_CONFIG_HOME/zsh/functions/ssh-change-profile.sh'
     export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
+
+    export PATH="$PATH:${HOME}/Library/Application Support/JetBrains/Toolbox/scripts"
+    ssh-add --apple-use-keychain ~/.ssh/id_ed25519
 fi
