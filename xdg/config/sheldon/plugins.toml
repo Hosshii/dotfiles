@@ -4,9 +4,9 @@ apply = ["defer"]
 
 [plugins]
 
-[plugins.dotfiles-init]
+[plugins.dotfiles-sync]
 local = "~/.config/zsh/config"
-use = ["init.zsh"]
+use = ["sync.zsh"]
 apply = ["source"]
 
 [plugins.zsh-defer]
@@ -15,7 +15,7 @@ apply = ["source"]
 
 [plugins.dotfiles-defer]
 local = "~/.config/zsh/config"
-use = ["{!init,*}.zsh"]
+use = ["{!sync,*}.zsh"]
 
 [plugins.compinit]
 inline = 'autoload -Uz compinit && zsh-defer compinit'

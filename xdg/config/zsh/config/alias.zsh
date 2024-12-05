@@ -25,3 +25,5 @@ alias -g B='`git branch --all --color | grep -v HEAD | fzf -m --ansi | sed "s/.*
 
 # return files
 alias -g F='`unbuffer git status -s | fzf -m --ansi --preview="echo {} | awk '\''{print \$2}'\'' | xargs git diff --color --|diff-so-fancy" | awk '\''{print $2}'\'' | tr '\''\n'\'' '\'' '\''`'
+
+alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
