@@ -1,18 +1,10 @@
-[user]
-	name = Hosshii
-	email = sao_heath6147.wistre@icloud.com
+[include]
+	path = ./local
 [color]
 	ui = auto
 [core]
-	excludesfile = /Users/hosshii/.gitignore_global
 	editor = vim
-	attributesfile = /Users/hosshii/.gitattributes_global
     pager = delta
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-# [commit]
-# 	template = /Users/wistre/.stCommitMsg
 [alias]
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
     lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
