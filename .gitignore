@@ -1,9 +1,15 @@
 script/brew/Brewfile.lock.json
 
+xdg/config/act
+xdg/config/AWS*
+xdg/config/gh
+xdg/config/github-copilot
+xdg/config/git/local
+xdg/config/Google
+xdg/config/htop
+xdg/config/iterm2
 xdg/config/zsh/.zcompdump*
 xdg/config/zsh/history
 xdg/config/zsh/.zsh_sessions
-xdg/config/htop
-xdg/config/iterm2
-xdg/config/gh
-xdg/config/git/local
+
+*history

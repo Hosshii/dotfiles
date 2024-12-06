@@ -29,11 +29,21 @@ inline = 'eval "$(mise activate zsh)"'
 [plugins.starship]
 inline = 'eval "$(starship init zsh)"'
 
+[plugins.z]
+github = "rupa/z"
+
+# [plugins.zsh-autocomplete]
+# github = "marlonrichert/zsh-autocomplete"
+# apply = ["source"]
+# use = ["zsh-autocomplete.plugin.zsh"]
+
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+# use = ['{{ name }}.zsh']
+
 [plugins.zsh-completions]
 github = "zsh-users/zsh-completions"
 
-[plugins.z]
-github = "rupa/z"
 
 [templates]
 defer = "{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks?.post | nl }}"
