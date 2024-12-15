@@ -1,3 +1,4 @@
 {
-    "xdg/config": "~/.config"
+    "xdg/config": "~/.config",
+    "xdg/data": "~/.local/share"
 }

@@ -1,15 +1,31 @@
-script/brew/Brewfile.lock.json
+/script/brew/Brewfile.lock.json
 
-xdg/config/act
-xdg/config/AWS*
-xdg/config/gh
-xdg/config/github-copilot
-xdg/config/git/local
-xdg/config/Google
-xdg/config/htop
-xdg/config/iterm2
-xdg/config/zsh/.zcompdump*
-xdg/config/zsh/history
-xdg/config/zsh/.zsh_sessions
 
-*history
+/xdg/**
+!/xdg/**/
+
+# サブモジュールになってignoreされなかったので明示的に無視する
+/xdg/data/cargo/git
+/xdg/data/cargo/registry
+/xdg/data/sheldon
+/xdg/data/zinit
+
+!/xdg/config/bat/config
+!/xdg/config/git/config
+!/xdg/config/leftwm/config.ron
+!/xdg/config/mise/config.toml
+!/xdg/config/sheldon/plugins.toml
+!/xdg/config/tig/config
+!/xdg/config/vim/vimrc
+!/xdg/config/wezterm/wezterm.lua
+!/xdg/config/zsh/config/*
+!/xdg/config/zsh/functions/*
+!/xdg/config/zsh/.zlogin
+!/xdg/config/zsh/.zlogout
+!/xdg/config/zsh/.zprofile
+!/xdg/config/zsh/.zshenv
+!/xdg/config/zsh/.zshrc
+!/xdg/config/starship.toml
+
+!/xdg/data/cargo/config.toml
+
