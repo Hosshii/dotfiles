@@ -10,6 +10,4 @@ export EDITOR=vim
 # # homebrewで勝手にアップデートしない
 export HOMEBREW_NO_AUTO_UPDATE=1
 
-export CARGO_HOME="${XDG_DATA_HOME}/cargo"
-export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
 export _Z_DATA="$XDG_DATA_HOME/z"

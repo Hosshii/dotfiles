@@ -1,13 +1,18 @@
-# https://github.com/zimfw/zimfw/issues/386
-# zshrcだと読み込まれないことがある
+# lazyだとうまくいかない
+# ここを変えてもVSCode Serverのプロセスが生きていて反映されないことがある
+
+export HISTFILE=${ZDOTDIR}/history
+export HISTSIZE=1000000
+export SAVEHIST=1000000
+
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 
-export HISTFILE=${ZDOTDIR}/history
-export HISTSIZE=1000000
-export SAVEHIST=1000000
+export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
+
 
 bindkey -e
 
