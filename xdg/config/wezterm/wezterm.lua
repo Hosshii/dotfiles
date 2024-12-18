@@ -1,7 +1,7 @@
 local wezterm = require 'wezterm';
 
 return {
-  font = wezterm.font("Ricty"), -- 自分の好きなフォントいれる
+  font = wezterm.font("HackGen35 Console NF"), -- 自分の好きなフォントいれる
   use_ime = true, -- wezは日本人じゃないのでこれがないとIME動かない
   font_size = 13.0,
 --   color_scheme = "OneHalfDark", -- 自分の好きなテーマ探す https://wezfurlong.org/wezterm/colorschemes/index.html

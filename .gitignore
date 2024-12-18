@@ -12,9 +12,11 @@
 
 !/xdg/config/bat/config
 !/xdg/config/git/config
+!/xdg/config/hammerspoon/init.lua
 !/xdg/config/leftwm/config.ron
 !/xdg/config/mise/config.toml
 !/xdg/config/sheldon/plugins.toml
+!/xdg/config/starship.toml
 !/xdg/config/tig/config
 !/xdg/config/vim/vimrc
 !/xdg/config/wezterm/wezterm.lua
@@ -25,7 +27,6 @@
 !/xdg/config/zsh/.zprofile
 !/xdg/config/zsh/.zshenv
 !/xdg/config/zsh/.zshrc
-!/xdg/config/starship.toml
 
 !/xdg/data/cargo/config.toml
 

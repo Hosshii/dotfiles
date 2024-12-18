@@ -9,4 +9,6 @@ if [ "$(uname)" = 'Darwin' ];then
 
     export PATH="$PATH:${HOME}/Library/Application Support/JetBrains/Toolbox/scripts"
     ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+
+    defaults write org.hammerspoon.Hammerspoon MJConfigFile "$XDG_CONFIG_HOME/hammerspoon/init.lua"
 fi
