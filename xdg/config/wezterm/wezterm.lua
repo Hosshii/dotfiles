@@ -20,7 +20,7 @@ return {
     -- ctrl+'-'で上下に分割
     {key="-",mods="CTRL",action=wezterm.action.SplitVertical({domain="CurrentPaneDomain"})},
     -- ctrl+'|'で左右で分割
-    {key="t",mods="CTRL",action=wezterm.action.SplitHorizontal({domain="CurrentPaneDomain"})},
+    {key=";",mods="CTRL",action=wezterm.action.SplitHorizontal({domain="CurrentPaneDomain"})},
     -- ctrl+'w'でpaneを閉じる
     {key="w",mods="CTRL",action=wezterm.action.CloseCurrentPane{confirm=false}},
     -- full screen 切り替え
