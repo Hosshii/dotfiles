@@ -10,6 +10,7 @@
 /xdg/data/sheldon
 /xdg/data/zinit
 
+!/xdg/config/alacritty/alacritty.toml
 !/xdg/config/bat/config
 !/xdg/config/git/config
 !/xdg/config/hammerspoon/init.lua

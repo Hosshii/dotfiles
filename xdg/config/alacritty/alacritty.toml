@@ -1,0 +1,9 @@
+[general]
+import = ["~/.config/alacritty/themes/themes/solarized_light.toml"]
+
+[window]
+startup_mode = "Maximized"
+
+[font]
+normal = { family = "HackGen35 Console NF", style = "Regular"}
+size = 13

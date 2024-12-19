@@ -1,5 +1,5 @@
 local open_wezterm = function()
-    local appName = "WezTerm"
+    local appName = "Alacritty"
     local app = hs.application.get(appName)
 
     if app == nil or app:isHidden() or not(app:isFrontmost()) then
