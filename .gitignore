@@ -19,6 +19,7 @@
 !/xdg/config/sheldon/plugins.toml
 !/xdg/config/starship.toml
 !/xdg/config/tig/config
+!/xdg/config/tmux/tmux.conf
 !/xdg/config/vim/vimrc
 !/xdg/config/wezterm/wezterm.lua
 !/xdg/config/zsh/config/*
