@@ -75,7 +75,7 @@
     window_hiding_strategy: MoveOnly,
     keybind: [
         (command: Execute, value: "dmenu_run", modifier: ["modkey"], key: "p"),
-        (command: Execute, value: "wezterm", modifier: ["modkey", "Shift"], key: "Return"),
+        (command: Execute, value: "alacritty", modifier: ["modkey", "Shift"], key: "Return"),
         (command: CloseWindow, value: "", modifier: ["modkey", "Shift"], key: "q"),
         (command: SoftReload, value: "", modifier: ["modkey", "Shift"], key: "r"),
         (command: Execute, value: "loginctl kill-session $XDG_SESSION_ID", modifier: ["modkey", "Shift"], key: "x"),

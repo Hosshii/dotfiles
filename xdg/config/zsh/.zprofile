@@ -70,6 +70,9 @@ if [ "$(uname)" = 'Darwin' ]; then
   fi
 elif [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]; then
   if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+    # exec > /home/hosshii/tmp/niri.log 2>&1
+    # exec niri --session
+    # niri --session
     exec startx
   fi
 fi
