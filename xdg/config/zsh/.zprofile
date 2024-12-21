@@ -73,6 +73,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]; then
     # exec > /home/hosshii/tmp/niri.log 2>&1
     # exec niri --session
     # niri --session
+    exec > ${HOME}/tmp/x.log
     exec startx
   fi
 fi

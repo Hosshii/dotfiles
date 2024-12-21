@@ -30,6 +30,7 @@ starship
 sheldon
 sudo
 tig
+tmux
 tokei
 tree
 vim

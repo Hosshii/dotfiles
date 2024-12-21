@@ -1,3 +1,4 @@
 [tools]
 deno = "latest"
 go = "1.23.3"
+"npm:pnpm" = "latest"
