@@ -9,6 +9,9 @@ local = "~/.config/zsh/config"
 use = ["sync.zsh"]
 apply = ["source"]
 
+[plugins.mise]
+inline = 'eval "$(mise activate zsh --shims)"'
+
 [plugins.zsh-defer]
 github = "romkatv/zsh-defer"
 apply = ["source"]
@@ -22,9 +25,6 @@ inline = 'autoload -Uz compinit && zsh-defer compinit'
 
 [plugins.fzf]
 inline = 'eval "$(fzf --zsh)"'
-
-[plugins.mise]
-inline = 'eval "$(mise activate zsh)"'
 
 [plugins.starship]
 inline = 'eval "$(starship init zsh)"'

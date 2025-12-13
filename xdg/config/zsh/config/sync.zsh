@@ -36,3 +36,6 @@ setopt inc_append_history
 setopt hist_expand
 
 zstyle ':completion:*' cache-path "${XDG_CACHE_HOME}/zsh/zcompcache"
+
+# roo code
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
