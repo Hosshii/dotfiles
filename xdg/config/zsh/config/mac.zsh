@@ -7,8 +7,8 @@ if [ "$(uname)" = 'Darwin' ];then
     alias ssh='$XDG_CONFIG_HOME/zsh/functions/ssh-change-profile.sh'
     export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
 
-    export PATH="$PATH:${HOME}/Library/Application Support/JetBrains/Toolbox/scripts"
     ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+    export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
 
     defaults write org.hammerspoon.Hammerspoon MJConfigFile "$XDG_CONFIG_HOME/hammerspoon/init.lua"
 fi
