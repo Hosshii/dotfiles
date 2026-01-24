@@ -21,7 +21,7 @@
     system = "aarch64-darwin";
     hostname = "andouhanshirous-MacBook-Air";
     username = "andouhanshirou";
-    homedir = "/Users/${username}";
+    homedir = /Users/${username};
 
     pkgs = import nixpkgs {
       inherit system;
@@ -65,22 +65,21 @@
       modules = [ 
         configuration
         home-manager.darwinModules.home-manager
-        # {
-        #   networking.hostName = hostname;
-        #   home-manager = {
-        #     useGlobalPkgs = true;
-        #     useUserPackages = true;
-        #     extraSpecialArgs = { inherit inputs username; };
-        #     users.${username} = {
-        #       home = {
-        #         username = username;
-        #         homeDirectory = homedir;
-        #         # home-manager のステートバージョン
-        #         stateVersion = "24.05";
-        #       };
-        #     };
-        #   };
-        # }
+        {
+          users.users.andouhanshirou.home = homedir;
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            users."${username}" = {
+              home = {
+                username = username;
+                homeDirectory = homedir;
+                # home-manager のステートバージョン
+                stateVersion = "25.11";
+              };
+            };
+          };
+        }
       ];
     };
 
