@@ -6,7 +6,6 @@
 
 [core]
 	editor = vim
-    pager = delta
 
 [pull]
 	ff = only
