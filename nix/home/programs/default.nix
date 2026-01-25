@@ -1,6 +1,7 @@
 { gitConfig, ... }: {
   imports = [
-    (import ./git/default.nix { config = gitConfig; })
     (import ./bat/default.nix)
+    (import ./fzf/default.nix)
+    (import ./git/default.nix { config = gitConfig; })
   ];
 }
