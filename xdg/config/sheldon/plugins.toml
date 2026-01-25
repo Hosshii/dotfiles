@@ -26,9 +26,6 @@ inline = 'autoload -Uz compinit && zsh-defer compinit'
 [plugins.starship]
 inline = 'eval "$(starship init zsh)"'
 
-[plugins.z]
-github = "rupa/z"
-
 # [plugins.zsh-autocomplete]
 # github = "marlonrichert/zsh-autocomplete"
 # apply = ["source"]
