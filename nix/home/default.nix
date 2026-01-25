@@ -7,6 +7,10 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     users."${username}" = {
+      imports = [
+        (import ./programs/default.nix { inherit gitConfig; })
+      ];
+
       home = {
         username = username;
         homeDirectory = homedir;
@@ -16,19 +20,6 @@
         packages = [
           pkgs.bat
         ];
-      };
-
-      programs = {
-        bat = {
-          enable = true;
-          config = {
-            theme = "Solarized (light)";
-          };
-        };
-
-        git = import ./git/default.nix {
-          config = gitConfig;
-        };
       };
     };
   };
