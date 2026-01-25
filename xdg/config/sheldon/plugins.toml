@@ -23,9 +23,6 @@ use = ["{!sync,*}.zsh"]
 [plugins.compinit]
 inline = 'autoload -Uz compinit && zsh-defer compinit'
 
-[plugins.fzf]
-inline = 'eval "$(fzf --zsh)"'
-
 [plugins.starship]
 inline = 'eval "$(starship init zsh)"'
 

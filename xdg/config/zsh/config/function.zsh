@@ -1,6 +1,4 @@
 #ctr+rでfzfで履歴検索
-export FZF_DEFAULT_OPTS="--reverse --border -0 --marker "⇡"  --bind '?:toggle-preview'"
-
 function fzf_select_history() {
   local tac
   if which tac >/dev/null; then
