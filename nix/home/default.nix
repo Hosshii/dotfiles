@@ -8,7 +8,8 @@
     useUserPackages = true;
     users."${username}" = {
       imports = [
-        (import ./programs/default.nix { inherit gitConfig; })
+        (import ./core/default.nix { inherit gitConfig; })
+        (import ./gui/default.nix { inherit gitConfig; })
       ];
 
       home = {

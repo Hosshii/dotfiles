@@ -1,6 +1,5 @@
 { gitConfig, ... }: {
   imports = [
-    (import ./alacritty/default.nix)
     (import ./bat/default.nix)
     (import ./eza/default.nix)
     (import ./fzf/default.nix)
