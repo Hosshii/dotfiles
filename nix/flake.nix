@@ -22,10 +22,15 @@
       hostname = "andouhanshirous-MacBook-Air";
       username = "andouhanshirou";
       homedir = /Users/${username};
-
-      pkgs = import nixpkgs {
-        inherit system;
+      gitConfig = {
+        name = "Hosshii";
+        email = "sao_heath6147.wistre@icloud.com";
+        signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGlJMlA5F3n+RiT3Uml1RTx9RSO6A9Alw4/YQJDrLTEM";
+        sshProgram = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
       };
+
+
+      pkgs = nixpkgs.legacyPackages.${system};
 
       configuration = { pkgs, ... }: {
         # List packages installed in system profile. To search by name, run:
@@ -48,12 +53,13 @@
         # The platform the configuration will be used on.
         nixpkgs.hostPlatform = system;
 
+        programs.zsh.enable = true;
         programs.zsh.shellInit = ''
-          # Set up Nix only on SSH connections
-          # See: https://github.com/DeterminateSystems/nix-installer/pull/714
-          if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ] && [ -n "''${SSH_CONNECTION:-}" ] && [ "''${SHLVL:-0}" -eq 1 ]; then
-              . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-          fi
+          # # Set up Nix only on SSH connections
+          # # See: https://github.com/DeterminateSystems/nix-installer/pull/714
+          # if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ] && [ -n "''${SSH_CONNECTION:-}" ] && [ "''${SHLVL:-0}" -eq 1 ]; then
+          #     . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+          # fi
           # End Nix
           export ZDOTDIR="$HOME"/.config/zsh
         '';
@@ -66,21 +72,9 @@
         modules = [
           configuration
           home-manager.darwinModules.home-manager
-          {
-            users.users.andouhanshirou.home = homedir;
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users."${username}" = {
-                home = {
-                  username = username;
-                  homeDirectory = homedir;
-                  # home-manager のステートバージョン
-                  stateVersion = "25.11";
-                };
-              };
-            };
-          }
+          (import ./home/default.nix {
+            inherit pkgs username homedir gitConfig;
+          })
         ];
       };
 
