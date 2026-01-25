@@ -18,7 +18,13 @@
         stateVersion = "25.11";
 
         packages = [
-          pkgs.bat
+          pkgs.dust
+          pkgs.fd
+          pkgs.onefetch
+          pkgs.sccache
+          pkgs.tokei
+          pkgs.tree
+          pkgs.wget
         ];
       };
     };
