@@ -1,11 +1,7 @@
 #エイリアスの設定
 alias c="clear"
 alias py="python"
-# alias cat="cat -v"
 alias g="git"
-alias lzd="lazydocker"
-alias lg="lazygit"
-alias ks="ls"
 alias la='ls -a'
 alias ll='ls -lgh --git'
 alias lla='ls -lgha --git'
@@ -14,7 +10,7 @@ alias ls='eza --icons=auto --git'
 alias cat='bat'
 alias code-arch='code --remote ssh-remote+arch'
 
-# return commi
+# return commit
 alias -g C='`glNoGraph |
     fzf --no-sort --reverse --tiebreak=index --no-multi \
         --ansi --preview="$_viewGitLogLine" | \

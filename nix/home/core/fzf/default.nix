@@ -1,7 +1,7 @@
 {
   programs.fzf = {
     enable = true;
-    enableZshIntegration = true;
+    enableZshIntegration = false; # sheldon で遅延読み込みするため無効化
     defaultOptions = [
       "--reverse"
       "--border"

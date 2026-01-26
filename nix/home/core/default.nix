@@ -6,8 +6,10 @@
     ./htop/default.nix
     ./jq/default.nix
     ./ripgrep/default.nix
+    ./starship/default.nix
     ./tmux/default.nix
     ./zoxide/default.nix
+    ./zsh/default.nix
 
     (import ./git/default.nix { config = gitConfig; })
   ];

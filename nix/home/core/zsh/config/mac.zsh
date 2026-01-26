@@ -4,7 +4,6 @@ if [ "$(uname)" = 'Darwin' ];then
     # iterm2 のテーマをデフォルトにセット
     echo -ne "\033]1337;SetProfile=Default\a"
 
-    alias ssh='$XDG_CONFIG_HOME/zsh/functions/ssh-change-profile.sh'
     export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
 
     ssh-add --apple-use-keychain ~/.ssh/id_ed25519

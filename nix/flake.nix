@@ -53,16 +53,13 @@
         # The platform the configuration will be used on.
         nixpkgs.hostPlatform = system;
 
-        programs.zsh.enable = true;
-        programs.zsh.shellInit = ''
-          # # Set up Nix only on SSH connections
-          # # See: https://github.com/DeterminateSystems/nix-installer/pull/714
-          # if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ] && [ -n "''${SSH_CONNECTION:-}" ] && [ "''${SHLVL:-0}" -eq 1 ]; then
-          #     . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-          # fi
-          # End Nix
-          export ZDOTDIR="$HOME"/.config/zsh
-        '';
+        programs.zsh = {
+          enable = true;
+          # 遅くなるので無効化する。home-manager の sheldon で設定している
+          enableCompletion = false;
+          enableBashCompletion = false;
+          promptInit = "";
+        };
       };
     in
     {
