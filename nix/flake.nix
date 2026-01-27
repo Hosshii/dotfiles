@@ -15,7 +15,13 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, nix-darwin, home-manager }:
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      nix-darwin,
+      home-manager,
+    }:
     let
       # システムアーキテクチャ（Apple Silicon）
       system = "aarch64-darwin";
@@ -29,38 +35,40 @@
         sshProgram = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
       };
 
-
       pkgs = nixpkgs.legacyPackages.${system};
 
-      configuration = { pkgs, ... }: {
-        # List packages installed in system profile. To search by name, run:
-        # $ nix-env -qaP | grep wget
-        environment.systemPackages =
-          [
+      configuration =
+        { pkgs, ... }:
+        {
+          # List packages installed in system profile. To search by name, run:
+          # $ nix-env -qaP | grep wget
+          environment.systemPackages = [
             pkgs.vim
           ];
 
-        # installed via determinate
-        nix.enable = false;
-        system = {
-          # Set Git commit hash for darwin-version.
-          configurationRevision = self.rev or self.dirtyRev or null;
-          # Used for backwards compatibility, please read the changelog before changing.
-          # $ darwin-rebuild changelog
-          stateVersion = 6;
-        };
+          # installed via determinate
+          nix.enable = false;
+          system = {
+            # Set Git commit hash for darwin-version.
+            configurationRevision = self.rev or self.dirtyRev or null;
+            # Used for backwards compatibility, please read the changelog before changing.
+            # $ darwin-rebuild changelog
+            stateVersion = 6;
+          };
 
-        # The platform the configuration will be used on.
-        nixpkgs.hostPlatform = system;
+          # The platform the configuration will be used on.
+          nixpkgs.hostPlatform = system;
 
-        programs.zsh = {
-          enable = true;
-          # 遅くなるので無効化する。home-manager の sheldon で設定している
-          enableCompletion = false;
-          enableBashCompletion = false;
-          promptInit = "";
+          nixpkgs.config.allowUnfree = true;
+
+          programs.zsh = {
+            enable = true;
+            # 遅くなるので無効化する。home-manager の sheldon で設定している
+            enableCompletion = false;
+            enableBashCompletion = false;
+            promptInit = "";
+          };
         };
-      };
     in
     {
       # Build darwin flake using:
@@ -70,7 +78,12 @@
           configuration
           home-manager.darwinModules.home-manager
           (import ./home/default.nix {
-            inherit pkgs username homedir gitConfig;
+            inherit
+              pkgs
+              username
+              homedir
+              gitConfig
+              ;
           })
         ];
       };

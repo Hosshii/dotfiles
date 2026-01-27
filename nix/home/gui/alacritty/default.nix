@@ -21,7 +21,11 @@
       terminal = {
         shell = {
           program = "/bin/zsh";
-          args = [ "-l" "-c" "tmux a -t 0 || tmux" ];
+          args = [
+            "-l"
+            "-c"
+            "tmux a -t 0 || tmux"
+          ];
         };
       };
 

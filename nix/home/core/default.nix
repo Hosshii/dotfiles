@@ -1,4 +1,5 @@
-{ gitConfig, ... }: {
+{ gitConfig, ... }:
+{
   imports = [
     ./bat/default.nix
     ./eza/default.nix

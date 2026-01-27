@@ -1,8 +1,16 @@
-{ pkgs, username, homedir, gitConfig, ... }: {
+{
+  pkgs,
+  username,
+  homedir,
+  gitConfig,
+  ...
+}:
+{
   # これを設定しないと homeDirectory is nullみたいなエラーになる
   # https://github.com/nix-community/home-manager/issues/6743
   # https://github.com/nix-community/home-manager/issues/6557
   users.users.andouhanshirou.home = homedir;
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
@@ -26,6 +34,8 @@
           pkgs.tokei
           pkgs.tree
           pkgs.wget
+          pkgs.nixfmt
+          pkgs.nil
         ];
       };
     };
