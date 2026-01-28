@@ -25,18 +25,6 @@
         homeDirectory = homedir;
         # home-manager のステートバージョン
         stateVersion = "25.11";
-
-        packages = [
-          pkgs.dust
-          pkgs.fd
-          pkgs.onefetch
-          pkgs.sccache
-          pkgs.tokei
-          pkgs.tree
-          pkgs.wget
-          pkgs.nixfmt
-          pkgs.nil
-        ];
       };
     };
   };
