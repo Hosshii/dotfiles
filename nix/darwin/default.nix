@@ -1,0 +1,36 @@
+{ pkgs, system, homedir, self, ... }:
+{
+  # List packages installed in system profile. To search by name, run:
+  # $ nix-env -qaP | grep wget
+  environment.systemPackages = [
+    pkgs.vim
+  ];
+
+  # installed via determinate
+  nix.enable = false;
+  system = {
+    # Set Git commit hash for darwin-version.
+    configurationRevision = self.rev or self.dirtyRev or null;
+    # Used for backwards compatibility, please read the changelog before changing.
+    # $ darwin-rebuild changelog
+    stateVersion = 6;
+  };
+
+  # The platform the configuration will be used on.
+  nixpkgs.hostPlatform = system;
+
+  nixpkgs.config.allowUnfree = true;
+
+  # これを設定しないと homeDirectory is nullみたいなエラーになる
+  # https://github.com/nix-community/home-manager/issues/6743
+  # https://github.com/nix-community/home-manager/issues/6557
+  users.users.andouhanshirou.home = homedir;
+
+  programs.zsh = {
+    enable = true;
+    # 遅くなるので無効化する。home-manager の sheldon で設定している
+    enableCompletion = false;
+    enableBashCompletion = false;
+    promptInit = "";
+  };
+}

@@ -12,6 +12,7 @@
     ./onefetch/default.nix
     ./ripgrep/default.nix
     ./sccache/default.nix
+    ./ssh/default.nix
     ./starship/default.nix
     ./tmux/default.nix
     ./tokei/default.nix

@@ -8,6 +8,5 @@
     # ./hammerspoon/default.nix
     ./raycast/default.nix
     # ./vscode/default.nix
-    # ./wezterm/default.nix
   ];
 }

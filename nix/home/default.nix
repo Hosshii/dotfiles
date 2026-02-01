@@ -1,24 +1,31 @@
-{
-  pkgs,
-  username,
-  homedir,
-  gitConfig,
-  ...
+{ pkgs
+, username
+, homedir
+, gitConfig
+, onePasswordConfig
+, ...
 }:
 {
-  # これを設定しないと homeDirectory is nullみたいなエラーになる
-  # https://github.com/nix-community/home-manager/issues/6743
-  # https://github.com/nix-community/home-manager/issues/6557
-  users.users.andouhanshirou.home = homedir;
-
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
     users."${username}" = {
       imports = [
         (import ./core/default.nix { inherit gitConfig; })
-        (import ./gui/default.nix { inherit gitConfig; })
+        ./gui/default.nix
+        ./_1password
       ];
+
+      programs._1password = {
+        enable = onePasswordConfig.enable;
+        cli.enable = onePasswordConfig.cli.enable;
+        gui.enable = onePasswordConfig.gui.enable;
+        sshIntegration.enable = onePasswordConfig.sshIntegration.enable;
+        gitSignIntegration = {
+          enable = onePasswordConfig.gitSignIntegration.enable;
+          signingKey = onePasswordConfig.gitSignIntegration.signingKey;
+        };
+      };
 
       home = {
         username = username;
