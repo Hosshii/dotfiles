@@ -68,7 +68,6 @@
       darwinConfigurations."${hostname}" = nix-darwin.lib.darwinSystem {
         modules = [
           (import ./darwin/default.nix { inherit system pkgs homedir self; })
-          ./darwin/_1password/default.nix
           home-manager.darwinModules.home-manager
           (import ./home/default.nix {
             inherit

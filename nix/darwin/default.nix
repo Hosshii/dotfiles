@@ -26,11 +26,8 @@
   # https://github.com/nix-community/home-manager/issues/6557
   users.users.andouhanshirou.home = homedir;
 
-  programs.zsh = {
-    enable = true;
-    # 遅くなるので無効化する。home-manager の sheldon で設定している
-    enableCompletion = false;
-    enableBashCompletion = false;
-    promptInit = "";
-  };
+  imports = [
+    ./_1password/default.nix
+    ./zsh/default.nix
+  ];
 }

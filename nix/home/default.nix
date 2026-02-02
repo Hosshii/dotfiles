@@ -13,7 +13,8 @@
       imports = [
         (import ./core/default.nix { inherit gitConfig; })
         ./gui/default.nix
-        ./_1password
+        ./_1password/default.nix
+        ./opt/terminal-notifier/default.nix
       ];
 
       programs._1password = {
