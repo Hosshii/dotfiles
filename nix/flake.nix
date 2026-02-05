@@ -23,19 +23,25 @@
     ,
     }:
     let
-      # システムアーキテクチャ（Apple Silicon）
-      system = "aarch64-darwin";
-      hostname = "andouhanshirous-MacBook-Air";
-      username = "andouhanshirou";
-      homedir = /Users/${username};
+      # === macOS ホスト ===
+      darwinSystem = "aarch64-darwin";
+      darwinHostname = "andouhanshirous-MacBook-Air";
+      darwinUsername = "andouhanshirou";
+      darwinHomedir = "/Users/${darwinUsername}";
 
-      # Git用（name/emailのみ）
+      # === Arch Linux ホスト ===
+      linuxSystem = "x86_64-linux";
+      linuxHostname = "hosshiiarch";
+      linuxUsername = "hosshii";
+      linuxHomedir = "/home/${linuxUsername}";
+
+      # Git 設定 (共通)
       gitConfig = {
         name = "Hosshii";
         email = "sao_heath6147.wistre@icloud.com";
       };
 
-      # 1Password用
+      # 1Password 設定 (macOS のみ)
       onePasswordConfig = {
         enable = true;
         # mac だと nix darwinで入れないとうまく動かないので無効化
@@ -48,40 +54,44 @@
         };
       };
 
-      # arch用（将来）
-      # onePasswordConfigArch = {
-      #   enable = true;
-      #   cli.enable = false;
-      #   gui.enable = false;
-      #   sshIntegration.enable = true;  # SSH forwarding経由
-      #   gitSignIntegration = {
-      #     enable = true;
-      #     signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGlJMlA5F3n+RiT3Uml1RTx9RSO6A9Alw4/YQJDrLTEM";
-      #   };
-      # };
-
-      pkgs = nixpkgs.legacyPackages.${system};
+      darwinPkgs = nixpkgs.legacyPackages.${darwinSystem};
+      linuxPkgs = nixpkgs.legacyPackages.${linuxSystem};
     in
     {
-      # Build darwin flake using:
-      # $ darwin-rebuild build --flake .#simple
-      darwinConfigurations."${hostname}" = nix-darwin.lib.darwinSystem {
+      # === macOS: nix-darwin + home-manager ===
+      darwinConfigurations."${darwinHostname}" = nix-darwin.lib.darwinSystem {
         modules = [
-          (import ./darwin/default.nix { inherit system pkgs homedir self; })
+          (import ./darwin/default.nix { system = darwinSystem; pkgs = darwinPkgs; homedir = darwinHomedir; inherit self; })
           home-manager.darwinModules.home-manager
-          (import ./home/default.nix {
-            inherit
-              pkgs
-              username
-              homedir
-              gitConfig
-              onePasswordConfig
-              ;
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users."${darwinUsername}" = import ./hosts/macbook/home.nix {
+                username = darwinUsername;
+                homedir = darwinHomedir;
+                inherit gitConfig onePasswordConfig;
+              };
+            };
+          }
+        ];
+      };
+
+      # === Arch Linux: standalone home-manager ===
+      homeConfigurations."${linuxUsername}@${linuxHostname}" = home-manager.lib.homeManagerConfiguration {
+        pkgs = linuxPkgs;
+        modules = [
+          (import ./hosts/archlinux/home.nix {
+            username = linuxUsername;
+            homedir = linuxHomedir;
+            inherit gitConfig;
           })
+          { nixpkgs.config.allowUnfree = true; }
         ];
       };
 
       # フォーマッター
-      formatter.${system} = pkgs.nixpkgs-fmt;
+      formatter.${darwinSystem} = darwinPkgs.nixpkgs-fmt;
+      formatter.${linuxSystem} = linuxPkgs.nixpkgs-fmt;
     };
 }
