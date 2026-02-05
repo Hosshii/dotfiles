@@ -18,7 +18,8 @@
     ./tmux/default.nix
     ./tokei/default.nix
     ./tree/default.nix
-      ./wget/default.nix
+    ./vim/default.nix
+    ./wget/default.nix
     ./zoxide/default.nix
     ./zsh/default.nix
 
