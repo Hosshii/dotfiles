@@ -2,6 +2,7 @@
 {
   imports = [
     ./bat/default.nix
+    ./direnv/default.nix
     ./dust/default.nix
     ./eza/default.nix
     ./fd/default.nix
@@ -17,6 +18,7 @@
     ./tmux/default.nix
     ./tokei/default.nix
     ./tree/default.nix
+      ./wget/default.nix
     ./zoxide/default.nix
     ./zsh/default.nix
 
