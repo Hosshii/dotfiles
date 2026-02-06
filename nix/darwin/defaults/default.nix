@@ -20,7 +20,7 @@
         FXDefaultSearchScope = "SCcf";
         ShowPathbar = true;
         ShowStatusBar = true;
-        NewWindowTarget = "PfDe";
+        NewWindowTarget = "Other";
         NewWindowTargetPath = "file://${homedir}/";
         # 完全パスを表示する
         _FXShowPosixPathInTitle = true;
@@ -35,6 +35,19 @@
         autohide = true;
         # ホットコーナー(右上)にDisplay Sleepを設定する
         wvous-tr-corner = 10;
+      };
+
+      menuExtraClock = {
+        # メニューバーの時計を24時間表示にする
+        Show24Hour = true;
+        # メニューバーに余裕がある場合は日付を表示する
+        ShowDate = 0;
+        # 日付を表示する
+        ShowDayOfMonth = true;
+        # 曜日を表示する
+        ShowDayOfWeek = true;
+        # 秒は表示しない
+        ShowSeconds = false;
       };
 
       CustomUserPreferences = {

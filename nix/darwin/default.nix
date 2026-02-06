@@ -24,6 +24,8 @@
   # これを設定しないと homeDirectory is nullみたいなエラーになる
   # https://github.com/nix-community/home-manager/issues/6743
   # https://github.com/nix-community/home-manager/issues/6557
+  system.primaryUser = username;
+
   users.users.${username}.home = homedir;
 
   imports = [
