@@ -9,7 +9,7 @@ in
 {
   darwinConfigurations."${hostname}" = inputs.nix-darwin.lib.darwinSystem {
     modules = [
-      (import ../../darwin/default.nix { inherit system pkgs homedir; self = inputs.self; })
+      (import ../../darwin/default.nix { inherit system username pkgs homedir; self = inputs.self; })
       inputs.home-manager.darwinModules.home-manager
       {
         home-manager = {

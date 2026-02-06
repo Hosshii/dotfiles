@@ -1,4 +1,4 @@
-{ pkgs, system, homedir, self, ... }:
+{ pkgs, system, username, homedir, self, ... }:
 {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
@@ -24,7 +24,7 @@
   # これを設定しないと homeDirectory is nullみたいなエラーになる
   # https://github.com/nix-community/home-manager/issues/6743
   # https://github.com/nix-community/home-manager/issues/6557
-  users.users.andouhanshirou.home = homedir;
+  users.users.${username}.home = homedir;
 
   imports = [
     ./_1password/default.nix
