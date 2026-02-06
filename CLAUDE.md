@@ -45,7 +45,7 @@ nix fmt
 - 各ツールは独立した `default.nix` として定義する
 - `home/core/` は全ホスト共通、`home/gui/` と `home/opt/` はホスト依存
 - `hosts/<ホスト名>/home.nix` でモジュール選択を制御
-- `flake.nix` でホスト変数（ユーザー名、ホームディレクトリ等）を定義し `extraSpecialArgs` 的に注入
+- `hosts/<ホスト名>/default.nix` でホスト変数（ユーザー名、ホームディレクトリ等）を定義し `extraSpecialArgs` で注入。`flake.nix` は薄いエントリポイント
 - フォーマッタは `nixpkgs-fmt`
 
 ## Gotchas

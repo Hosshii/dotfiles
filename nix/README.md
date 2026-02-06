@@ -46,13 +46,13 @@ nix/
 │   ├── gui/               # GUI アプリ
 │   │   ├── default.nix    # 集約モジュール
 │   │   ├── alacritty/     # Alacritty
-│   │   ├── discord/       # Discord
-│   │   ├── firefox/       # Firefox
 │   │   ├── fonts/         # フォント
-│   │   ├── google-chrome/ # Google Chrome
 │   │   ├── hammerspoon/   # Hammerspoon
 │   │   ├── raycast/       # Raycast
-│   │   └── vscode/        # VS Code
+│   │   ├── discord/       # Discord (未使用)
+│   │   ├── firefox/       # Firefox (未使用)
+│   │   ├── google-chrome/ # Google Chrome (未使用)
+│   │   └── vscode/        # VS Code (未使用)
 │   ├── opt/               # オプションツール
 │   │   ├── default.nix    # 集約モジュール
 │   │   ├── binutils/      # binutils
@@ -63,9 +63,11 @@ nix/
 │   └── _1password/        # 1Password モジュール (home-manager レベル)
 └── hosts/                 # ホスト別設定
     ├── macbook/
+    │   ├── default.nix    # ホスト変数定義 + nix-darwin 設定
     │   ├── home.nix       # macOS の home-manager 設定
     │   └── ssh.nix        # arch への SSH 接続設定
     └── archlinux/
+        ├── default.nix    # ホスト変数定義 + home-manager 設定
         └── home.nix       # Arch Linux の home-manager 設定
 ```
 
@@ -81,9 +83,10 @@ nix/
 | モジュール | macOS | Arch Linux |
 |---|---|---|
 | `home/core` (全て) | o | o |
-| `home/gui` (全て) | o | |
-| `home/gui/alacritty` | | o |
-| `home/gui/fonts` | | o |
+| `home/gui/alacritty` | o | o |
+| `home/gui/fonts` | o | o |
+| `home/gui/hammerspoon` | o | |
+| `home/gui/raycast` | o | |
 | `home/opt` (全て) | o | |
 | `home/opt` (terminal-notifier 以外) | | o |
 | `home/_1password` | o | |
@@ -122,5 +125,6 @@ nix fmt
 
 ## 新しいホストの追加方法
 
-1. `hosts/<ホスト名>/home.nix` を作成し、必要なモジュールを import
-2. `flake.nix` にホスト変数と configuration を追加
+1. `hosts/<ホスト名>/default.nix` を作成し、ホスト変数（ユーザー名、ホームディレクトリ等）を定義
+2. `hosts/<ホスト名>/home.nix` を作成し、必要なモジュールを import
+3. `flake.nix` にホストの configuration を追加
