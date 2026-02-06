@@ -29,5 +29,6 @@
   imports = [
     ./_1password/default.nix
     ./zsh/default.nix
+    (import ./defaults/default.nix { inherit homedir; })
   ];
 }
