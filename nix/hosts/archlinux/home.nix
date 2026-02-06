@@ -1,7 +1,7 @@
-{ username, homedir, gitConfig }:
+{ hostConfig, ... }:
 {
   imports = [
-    (import ../../home/core { inherit gitConfig; })
+    ../../home/core
 
     # GUI (Arch で使うもののみ)
     ../../home/gui/alacritty
@@ -14,9 +14,14 @@
     ../../home/opt/time
   ];
 
+  custom.git = {
+    name = "Hosshii";
+    email = "sao_heath6147.wistre@icloud.com";
+  };
+
   home = {
-    inherit username;
-    homeDirectory = homedir;
+    username = hostConfig.username;
+    homeDirectory = hostConfig.homedir;
     stateVersion = "25.11";
   };
 }

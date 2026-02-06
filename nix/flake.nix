@@ -35,25 +35,6 @@
       linuxUsername = "hosshii";
       linuxHomedir = "/home/${linuxUsername}";
 
-      # Git 設定 (共通)
-      gitConfig = {
-        name = "Hosshii";
-        email = "sao_heath6147.wistre@icloud.com";
-      };
-
-      # 1Password 設定 (macOS のみ)
-      onePasswordConfig = {
-        enable = true;
-        # mac だと nix darwinで入れないとうまく動かないので無効化
-        cli.enable = false;
-        gui.enable = false;
-        sshIntegration.enable = true;
-        gitSignIntegration = {
-          enable = true;
-          signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGlJMlA5F3n+RiT3Uml1RTx9RSO6A9Alw4/YQJDrLTEM";
-        };
-      };
-
       darwinPkgs = nixpkgs.legacyPackages.${darwinSystem};
       linuxPkgs = nixpkgs.legacyPackages.${linuxSystem};
     in
@@ -67,11 +48,13 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              users."${darwinUsername}" = import ./hosts/macbook/home.nix {
-                username = darwinUsername;
-                homedir = darwinHomedir;
-                inherit gitConfig onePasswordConfig;
+              extraSpecialArgs = {
+                hostConfig = {
+                  username = darwinUsername;
+                  homedir = darwinHomedir;
+                };
               };
+              users."${darwinUsername}" = import ./hosts/macbook/home.nix;
             };
           }
         ];
@@ -80,12 +63,14 @@
       # === Arch Linux: standalone home-manager ===
       homeConfigurations."${linuxUsername}@${linuxHostname}" = home-manager.lib.homeManagerConfiguration {
         pkgs = linuxPkgs;
-        modules = [
-          (import ./hosts/archlinux/home.nix {
+        extraSpecialArgs = {
+          hostConfig = {
             username = linuxUsername;
             homedir = linuxHomedir;
-            inherit gitConfig;
-          })
+          };
+        };
+        modules = [
+          ./hosts/archlinux/home.nix
           { nixpkgs.config.allowUnfree = true; }
         ];
       };

@@ -1,27 +1,32 @@
-{ username, homedir, gitConfig, onePasswordConfig }:
+{ hostConfig, ... }:
 {
   imports = [
-    (import ../../home/core { inherit gitConfig; })
+    ../../home/core
     ../../home/gui
     ../../home/opt
     ../../home/_1password
     ./ssh.nix
   ];
 
+  custom.git = {
+    name = "Hosshii";
+    email = "sao_heath6147.wistre@icloud.com";
+  };
+
   programs._1password = {
-    enable = onePasswordConfig.enable;
-    cli.enable = onePasswordConfig.cli.enable;
-    gui.enable = onePasswordConfig.gui.enable;
-    sshIntegration.enable = onePasswordConfig.sshIntegration.enable;
+    enable = true;
+    cli.enable = false;
+    gui.enable = false;
+    sshIntegration.enable = true;
     gitSignIntegration = {
-      enable = onePasswordConfig.gitSignIntegration.enable;
-      signingKey = onePasswordConfig.gitSignIntegration.signingKey;
+      enable = true;
+      signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGlJMlA5F3n+RiT3Uml1RTx9RSO6A9Alw4/YQJDrLTEM";
     };
   };
 
   home = {
-    inherit username;
-    homeDirectory = homedir;
+    username = hostConfig.username;
+    homeDirectory = hostConfig.homedir;
     stateVersion = "25.11";
   };
 }

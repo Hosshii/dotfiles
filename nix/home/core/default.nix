@@ -1,4 +1,4 @@
-{ gitConfig, ... }:
+{ ... }:
 {
   imports = [
     ./bat/default.nix
@@ -8,6 +8,7 @@
     ./fd/default.nix
     ./fzf/default.nix
     ./ghq/default.nix
+    ./git/default.nix
     ./htop/default.nix
     ./jq/default.nix
     ./onefetch/default.nix
@@ -22,7 +23,5 @@
     ./wget/default.nix
     ./zoxide/default.nix
     ./zsh/default.nix
-
-    (import ./git/default.nix { config = gitConfig; })
   ];
 }
