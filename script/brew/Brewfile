@@ -1,3 +1,2 @@
-brew "vim"
 cask "firefox"
 cask "google-chrome"
