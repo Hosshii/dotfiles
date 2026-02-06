@@ -1,42 +1,55 @@
-# CLAUDE.md
+# dotfiles
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## Overview
-
-This is a personal dotfiles repository that manages configuration files for macOS and Linux (Arch Linux). It uses [rhysd/dotfiles](https://github.com/rhysd/dotfiles) tool to create symlinks from this repository to the appropriate locations.
-
-## Installation
-
-```bash
-bash -c "$(curl -L https://raw.githubusercontent.com/Hosshii/dotfiles/master/install.sh)"
-```
+Nix (nix-darwin + home-manager) ベースのマルチプラットフォーム dotfiles 管理。
 
 ## Architecture
 
-### Directory Structure
+```
+nix/          Nix 設定本体 (flake.nix がここにある)
+├── darwin/   macOS システムレベル設定 (nix-darwin)
+├── home/     home-manager モジュールライブラリ
+│   ├── core/ CLI ツール (全ホスト共通)
+│   ├── gui/  GUI アプリ (ホスト依存)
+│   └── opt/  オプションツール (ホスト依存)
+└── hosts/    ホスト別モジュール選択
+config/       Nix 管理外の設定ファイル
+```
 
-- `xdg/config/` - XDG config files, symlinked to `~/.config/`
-- `xdg/data/` - XDG data files, symlinked to `~/.local/share/`
-- `config/` - System configuration files (e.g., Xorg configs for Linux)
-- `script/` - Platform-specific initialization scripts
-- `.dotfiles/` - Symlink mapping definitions (JSON files)
+Nix 構成の詳細は以下を参照:
 
-### Symlink Mappings
+@import nix/README.md
 
-Mappings are defined in `.dotfiles/mappings_*.json`:
-- `mappings_unixlike.json` - Common mappings for macOS/Linux (`xdg/config` → `~/.config`, `xdg/data` → `~/.local/share`)
-- `mappings_linux.json` - Linux-specific mappings (e.g., Xorg keyboard config)
+## Key Commands
 
-### Platform-Specific Scripts
+すべて `nix/` ディレクトリで実行する。
 
-- `script/brew/` - macOS (Homebrew setup, Brewfile)
-- `script/pacman/` - Arch Linux (pacman/paru packages)
-- `script/manual/` - Cross-platform manual setup (rustup)
-- `script/default_write/` - macOS system preferences
+```bash
+# macOS: ビルド & 適用
+sudo nix run nix-darwin -- switch --flake .
 
-## Post-Installation Manual Changes
+# Arch Linux: 適用
+nix run home-manager -- switch --flake .#hosshii@hosshiiarch
 
-After installation, manually configure in `xdg/config/git/config`:
-- `name` - Git user name
-- `email` - Git email address
+# フォーマット (nixpkgs-fmt)
+nix fmt
+```
+
+## Adding a New Module
+
+1. `home/<カテゴリ>/<ツール名>/default.nix` にモジュールを作成
+2. 全ホスト共通なら集約 `default.nix` (`home/core/default.nix` 等) に追加
+3. 特定ホストのみなら `hosts/<ホスト名>/home.nix` の imports に直接追加
+
+## Important Conventions
+
+- 各ツールは独立した `default.nix` として定義する
+- `home/core/` は全ホスト共通、`home/gui/` と `home/opt/` はホスト依存
+- `hosts/<ホスト名>/home.nix` でモジュール選択を制御
+- `flake.nix` でホスト変数（ユーザー名、ホームディレクトリ等）を定義し `extraSpecialArgs` 的に注入
+- フォーマッタは `nixpkgs-fmt`
+
+## Gotchas
+
+- nix コマンドは必ず `nix/` ディレクトリで実行する（`flake.nix` がそこにある）
+- レガシーの `install.sh`、`script/`、`config/` は旧インストール方式（rhysd/dotfiles ベース）
+- `nix2/` は実験的ディレクトリで使用しない
