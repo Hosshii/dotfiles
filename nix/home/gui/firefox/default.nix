@@ -8,7 +8,7 @@ in
     enable = true;
     languagePacks = [ "ja" ];
 
-    profiles.alpha = {
+    profiles.default = {
       id = 0;
       isDefault = true;
       extensions.packages = [ addons.onepassword ];

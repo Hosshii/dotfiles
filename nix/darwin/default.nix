@@ -4,6 +4,7 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = [
     pkgs.vim
+    pkgs.defaultbrowser
   ];
 
   # installed via determinate
@@ -27,6 +28,10 @@
   system.primaryUser = username;
 
   users.users.${username}.home = homedir;
+
+  system.activationScripts.setDefaultBrowser.text = ''
+    sudo -u ${username} ${pkgs.defaultbrowser}/bin/defaultbrowser firefox
+  '';
 
   imports = [
     ./_1password/default.nix
