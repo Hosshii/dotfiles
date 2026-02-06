@@ -7,6 +7,8 @@
       enableExtensionUpdateCheck = false;
       enableUpdateCheck = false;
 
+      # バグでプロファイル内に設定できない
+      # https://github.com/nix-community/home-manager/issues/7880
       extensions = with pkgs.vscode-extensions; [
         donjayamanne.githistory
         jnoortheen.nix-ide
@@ -22,6 +24,9 @@
         tamasfe.even-better-toml
         vscodevim.vim
       ];
+
+      # バグでファイルを設定できない　
+      # https://github.com/nix-community/home-manager/issues/7726
       userSettings = {
         "claudeCode.preferredLocation" = "panel";
         "diffEditor.ignoreTrimWhitespace" = false;

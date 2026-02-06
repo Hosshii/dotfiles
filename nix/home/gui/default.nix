@@ -7,6 +7,6 @@
     # ./google-chrome/default.nix
     ./hammerspoon/default.nix
     ./raycast/default.nix
-    # ./vscode/default.nix
+    ./vscode/default.nix
   ];
 }
