@@ -20,7 +20,7 @@
       inputs.nix-darwin.follows = "nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     brew-api = {
       url = "github:BatteredBunny/brew-api";
       flake = false;

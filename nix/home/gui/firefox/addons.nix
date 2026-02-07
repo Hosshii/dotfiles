@@ -47,7 +47,7 @@ let
         install -v -m644 "$src" "$dst/${addonId}.xpi"
       '';
 
-      meta = with lib; { 
+      meta = with lib; {
         platforms = platforms.all;
 
         mozPermissions = [
