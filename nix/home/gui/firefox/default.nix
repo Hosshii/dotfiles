@@ -1,3 +1,5 @@
+# mac にインストールする場合、デフォルトのパッケージだとfirefoxのバイナリがbash scriptになってしまい署名の検証が通らない。
+# その結果1password拡張とdesktop appの通信ができないため、brew-nix経由でバイナリを入れることで解決する
 { pkgs, ... }:
 
 let

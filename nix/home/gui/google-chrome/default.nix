@@ -1,4 +1,7 @@
 { pkgs, ... }:
 {
-  home.packages = [ pkgs.google-chrome ];
+  programs.chromium = {
+    enable = true;
+    package = pkgs.google-chrome;
+  };
 }

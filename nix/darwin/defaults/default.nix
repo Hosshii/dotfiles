@@ -40,6 +40,7 @@
           "/System/Applications/Mail.app"
           "/System/Applications/System Settings.app"
           "${homedir}/Applications/Home Manager Apps/Firefox.app"
+          "${homedir}/Applications/Home Manager Apps/Google Chrome.app"
           "${homedir}/Applications/Home Manager Apps/Visual Studio Code.app"
           "/Applications/1Password.app"
         ];
