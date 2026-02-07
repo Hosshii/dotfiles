@@ -1,4 +1,4 @@
-local open_wezterm = function()
+local toggle_alacritty = function()
     local appName = "Alacritty"
     local app = hs.application.get(appName)
 
@@ -9,4 +9,4 @@ local open_wezterm = function()
     end
 end
 -- 「Ctrl+t」のショートカットで表示／非表示を切り替える場合の設定
-hs.hotkey.bind({"ctrl"}, "t", open_wezterm)
+hs.hotkey.bind({"ctrl"}, "t", toggle_alacritty)

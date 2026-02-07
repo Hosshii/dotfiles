@@ -24,6 +24,9 @@
         format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)";
         style = "cyan";
         conflicted = "";
+        # U+200B (ゼロ幅スペース): 変更ありを示すが文字表示はしない。
+        # format 側の * だけで変更有無を表現するため、各項目は空でなく
+        # ゼロ幅スペースを設定して「存在するが見えない」状態にしている。
         untracked = "​";
         modified = "​";
         staged = "​";

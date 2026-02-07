@@ -1,4 +1,6 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
-  home.packages = [ pkgs.raycast ];
+  config = lib.mkIf pkgs.stdenv.isDarwin {
+    home.packages = [ pkgs.raycast ];
+  };
 }

@@ -4,6 +4,7 @@
     ./bat/default.nix
     ./direnv/default.nix
     ./dust/default.nix
+    ./expect/default.nix
     ./eza/default.nix
     ./fd/default.nix
     ./fzf/default.nix
