@@ -4,7 +4,11 @@ let
   hostname = "hosshiiarch";
   username = "hosshii";
   homedir = "/home/${username}";
-  pkgs = inputs.nixpkgs.legacyPackages.${system};
+  pkgs = import inputs.nixpkgs {
+    inherit system;
+    config.allowUnfree = true;
+    overlays = [ inputs.claude-code-overlay.overlays.default ];
+  };
 in
 {
   homeConfigurations."${username}@${hostname}" = inputs.home-manager.lib.homeManagerConfiguration {
@@ -14,7 +18,6 @@ in
     };
     modules = [
       ./home.nix
-      { nixpkgs.config.allowUnfree = true; }
     ];
   };
 

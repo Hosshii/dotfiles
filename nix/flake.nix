@@ -25,6 +25,11 @@
       url = "github:BatteredBunny/brew-api";
       flake = false;
     };
+
+    claude-code-overlay = {
+      url = "github:ryoppippi/claude-code-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -34,6 +39,7 @@
     , home-manager
     , brew-nix
     , brew-api
+    , claude-code-overlay
     ,
     }:
     let

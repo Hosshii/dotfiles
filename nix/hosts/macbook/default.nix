@@ -7,7 +7,10 @@ let
   pkgs = import inputs.nixpkgs {
     inherit system;
     config.allowUnfree = true;
-    overlays = [ inputs.brew-nix.overlays.default ];
+    overlays = [
+      inputs.brew-nix.overlays.default
+      inputs.claude-code-overlay.overlays.default
+    ];
   };
 in
 {

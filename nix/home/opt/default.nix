@@ -2,6 +2,7 @@
 {
   imports = [
     ./binutils/default.nix
+    ./claude-code/default.nix
     ./cmake/default.nix
     ./docker/default.nix
     ./pstree/default.nix
