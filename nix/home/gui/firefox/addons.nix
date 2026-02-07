@@ -46,7 +46,51 @@ let
         mkdir -p "$dst"
         install -v -m644 "$src" "$dst/${addonId}.xpi"
       '';
-      meta = with lib; { platforms = platforms.all; } // meta;
+
+      meta = with lib; { 
+        platforms = platforms.all;
+
+        mozPermissions = [
+          "<all_urls>"
+          "alarms"
+          "clipboardWrite"
+          "contextMenus"
+          "downloads"
+          "idle"
+          "management"
+          "nativeMessaging"
+          "notifications"
+          "privacy"
+          "scripting"
+          "storage"
+          "tabs"
+          "webNavigation"
+          "webRequest"
+          "webRequestBlocking"
+          "declarativeNetRequestWithHostAccess"
+          "https://*/*"
+          "http://localhost/*"
+          "https://*.1password.ca/*"
+          "https://*.1password.com/*"
+          "https://*.1password.eu/*"
+          "https://*.b5dev.ca/*"
+          "https://*.b5dev.com/*"
+          "https://*.b5dev.eu/*"
+          "https://*.b5local.com/*"
+          "https://*.b5staging.com/*"
+          "https://*.b5test.ca/*"
+          "https://*.b5test.com/*"
+          "https://*.b5test.eu/*"
+          "https://*.b5rev.com/*"
+          "https://app.kolide.com/*"
+          "https://auth.kolide.com/*"
+          "https://www.director.ai/?*"
+          "https://www.director.ai/"
+          "https://www.director.ai/complete-1password-pairing?*"
+          "https://www.director.ai/complete-1password-pairing"
+          "https://autofill.me/*"
+        ];
+      } // meta;
     };
 in
 {

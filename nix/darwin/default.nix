@@ -1,4 +1,4 @@
-{ pkgs, system, username, homedir, self, ... }:
+{ pkgs, system, username, homedir, self, brew-nix ,... }:
 {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
@@ -9,6 +9,9 @@
 
   # installed via determinate
   nix.enable = false;
+
+  brew-nix.enable = true;
+  
   system = {
     # Set Git commit hash for darwin-version.
     configurationRevision = self.rev or self.dirtyRev or null;
