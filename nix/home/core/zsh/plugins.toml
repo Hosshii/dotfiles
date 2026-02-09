@@ -18,11 +18,6 @@ github = "zsh-users/zsh-completions"
 [plugins.compinit]
 inline = '''
 autoload -Uz compinit && zsh-defer compinit
-# if [[ -n $(find "${ZDOTDIR:-$HOME}/.zcompdump" -mtime +1 2>/dev/null) ]] || [[ ! -f "${ZDOTDIR:-$HOME}/.zcompdump" ]]; then
-#   zsh-defer compinit
-# else
-#   zsh-defer compinit
-# fi
 '''
 apply = ["source"]
 
@@ -35,15 +30,17 @@ inline = 'eval "$(starship init zsh)"'
 local = "@configHome@/zsh/sheldon-config"
 use = ["*.zsh"]
 
+# direnv（遅延）
+[plugins.direnv]
+inline = 'eval "$(direnv hook zsh)"'
+
 # fzf（遅延）
 [plugins.fzf]
-inline = 'zsh-defer -c "source <(fzf --zsh)"'
-apply = ["source"]
+inline = 'source <(fzf --zsh)"'
 
 # zoxide（遅延）
 [plugins.zoxide]
-inline = 'zsh-defer -c "eval \"$(zoxide init zsh)\""'
-apply = ["source"]
+inline = 'eval "$(zoxide init zsh)"'
 
 # 10. zsh-autosuggestions
 [plugins.zsh-autosuggestions]

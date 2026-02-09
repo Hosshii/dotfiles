@@ -60,5 +60,9 @@ in
         };
       };
     };
+
+    programs.zsh.sessionVariables = lib.mkIf cfg.sshIntegration.enable {
+      SSH_AUTH_SOCK = sshAuthSock;
+    };
   };
 }
