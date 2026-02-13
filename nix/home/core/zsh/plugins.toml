@@ -19,11 +19,12 @@ github = "zsh-users/zsh-completions"
 inline = '''
 autoload -Uz compinit && zsh-defer compinit
 '''
-apply = ["source"]
 
 # starship（プロンプト）
 [plugins.starship]
-inline = 'eval "$(starship init zsh)"'
+inline = '''
+zsh-defer -c 'eval "$(starship init zsh)"'
+'''
 
 # dotfiles 設定
 [plugins.dotfiles-defer]
@@ -32,15 +33,19 @@ use = ["*.zsh"]
 
 # direnv（遅延）
 [plugins.direnv]
-inline = 'eval "$(direnv hook zsh)"'
+inline = '''
+zsh-defer -c 'eval "$(direnv hook zsh)"'
+'''
 
 # fzf（遅延）
 [plugins.fzf]
-inline = 'source <(fzf --zsh)"'
+inline = 'zsh-defer -c "source <(fzf --zsh)"'
 
 # zoxide（遅延）
 [plugins.zoxide]
-inline = 'eval "$(zoxide init zsh)"'
+inline = '''
+zsh-defer -c 'eval "$(zoxide init zsh)"'
+'''
 
 # 10. zsh-autosuggestions
 [plugins.zsh-autosuggestions]
