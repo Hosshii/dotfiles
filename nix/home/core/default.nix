@@ -8,7 +8,6 @@
     ./eza/default.nix
     ./fd/default.nix
     ./fzf/default.nix
-    ./ghq/default.nix
     ./git/default.nix
     ./htop/default.nix
     ./jq/default.nix

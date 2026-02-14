@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.custom.git;
 in
@@ -12,42 +12,61 @@ in
       type = lib.types.str;
       description = "Git user email";
     };
-  };
-
-  config = {
-    programs.git = {
-      enable = true;
-
-      includes = [
-        { path = ./common_config; }
-      ];
-
-      settings = {
-        user = {
-          name = cfg.name;
-          email = cfg.email;
-        };
-      };
-
-      ignores = [
-        "**/.claude/settings.local.json"
-        "**/CLAUDE.local.md"
-      ];
+    wt = {
+      enable = lib.mkEnableOption "git-wt (worktree helper)";
     };
-
-    # delta（git pager）の設定
-    programs.delta = {
-      enable = true;
-      enableGitIntegration = true;
-      options = {
-        features = "side-by-side line-numbers decorations";
-        whitespace-error-style = "22 reverse";
-        decorations = {
-          commit-decoration-style = "bold yellow box ul";
-          file-style = "bold yellow ul";
-          file-decoration-style = "none";
-        };
-      };
+    ghq = {
+      enable = lib.mkEnableOption "ghq (repository manager)";
+    };
+    delta = {
+      enable = lib.mkEnableOption "delta (git pager)";
     };
   };
+
+  config = lib.mkMerge [
+    {
+      programs.git = {
+        enable = true;
+
+        includes = [
+          { path = ./common_config; }
+        ];
+
+        settings = {
+          user = {
+            name = cfg.name;
+            email = cfg.email;
+          };
+        };
+
+        ignores = [
+          "**/.claude/settings.local.json"
+          "**/CLAUDE.local.md"
+        ];
+      };
+    }
+    (lib.mkIf cfg.delta.enable {
+      programs.delta = {
+        enable = true;
+        enableGitIntegration = true;
+        options = {
+          features = "side-by-side line-numbers decorations";
+          whitespace-error-style = "22 reverse";
+          decorations = {
+            commit-decoration-style = "bold yellow box ul";
+            file-style = "bold yellow ul";
+            file-decoration-style = "none";
+          };
+        };
+      };
+    })
+    (lib.mkIf cfg.wt.enable {
+      home.packages = [ pkgs.git-wt ];
+      programs.git.includes = [{ path = ./wt_config; }];
+    })
+    (lib.mkIf cfg.ghq.enable {
+      home.packages = [ pkgs.ghq ];
+      programs.git.includes = [{ path = ./ghq_config; }];
+    })
+  ];
 }

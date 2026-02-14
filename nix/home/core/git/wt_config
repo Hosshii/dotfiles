@@ -1,0 +1,5 @@
+[wt]
+	basedir = ".wt"
+	copyignored = true
+	nocopy = target/
+	nocopy = node_modules/
