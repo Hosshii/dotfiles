@@ -1,4 +1,11 @@
 {
+  custom.sheldon.plugins.starship = {
+    order = 400;
+    text = "inline = '''
+zsh-defer -c 'eval \"$(starship init zsh)\"'
+'''";
+  };
+
   programs.starship = {
     enable = true;
     # sheldon で読み込むので有効化しない
