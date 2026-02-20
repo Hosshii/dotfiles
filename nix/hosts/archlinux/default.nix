@@ -7,7 +7,10 @@ let
   pkgs = import inputs.nixpkgs {
     inherit system;
     config.allowUnfree = true;
-    overlays = [ inputs.claude-code-overlay.overlays.default ];
+    overlays = [
+      inputs.claude-code-overlay.overlays.default
+      inputs.llm-agents.overlays.default
+    ];
   };
 in
 {
