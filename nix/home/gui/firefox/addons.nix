@@ -14,6 +14,8 @@
 { lib, stdenv, fetchurl }:
 
 let
+  sources = lib.importJSON ./sources.json;
+
   # Firefox拡張機能(XPI)をビルドするヘルパー関数
   #
   # 引数:
@@ -101,10 +103,7 @@ in
   # https://addons.mozilla.org/firefox/addon/1password-x-password-manager/
   onepassword = buildFirefoxXpiAddon {
     pname = "1password";
-    version = "8.11.27.2";
-    addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4654028/1password_x_password_manager-8.11.27.2.xpi";
-    sha256 = "sha256-p9tpiOTQLf6cFRPfUhqI8IJR5aimgxVb2aVhn1DyH74=";
+    inherit (sources) addonId version url sha256;
     meta.description = "1Password password manager";
   };
 }
