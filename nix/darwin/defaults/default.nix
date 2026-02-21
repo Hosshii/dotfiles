@@ -1,8 +1,6 @@
 { homedir }:
 {
   system = {
-    stateVersion = 6;
-
     defaults = {
       NSGlobalDomain = {
         KeyRepeat = 2;

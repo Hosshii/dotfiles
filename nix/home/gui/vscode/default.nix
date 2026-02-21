@@ -52,11 +52,11 @@
         "terminal.integrated.shellIntegration.enabled" = false;
         "terminal.integrated.profiles.linux" = {
           "bash" = {
-            "path" = "/usr/bin/bash";
+            "path" = "${pkgs.bash}/bin/bash";
             "icon" = "terminal-bash";
           };
           "zsh" = {
-            "path" = "/usr/bin/zsh";
+            "path" = "${pkgs.zsh}/bin/zsh";
           };
           "fish" = {
             "path" = "fish";

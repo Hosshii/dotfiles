@@ -27,7 +27,7 @@ nix/
 │   │   ├── eza/           # eza
 │   │   ├── fd/            # fd
 │   │   ├── fzf/           # fzf
-│   │   ├── ghq/           # ghq
+│   │   ├── expect/        # expect
 │   │   ├── git/           # git
 │   │   ├── htop/          # htop
 │   │   ├── jq/            # jq
@@ -49,14 +49,17 @@ nix/
 │   │   ├── fonts/         # フォント
 │   │   ├── hammerspoon/   # Hammerspoon
 │   │   ├── raycast/       # Raycast
-│   │   ├── discord/       # Discord (未使用)
-│   │   ├── firefox/       # Firefox (未使用)
-│   │   ├── google-chrome/ # Google Chrome (未使用)
-│   │   └── vscode/        # VS Code (未使用)
+│   │   ├── firefox/       # Firefox
+│   │   ├── google-chrome/ # Google Chrome
+│   │   └── vscode/        # VS Code
 │   ├── opt/               # オプションツール
 │   │   ├── default.nix    # 集約モジュール
 │   │   ├── binutils/      # binutils
+│   │   ├── claude-code/   # Claude Code
 │   │   ├── cmake/         # cmake
+│   │   ├── codex/         # Codex CLI
+│   │   ├── docker/        # Docker CLI (Linux)
+│   │   ├── docker-desktop/ # Docker Desktop (macOS)
 │   │   ├── pstree/        # pstree
 │   │   ├── terminal-notifier/ # terminal-notifier (macOS のみ)
 │   │   └── time/          # GNU time
@@ -77,6 +80,12 @@ nix/
 - **`home/core/`** は全ホスト共通の CLI ツール群。集約 `default.nix` で一括 import 可能
 - **`hosts/`** はホストごとにどのモジュールを import するか制御する
 - **`darwin/`** は macOS のシステムレベル設定 (nix-darwin)。home-manager とは別レイヤー
+- **`ghq`** は `home/core/git` モジュールの `custom.git.ghq.enable` で管理する
+
+### stateVersion の運用
+
+- `home.stateVersion` は Home Manager の互換性維持値。Home Manager を更新しても通常は変更しない
+- `system.stateVersion` は nix-darwin の互換性維持値。互換性に影響するため 1 箇所で管理する
 
 ### ホスト別モジュール選択
 
@@ -85,10 +94,16 @@ nix/
 | `home/core` (全て) | o | o |
 | `home/gui/alacritty` | o | o |
 | `home/gui/fonts` | o | o |
+| `home/gui/firefox` | o | |
+| `home/gui/google-chrome` | o | |
+| `home/gui/vscode` | o | |
 | `home/gui/hammerspoon` | o | |
 | `home/gui/raycast` | o | |
 | `home/opt` (全て) | o | |
-| `home/opt` (terminal-notifier 以外) | | o |
+| `home/opt/binutils` | | o |
+| `home/opt/cmake` | | o |
+| `home/opt/pstree` | | o |
+| `home/opt/time` | | o |
 | `home/_1password` | o | |
 | `hosts/macbook/ssh.nix` | o | |
 

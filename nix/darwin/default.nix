@@ -32,9 +32,17 @@
 
   users.users.${username}.home = homedir;
 
-  system.activationScripts.setDefaultBrowser.text = ''
-    sudo -u ${username} ${pkgs.defaultbrowser}/bin/defaultbrowser firefox
-  '';
+  launchd.user.agents.set-default-browser = {
+    serviceConfig = {
+      ProgramArguments = [
+        "${pkgs.defaultbrowser}/bin/defaultbrowser"
+        "firefox"
+      ];
+      RunAtLoad = true;
+      KeepAlive = false;
+      ProcessType = "Background";
+    };
+  };
 
   imports = [
     ./_1password/default.nix

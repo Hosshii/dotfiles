@@ -12,10 +12,10 @@
         compression = false;
         serverAliveInterval = 0;
         serverAliveCountMax = 3;
-        hashKnownHosts = false;
+        hashKnownHosts = true;
         userKnownHostsFile = "~/.ssh/known_hosts";
         controlMaster = "no";
-        controlPath = "~/.ssh/master-%r@%n:%p";
+        controlPath = "~/.ssh/cm-%C";
         controlPersist = "no";
       };
 

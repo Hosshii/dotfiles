@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   programs.alacritty = {
     enable = true;
@@ -20,7 +21,7 @@
 
       terminal = {
         shell = {
-          program = "/bin/zsh";
+          program = "${pkgs.zsh}/bin/zsh";
           args = [
             "-l"
             "-c"
