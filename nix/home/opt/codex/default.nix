@@ -6,6 +6,16 @@ let
     model_reasoning_effort = "xhigh";
     notify = [ "claude_notify.sh" ];
     project_doc_fallback_filenames = [ "CLAUDE.md" ];
+    mcp_servers = {
+      context7 = {
+        command = "pnpm";
+        args = [
+          "dlx"
+          "@upstash/context7-mcp@2.1.1"
+        ];
+        startup_timeout_ms = 20000;
+      };
+    };
 
     projects = {
       "/workspace" = {
@@ -31,7 +41,12 @@ let
   };
 in
 {
-  home.packages = [ pkgs.llm-agents.codex ];
+  home.packages = [
+    pkgs.llm-agents.codex
+    # 必要であればcoreなどに移動する
+    pkgs.nodejs
+    pkgs.pnpm
+  ];
 
   xdg.configFile."codex/config.toml" = {
     source = configFile;
