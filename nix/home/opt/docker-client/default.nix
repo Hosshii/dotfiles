@@ -1,6 +1,6 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 {
-  home.packages = lib.optionals (!pkgs.stdenv.isDarwin) [
+  home.packages = [
     pkgs.docker-client
     pkgs.docker-compose
     pkgs.docker-buildx
