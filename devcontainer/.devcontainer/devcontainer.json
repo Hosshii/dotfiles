@@ -1,0 +1,32 @@
+{
+  "name": "nix-devshell-minimal",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "containerUser": "vscode",
+  "remoteUser": "vscode",
+  "overrideCommand": true,
+  "mounts": [
+    "source=nix-store-v1,target=/nix,type=volume"
+  ],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.profiles.linux": {
+          "nix-devshell": {
+            "path": "/bin/zsh",
+            "args": [
+              "-lc",
+              "exec nix develop -c zsh"
+            ]
+          }
+        },
+        "terminal.integrated.defaultProfile.linux": "nix-devshell"
+      },
+      "extensions": []
+    }
+  },
+  "postCreateCommand": "nix --version",
+  "postStartCommand": "nix develop -c true"
+}

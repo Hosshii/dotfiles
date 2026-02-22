@@ -53,3 +53,9 @@ nix fmt
 - nix コマンドは必ず `nix/` ディレクトリで実行する（`flake.nix` がそこにある）
 - レガシーの `install.sh`、`script/`、`config/` は旧インストール方式（rhysd/dotfiles ベース）
 - `nix2/` は実験的ディレクトリで使用しない
+
+## Devcontainer Template
+
+他リポジトリに展開する最小テンプレートは以下:
+
+- `templates/devcontainer-nix-minimal/`
