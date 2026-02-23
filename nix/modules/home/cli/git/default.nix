@@ -58,6 +58,9 @@ in
         ignores = [
           "**/.claude/settings.local.json"
           "**/CLAUDE.local.md"
+          ".envrc"
+          ".direnv"
+          "/target"
         ];
       };
     }
