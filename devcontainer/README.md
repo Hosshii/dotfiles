@@ -1,11 +1,13 @@
 # devcontainer + Nix minimal template
 
 `devShell` を単一ソースにしつつ、`/nix` の named volume でローカルキャッシュを効かせる最小テンプレート。
+`postCreate` で dotfiles の `hosts/devcontainer` 設定を自動適用する。
 
 ## Files
 
 - `.devcontainer/devcontainer.json`
 - `.devcontainer/Dockerfile`
+- `.devcontainer/postCreate.sh`
 - `flake.nix`
 - `flake.lock`
 
@@ -19,7 +21,9 @@
 - `devShells.<system>.default` を使用
 - `/nix` は `nix-store-v1` volume を共有
 - VS Code terminal は `nix develop -c zsh` を既定に設定
-- `nix develop` 失敗時は失敗のまま停止（フォールバックしない）
+- `postCreate.sh` で `github:Hosshii/dotfiles?dir=nix` を参照して Home Manager を適用
+- `uname -m` で `vscode@devcontainer-x86_64` / `vscode@devcontainer-aarch64` を自動切り替え
+- `nix develop` / Home Manager とも失敗時は失敗のまま停止（フォールバックしない）
 
 ## Usage
 
@@ -29,29 +33,32 @@
 4. terminal で以下を確認
 
 ```bash
-nix flake show
 nix develop -c true
 git --version
+git config --get user.name
+git config --get user.email
 ```
 
-## Git SSH signing (dotfiles module)
+## Home Manager target
 
-`dotfiles.homeManagerModules.devcontainer` を使う場合は、利用側で以下を設定する。
+- `x86_64` -> `vscode@devcontainer-x86_64`
+- `aarch64` / `arm64` -> `vscode@devcontainer-aarch64`
 
-- `custom.git.name`
-- `custom.git.email`
-- `custom.git.signing.enable = true`（必要な場合）
-- `custom.git.signing.publicKey`（必要な場合）
+## Manual re-apply
 
-署名を有効にする場合、コンテナ内で `SSH_AUTH_SOCK` が有効であることが前提。
+```bash
+# x86_64
+nix run github:nix-community/home-manager -- switch --flake 'github:Hosshii/dotfiles?dir=nix#vscode@devcontainer-x86_64'
 
-## dotfiles devcontainer profile notes
+# aarch64 / arm64
+nix run github:nix-community/home-manager -- switch --flake 'github:Hosshii/dotfiles?dir=nix#vscode@devcontainer-aarch64'
+```
 
-- `dotfiles.homeManagerModules.devcontainer` は `git` / `delta` / `git-wt` / `zsh` / `claude-code` / `codex` を提供する
-- 外部 flake で利用する場合は `pkgs` 生成時に `dotfiles.overlays.forSystem <system>` を適用する
-- `custom.git.name` / `custom.git.email` は必須
-- `rust` / `node` / `protoc` / `mise` の toolchain は `devShell` 側で管理する
-- `CLAUDE_CONFIG_DIR` / `CODEX_HOME` は XDG (`~/.config/claude-code`, `~/.config/codex`) を使う
+## dotfiles notes
+
+- Home Manager 設定は `github:Hosshii/dotfiles?dir=nix` から取得するため、`postCreate` 時にネットワーク接続が必要
+- `custom.git.*` などの値は dotfiles 側 `hosts/devcontainer` 定義が適用される
+- 署名を有効化する場合は、コンテナ内で `SSH_AUTH_SOCK` が有効であることが前提
 
 AI 設定を永続化する mount 例:
 

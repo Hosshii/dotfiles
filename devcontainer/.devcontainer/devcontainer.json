@@ -24,7 +24,7 @@
       "extensions": []
     }
   },
-  "postCreateCommand": "nix --version",
+  "postCreateCommand": "bash .devcontainer/postCreate.sh",
   "postStartCommand": "nix develop -c true",
   "mounts": [
     {
