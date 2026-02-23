@@ -35,6 +35,11 @@
       url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    op-broker = {
+      url = "github:Hosshii/op-broker";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -46,6 +51,7 @@
     , brew-api
     , claude-code-overlay
     , llm-agents
+    , op-broker
     }:
     let
       macbook = import ./hosts/macbook { inherit inputs; };

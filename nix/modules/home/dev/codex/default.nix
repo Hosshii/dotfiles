@@ -1,10 +1,11 @@
 { pkgs, config, ... }:
 let
   tomlFormat = pkgs.formats.toml { };
+  notifyScripts = import ../../services/agent-notify/scripts.nix { inherit pkgs; };
   configFile = tomlFormat.generate "codex-config.toml" {
     model = "gpt-5.3-codex";
     model_reasoning_effort = "xhigh";
-    notify = [ "claude_notify.sh" ];
+    notify = [ notifyScripts.codexNotifyPath ];
     project_doc_fallback_filenames = [ "CLAUDE.md" ];
     mcp_servers = {
       context7 = {

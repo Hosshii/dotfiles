@@ -13,6 +13,8 @@
     ../../modules/home/cli/zsh/default.nix
     ../../modules/home/dev/claude-code/default.nix
     ../../modules/home/dev/codex/default.nix
+    ../../modules/home/services/agent-notify/default.nix
+    ../../modules/home/services/macos-remote/default.nix
   ];
 
   custom.git = {
