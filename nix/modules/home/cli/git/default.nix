@@ -12,6 +12,15 @@ in
       type = lib.types.str;
       description = "Git user email";
     };
+    signing = {
+      enable = lib.mkEnableOption "Git commit signing with SSH key";
+
+      publicKey = lib.mkOption {
+        type = lib.types.str;
+        default = "";
+        description = "SSH public key for Git commit signing";
+      };
+    };
     wt = {
       enable = lib.mkEnableOption "git-wt (worktree helper)";
     };
@@ -25,6 +34,13 @@ in
 
   config = lib.mkMerge [
     {
+      assertions = [
+        {
+          assertion = cfg.signing.enable -> cfg.signing.publicKey != "";
+          message = "custom.git.signing.publicKey must be set when custom.git.signing.enable is true";
+        }
+      ];
+
       programs.git = {
         enable = true;
 
@@ -45,6 +61,13 @@ in
         ];
       };
     }
+    (lib.mkIf cfg.signing.enable {
+      programs.git.settings = {
+        user.signingKey = cfg.signing.publicKey;
+        gpg.format = "ssh";
+        commit.gpgSign = true;
+      };
+    })
     (lib.mkIf cfg.delta.enable {
       programs.delta = {
         enable = true;

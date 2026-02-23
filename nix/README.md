@@ -64,6 +64,8 @@ nix/
 - **`hosts/`** は metadata と profile 選択のみを担い、モジュール詳細は持たない
 - **`pkgs/overlays/`** は `common` / `darwin` / `linux` で分類する
 - `ghq` は `modules/home/cli/git` モジュールの `custom.git.ghq.enable` で管理する
+- Git 署名（SSH）は `custom.git.signing` で管理する
+- `modules/home/security/_1password` は 1Password の CLI/GUI と SSH agent 連携のみを担う
 - `_1password` の命名は維持する（ディレクトリ名・オプション名とも変更しない）
 
 ### stateVersion の運用
@@ -114,7 +116,10 @@ nix fmt
 ### devcontainer profile
 
 - `profiles/devcontainer/linux.nix` は devcontainer 向けの専用 profile
+- `modules/home/cli/git` を含み、`git` コマンドを利用できる
 - 既存の `profiles/workstation/*` や `hosts/*` には自動適用しない
+- 利用側で `custom.git.name` / `custom.git.email` を必ず設定する
+- 署名を有効化する場合は `custom.git.signing.enable = true` と `custom.git.signing.publicKey` を設定する
 
 ### 外部 flake から参照
 
@@ -127,11 +132,23 @@ nix fmt
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       modules = [
         dotfiles.homeManagerModules.devcontainer
+        {
+          custom.git = {
+            name = "Your Name";
+            email = "you@example.com";
+            signing = {
+              enable = true;
+              publicKey = "ssh-ed25519 AAAAC3Nza... your-key";
+            };
+          };
+        }
       ];
     };
   };
 }
 ```
+
+- 署名を使う場合、コンテナ内で `SSH_AUTH_SOCK` が有効であること（agent forwarding / socket mount）が前提
 
 ## 新しいモジュールの追加方法
 

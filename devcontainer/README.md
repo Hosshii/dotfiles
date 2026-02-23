@@ -34,6 +34,17 @@ nix develop -c true
 git --version
 ```
 
+## Git SSH signing (dotfiles module)
+
+`dotfiles.homeManagerModules.devcontainer` を使う場合は、利用側で以下を設定する。
+
+- `custom.git.name`
+- `custom.git.email`
+- `custom.git.signing.enable = true`（必要な場合）
+- `custom.git.signing.publicKey`（必要な場合）
+
+署名を有効にする場合、コンテナ内で `SSH_AUTH_SOCK` が有効であることが前提。
+
 ## Cache operation
 
 - 全プロジェクトで同じ volume 名 `nix-store-v1` を使う
