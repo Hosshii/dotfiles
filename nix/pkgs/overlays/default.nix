@@ -1,16 +1,11 @@
 { inputs }:
 let
-  common = import ./common.nix { inherit inputs; };
-  darwin = import ./darwin.nix { inherit inputs; };
-  linux = import ./linux.nix { inherit inputs; };
+  base = import ./features/base.nix { inherit inputs; };
+  ai = import ./features/ai.nix { inherit inputs; };
+  brew = import ./features/brew.nix { inherit inputs; };
 in
 {
-  inherit common darwin linux;
-
-  forSystem =
-    system:
-    let
-      isDarwin = builtins.match ".*-darwin" system != null;
-    in
-    common ++ (if isDarwin then darwin else linux);
+  all = base ++ ai;
+  darwinOnly = brew;
+  linuxOnly = [ ];
 }

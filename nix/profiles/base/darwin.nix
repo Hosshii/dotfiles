@@ -16,7 +16,6 @@
   };
 
   nixpkgs.hostPlatform = hostConfig.system;
-  nixpkgs.config.allowUnfree = true;
 
   # home-manager の homeDirectory 解決に必要
   system.primaryUser = hostConfig.username;

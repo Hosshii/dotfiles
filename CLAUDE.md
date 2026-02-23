@@ -43,7 +43,7 @@ nix fmt
 
 - 各ツールは独立した `default.nix` として定義する
 - `modules/` は部品、`profiles/` は組み合わせ、`hosts/` は選択のみを担う
-- `pkgs/overlays/` は `common` / `darwin` / `linux` で分類する
+- `pkgs/overlays/` は `features/*` で機能別に分割し、`system` 判定は `lib/mk-pkgs.nix` に集約する
 - `hosts/<ホスト名>/host.nix` でホスト変数を定義し `extraSpecialArgs` で注入。`flake.nix` は薄いエントリポイント
 - `_1password` の命名は維持する
 - フォーマッタは `nixpkgs-fmt`

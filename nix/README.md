@@ -20,11 +20,12 @@ nix/
 │   ├── mk-home.nix          # home-manager configuration 生成
 │   └── mk-host.nix          # darwin/home host 出力生成
 ├── pkgs/
-│   └── overlays/            # overlay 分類
-│       ├── default.nix      # system ごとの overlay 解決
-│       ├── common.nix       # 全ホスト共通
-│       ├── darwin.nix       # macOS 専用
-│       └── linux.nix        # Linux 専用
+│   └── overlays/            # overlay 定義
+│       ├── default.nix      # overlay セット集約（system 判定なし）
+│       └── features/        # 機能別 overlay
+│           ├── ai.nix
+│           ├── base.nix
+│           └── brew.nix
 ├── modules/
 │   ├── darwin/              # nix-darwin system-level modules
 │   │   ├── _1password/
@@ -62,7 +63,7 @@ nix/
 - **`modules/`** は再利用可能な最小部品。ツール単位で独立させる
 - **`profiles/`** は modules の組み合わせ。`base` + `workstation/*` で構成する
 - **`hosts/`** は metadata と profile 選択のみを担い、モジュール詳細は持たない
-- **`pkgs/overlays/`** は `common` / `darwin` / `linux` で分類する
+- **`pkgs/overlays/`** は `features/*` で機能別に分割し、`system` 判定は `lib/mk-pkgs.nix` に集約する
 - `ghq` は `modules/home/cli/git` モジュールの `custom.git.ghq.enable` で管理する
 - Git 署名（SSH）は `custom.git.signing` で管理する
 - `modules/home/security/_1password` は 1Password の CLI/GUI と SSH agent 連携のみを担う
@@ -135,10 +136,7 @@ nix fmt
     in
   {
     homeConfigurations."user@host" = home-manager.lib.homeManagerConfiguration {
-      pkgs = import nixpkgs {
-        inherit system;
-        overlays = dotfiles.overlays.forSystem system;
-      };
+      pkgs = import nixpkgs { inherit system; };
       modules = [
         dotfiles.homeManagerModules.devcontainer
         {
@@ -157,6 +155,7 @@ nix fmt
 }
 ```
 
+- `overlays` は内部実装として扱い、`outputs` では公開しない
 - 署名を使う場合、コンテナ内で `SSH_AUTH_SOCK` が有効であること（agent forwarding / socket mount）が前提
 
 ## 新しいモジュールの追加方法

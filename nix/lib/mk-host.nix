@@ -2,7 +2,6 @@
 let
   mkPkgs = import ./mk-pkgs.nix { inherit inputs; };
   mkHome = import ./mk-home.nix { inherit inputs; };
-  overlays = import ../pkgs/overlays { inherit inputs; };
 in
 {
   mkDarwinHost =
@@ -20,7 +19,7 @@ in
 
         modules =
           [
-            { nixpkgs.overlays = overlays.forSystem host.system; }
+            { nixpkgs.pkgs = pkgs; }
             inputs.brew-nix.darwinModules.default
           ]
           ++ darwinModules
