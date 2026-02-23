@@ -1,3 +1,0 @@
-#!/bin/bash
-# 起動時に Alacritty を立ち上げる
-alacritty > ${HOME}/tmp/alacritty.log 2>&1 &

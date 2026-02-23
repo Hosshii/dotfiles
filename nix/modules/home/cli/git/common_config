@@ -1,0 +1,31 @@
+[init]
+	defaultBranch = main
+
+[color]
+	ui = auto
+
+[core]
+	editor = vim
+
+[pull]
+	ff = only
+
+[alias]
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+
+	br = branch
+	che = checkout
+	st = status
+	swi = switch
+
+	ad = add
+	adu = add -u
+	ada = add -A
+
+	cm = commit
+	cmm = commit -m
+	cmam = commit --amend --no-edit
+
+	rb = rebase
+	rbi = rebase -i

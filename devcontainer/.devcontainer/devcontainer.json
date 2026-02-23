@@ -1,0 +1,54 @@
+{
+  "name": "nix-devshell-minimal",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "containerUser": "vscode",
+  "remoteUser": "vscode",
+  "overrideCommand": true,
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.profiles.linux": {
+          "nix-devshell": {
+            "path": "/bin/zsh",
+            "args": [
+              "-lc",
+              "exec nix develop -c zsh"
+            ]
+          }
+        },
+        "terminal.integrated.defaultProfile.linux": "nix-devshell"
+      },
+      "extensions": []
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/postCreate.sh",
+  "postStartCommand": "nix develop -c true",
+  "mounts": [
+    {
+      "source": "nix-store-v1",
+      "target": "/nix",
+      "type": "volume"
+    },
+    {
+      "source": "claude-code-bashhistory-${devcontainerId}",
+      "target": "/commandhistory",
+      "type": "volume"
+    },
+    {
+      "source": "claude-code-config-${devcontainerId}",
+      "target": "/home/vscode/.config/claude-code",
+      "type": "volume"
+    },
+    {
+      "source": "codex-config-${devcontainerId}",
+      "target": "/home/vscode/.config/codex",
+      "type": "volume"
+    }
+  ],
+  "runArgs": [
+    "--network=host"
+  ]
+}

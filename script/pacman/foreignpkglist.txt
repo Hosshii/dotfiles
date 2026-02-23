@@ -1,7 +1,2 @@
-aws-cli-v2
-ghq
-leftwm
-mise
 paru
 ttf-ricty
-wezterm-git
