@@ -2,7 +2,7 @@
   "name": "nix-devshell-minimal",
   "build": {
     "dockerfile": "Dockerfile",
-    "context": ".."
+    "context": "."
   },
   "containerUser": "vscode",
   "remoteUser": "vscode",
