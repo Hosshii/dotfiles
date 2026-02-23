@@ -54,6 +54,7 @@
     {
       inherit (macbook) darwinConfigurations;
       inherit (archlinux) homeConfigurations;
+      homeManagerModules.devcontainer = import ./profiles/devcontainer/linux.nix;
       formatter = macbook.formatter // archlinux.formatter;
     };
 }

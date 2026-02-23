@@ -43,6 +43,8 @@ nix/
 │   ├── workstation/
 │   │   ├── macos.nix
 │   │   └── linux.nix
+│   └── devcontainer/
+│       └── linux.nix
 └── hosts/                   # ホスト別設定
     ├── macbook/
     │   ├── host.nix         # ホスト metadata
@@ -107,6 +109,28 @@ nix run home-manager -- switch --flake .#hosshii@hosshiiarch
 
 ```bash
 nix fmt
+```
+
+### devcontainer profile
+
+- `profiles/devcontainer/linux.nix` は devcontainer 向けの専用 profile
+- 既存の `profiles/workstation/*` や `hosts/*` には自動適用しない
+
+### 外部 flake から参照
+
+```nix
+{
+  inputs.dotfiles.url = "github:Hosshii/dotfiles?dir=nix";
+
+  outputs = { self, nixpkgs, home-manager, dotfiles, ... }: {
+    homeConfigurations."user@host" = home-manager.lib.homeManagerConfiguration {
+      pkgs = import nixpkgs { system = "x86_64-linux"; };
+      modules = [
+        dotfiles.homeManagerModules.devcontainer
+      ];
+    };
+  };
+}
 ```
 
 ## 新しいモジュールの追加方法
