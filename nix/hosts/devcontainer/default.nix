@@ -22,4 +22,12 @@ let
     ];
   };
 in
-devcontainerX8664 // devcontainerAarch64
+{
+  homeConfigurations =
+    devcontainerX8664.homeConfigurations
+    // devcontainerAarch64.homeConfigurations;
+
+  formatter =
+    devcontainerX8664.formatter
+    // devcontainerAarch64.formatter;
+}
