@@ -1,4 +1,5 @@
 let
+  identities = import ../../lib/identities.nix;
   username = "hosshii";
 in
 {
@@ -6,4 +7,5 @@ in
   hostname = "hosshiiarch";
   inherit username;
   homedir = "/home/${username}";
+  identity = identities.hosshii;
 }

@@ -1,4 +1,5 @@
 let
+  identities = import ../../lib/identities.nix;
   username = "andouhanshirou";
 in
 {
@@ -6,4 +7,5 @@ in
   hostname = "andouhanshirous-MacBook-Air";
   inherit username;
   homedir = "/Users/${username}";
+  identity = identities.hosshii;
 }

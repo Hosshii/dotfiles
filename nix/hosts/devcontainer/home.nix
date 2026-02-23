@@ -5,8 +5,8 @@
   ];
 
   custom.git = {
-    name = "Hosshii";
-    email = "sao_heath6147.wistre@icloud.com";
+    name = hostConfig.identity.git.name;
+    email = hostConfig.identity.git.email;
   };
 
   home = {

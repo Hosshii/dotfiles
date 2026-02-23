@@ -18,6 +18,7 @@ nix/
 ├── flake.nix                # エントリポイント (outputs 定義)
 ├── lib/                     # 共通ビルダー / 定数
 │   ├── constants.nix        # stateVersion などの共通定数
+│   ├── identities.nix       # name/email など個人 identity 定義
 │   ├── mk-pkgs.nix          # nixpkgs + overlays 組み立て
 │   ├── mk-home.nix          # home-manager configuration 生成
 │   └── mk-host.nix          # darwin/home host 出力生成
@@ -71,6 +72,7 @@ nix/
 - **`profiles/`** は modules の組み合わせ。`base` + `workstation/*` で構成する
 - **`hosts/`** は metadata と profile 選択のみを担い、モジュール詳細は持たない
 - **`pkgs/overlays/`** は `features/*` で機能別に分割し、`system` 判定は `lib/mk-pkgs.nix` に集約する
+- Git identity（`name` / `email`）は `host.identity.git` を単一ソースとして管理する
 - `ghq` は `modules/home/cli/git` モジュールの `custom.git.ghq.enable` で管理する
 - Git 署名（SSH）は `custom.git.signing` で管理する
 - `modules/home/security/_1password` は 1Password の CLI/GUI と SSH agent 連携のみを担う
@@ -137,8 +139,8 @@ nix fmt
 - `git` / `delta` / `git-wt` / `zsh` / `claude-code` / `codex` を含む
 - 既存の `profiles/workstation/*` や `hosts/*` には自動適用しない
 - この repo では `hosts/devcontainer` に `x86_64-linux` / `aarch64-linux` host を用意している
-- `hosts/devcontainer` 経由で使う場合、`custom.git.name` / `custom.git.email` は host 側で設定済み
-- 利用側で `custom.git.name` / `custom.git.email` を必ず設定する
+- `hosts/devcontainer` 経由で使う場合、`custom.git.name` / `custom.git.email` は `host.identity.git` から自動設定される
+- 外部 flake から module 単体で使う場合は、利用側で `custom.git.name` / `custom.git.email` を設定する
 - 署名を有効化する場合は `custom.git.signing.enable = true` と `custom.git.signing.publicKey` を設定する
 - `rust` / `node` / `protoc` / `mise` の toolchain は profile ではなく `devShell` 管理を推奨
 - `CLAUDE_CONFIG_DIR` / `CODEX_HOME` は XDG (`~/.config/claude-code`, `~/.config/codex`) を使用する
@@ -186,7 +188,7 @@ nix fmt
 
 ## 新しいホストの追加方法
 
-1. `hosts/<ホスト名>/host.nix` を作成し metadata（system/hostname/username/homedir）を定義する
+1. `hosts/<ホスト名>/host.nix` を作成し metadata（system/hostname/username/homedir/identity）を定義する
 2. `hosts/<ホスト名>/home.nix` で home profile を選択する
 3. `hosts/<ホスト名>/default.nix` で `lib/mk-host.nix` を使って output と darwin profile を公開する
 4. `flake.nix` にホストを追加する
