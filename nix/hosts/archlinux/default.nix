@@ -1,28 +1,12 @@
 { inputs }:
 let
-  system = "x86_64-linux";
-  hostname = "hosshiiarch";
-  username = "hosshii";
-  homedir = "/home/${username}";
-  pkgs = import inputs.nixpkgs {
-    inherit system;
-    config.allowUnfree = true;
-    overlays = [
-      inputs.claude-code-overlay.overlays.default
-      inputs.llm-agents.overlays.default
-    ];
-  };
+  host = import ./host.nix;
+  constants = import ../../lib/constants.nix;
+  mkHost = import ../../lib/mk-host.nix { inherit inputs; };
 in
-{
-  homeConfigurations."${username}@${hostname}" = inputs.home-manager.lib.homeManagerConfiguration {
-    inherit pkgs;
-    extraSpecialArgs = {
-      hostConfig = { inherit username homedir; };
-    };
-    modules = [
-      ./home.nix
-    ];
-  };
-
-  formatter.${system} = pkgs.nixpkgs-fmt;
+mkHost.mkHomeHost {
+  inherit host constants;
+  modules = [
+    ./home.nix
+  ];
 }

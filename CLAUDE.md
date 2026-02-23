@@ -6,12 +6,11 @@ Nix (nix-darwin + home-manager) ベースのマルチプラットフォーム do
 
 ```
 nix/          Nix 設定本体 (flake.nix がここにある)
-├── darwin/   macOS システムレベル設定 (nix-darwin)
-├── home/     home-manager モジュールライブラリ
-│   ├── core/ CLI ツール (全ホスト共通)
-│   ├── gui/  GUI アプリ (ホスト依存)
-│   └── opt/  オプションツール (ホスト依存)
-└── hosts/    ホスト別モジュール選択
+├── lib/      共通ビルダー/定数
+├── pkgs/     overlays 分類
+├── modules/  モジュールライブラリ (darwin/home)
+├── profiles/ モジュール組み合わせ定義
+└── hosts/    ホスト別 metadata + profile 選択
 config/       Nix 管理外の設定ファイル
 ```
 
@@ -36,16 +35,17 @@ nix fmt
 
 ## Adding a New Module
 
-1. `home/<カテゴリ>/<ツール名>/default.nix` にモジュールを作成
-2. 全ホスト共通なら集約 `default.nix` (`home/core/default.nix` 等) に追加
-3. 特定ホストのみなら `hosts/<ホスト名>/home.nix` の imports に直接追加
+1. `modules/home/<カテゴリ>/<ツール名>/default.nix` にモジュールを作成
+2. 必要なら `modules/home/<カテゴリ>/default.nix` に追加
+3. `profiles/*` へ組み込み、`hosts/<ホスト名>/home.nix` では profile を選択
 
 ## Important Conventions
 
 - 各ツールは独立した `default.nix` として定義する
-- `home/core/` は全ホスト共通、`home/gui/` と `home/opt/` はホスト依存
-- `hosts/<ホスト名>/home.nix` でモジュール選択を制御
-- `hosts/<ホスト名>/default.nix` でホスト変数（ユーザー名、ホームディレクトリ等）を定義し `extraSpecialArgs` で注入。`flake.nix` は薄いエントリポイント
+- `modules/` は部品、`profiles/` は組み合わせ、`hosts/` は選択のみを担う
+- `pkgs/overlays/` は `common` / `darwin` / `linux` で分類する
+- `hosts/<ホスト名>/host.nix` でホスト変数を定義し `extraSpecialArgs` で注入。`flake.nix` は薄いエントリポイント
+- `_1password` の命名は維持する
 - フォーマッタは `nixpkgs-fmt`
 
 ## Gotchas
