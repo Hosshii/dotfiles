@@ -7,9 +7,6 @@
   "containerUser": "vscode",
   "remoteUser": "vscode",
   "overrideCommand": true,
-  "mounts": [
-    "source=nix-store-v1,target=/nix,type=volume"
-  ],
   "customizations": {
     "vscode": {
       "settings": {
@@ -28,5 +25,30 @@
     }
   },
   "postCreateCommand": "nix --version",
-  "postStartCommand": "nix develop -c true"
+  "postStartCommand": "nix develop -c true",
+  "mounts": [
+    {
+      "source": "nix-store-v1",
+      "target": "/nix",
+      "type": "volume"
+    },
+    {
+      "source": "claude-code-bashhistory-${devcontainerId}",
+      "target": "/commandhistory",
+      "type": "volume"
+    },
+    {
+      "source": "claude-code-config-${devcontainerId}",
+      "target": "/home/vscode/.config/claude-code",
+      "type": "volume"
+    },
+    {
+      "source": "codex-config-${devcontainerId}",
+      "target": "/home/vscode/.config/codex",
+      "type": "volume"
+    }
+  ],
+  "runArgs": [
+    "--network=host"
+  ]
 }

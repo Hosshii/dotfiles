@@ -115,11 +115,13 @@ nix fmt
 
 ### devcontainer profile
 
-- `profiles/devcontainer/linux.nix` は devcontainer 向けの専用 profile
-- `modules/home/cli/git` を含み、`git` コマンドを利用できる
+- `profiles/devcontainer/default.nix` は devcontainer 向けの専用 profile
+- `git` / `delta` / `git-wt` / `zsh` / `claude-code` / `codex` を含む
 - 既存の `profiles/workstation/*` や `hosts/*` には自動適用しない
 - 利用側で `custom.git.name` / `custom.git.email` を必ず設定する
 - 署名を有効化する場合は `custom.git.signing.enable = true` と `custom.git.signing.publicKey` を設定する
+- `rust` / `node` / `protoc` / `mise` の toolchain は profile ではなく `devShell` 管理を推奨
+- `CLAUDE_CONFIG_DIR` / `CODEX_HOME` は XDG (`~/.config/claude-code`, `~/.config/codex`) を使用する
 
 ### 外部 flake から参照
 
@@ -127,9 +129,16 @@ nix fmt
 {
   inputs.dotfiles.url = "github:Hosshii/dotfiles?dir=nix";
 
-  outputs = { self, nixpkgs, home-manager, dotfiles, ... }: {
+  outputs = { self, nixpkgs, home-manager, dotfiles, ... }:
+    let
+      system = "x86_64-linux";
+    in
+  {
     homeConfigurations."user@host" = home-manager.lib.homeManagerConfiguration {
-      pkgs = import nixpkgs { system = "x86_64-linux"; };
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = dotfiles.overlays.forSystem system;
+      };
       modules = [
         dotfiles.homeManagerModules.devcontainer
         {

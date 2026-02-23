@@ -45,6 +45,31 @@ git --version
 
 署名を有効にする場合、コンテナ内で `SSH_AUTH_SOCK` が有効であることが前提。
 
+## dotfiles devcontainer profile notes
+
+- `dotfiles.homeManagerModules.devcontainer` は `git` / `delta` / `git-wt` / `zsh` / `claude-code` / `codex` を提供する
+- 外部 flake で利用する場合は `pkgs` 生成時に `dotfiles.overlays.forSystem <system>` を適用する
+- `custom.git.name` / `custom.git.email` は必須
+- `rust` / `node` / `protoc` / `mise` の toolchain は `devShell` 側で管理する
+- `CLAUDE_CONFIG_DIR` / `CODEX_HOME` は XDG (`~/.config/claude-code`, `~/.config/codex`) を使う
+
+AI 設定を永続化する mount 例:
+
+```json
+"mounts": [
+  {
+    "source": "claude-code-config-${devcontainerId}",
+    "target": "/home/vscode/.config/claude-code",
+    "type": "volume"
+  },
+  {
+    "source": "codex-config-${devcontainerId}",
+    "target": "/home/vscode/.config/codex",
+    "type": "volume"
+  }
+]
+```
+
 ## Cache operation
 
 - 全プロジェクトで同じ volume 名 `nix-store-v1` を使う

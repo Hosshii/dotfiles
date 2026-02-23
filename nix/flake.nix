@@ -50,11 +50,13 @@
     let
       macbook = import ./hosts/macbook { inherit inputs; };
       archlinux = import ./hosts/archlinux { inherit inputs; };
+      overlays = import ./pkgs/overlays/default.nix { inherit inputs; };
     in
     {
       inherit (macbook) darwinConfigurations;
       inherit (archlinux) homeConfigurations;
-      homeManagerModules.devcontainer = import ./profiles/devcontainer/linux.nix;
+      inherit overlays;
+      homeManagerModules.devcontainer = import ./profiles/devcontainer/default.nix;
       formatter = macbook.formatter // archlinux.formatter;
     };
 }
