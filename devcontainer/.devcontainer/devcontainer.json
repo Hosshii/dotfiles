@@ -21,7 +21,9 @@
         },
         "terminal.integrated.defaultProfile.linux": "nix-devshell"
       },
-      "extensions": []
+      "extensions": [
+        "mkhl.direnv"
+      ]
     }
   },
   "postCreateCommand": "bash .devcontainer/postCreate.sh",
