@@ -1,7 +1,10 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 let
   jsonFormat = pkgs.formats.json { };
-  notifyScripts = import ../../services/agent-notify/scripts.nix { inherit pkgs; };
+  backend = lib.attrByPath [ "custom" "services" "agentNotify" "backend" ] "macos-remote" config;
+  notifyScripts = import ../../services/agent-notify/scripts.nix {
+    inherit pkgs backend;
+  };
   claudeStatusline = pkgs.writeShellScriptBin "claude-statusline" ''
     #!/bin/bash
 

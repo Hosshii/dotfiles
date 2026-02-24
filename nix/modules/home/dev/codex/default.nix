@@ -1,7 +1,10 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 let
   tomlFormat = pkgs.formats.toml { };
-  notifyScripts = import ../../services/agent-notify/scripts.nix { inherit pkgs; };
+  backend = lib.attrByPath [ "custom" "services" "agentNotify" "backend" ] "macos-remote" config;
+  notifyScripts = import ../../services/agent-notify/scripts.nix {
+    inherit pkgs backend;
+  };
   configFile = tomlFormat.generate "codex-config.toml" {
     model = "gpt-5.3-codex";
     model_reasoning_effort = "xhigh";

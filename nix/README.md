@@ -75,6 +75,7 @@ nix/
 - Git identity（`name` / `email`）は `host.identity.git` を単一ソースとして管理する
 - `ghq` は `modules/home/cli/git` モジュールの `custom.git.ghq.enable` で管理する
 - Git 署名（SSH）は `custom.git.signing` で管理する
+- `agent-notify` の通知先は `custom.services.agentNotify.backend`（`macos-remote` / `terminal-notifier`）で管理する
 - `modules/home/security/_1password` は 1Password の CLI/GUI と SSH agent 連携のみを担う
 - `_1password` の命名は維持する（ディレクトリ名・オプション名とも変更しない）
 

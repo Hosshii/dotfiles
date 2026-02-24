@@ -1,6 +1,17 @@
-{ pkgs }:
+{ pkgs, backend ? "macos-remote" }:
 let
-  # terminal-notifierとかもpkgs/bin/...を指定するようにしたいがそうするとlinuxでないと言われる
+  notifySnippet =
+    if backend == "macos-remote" then
+      ''
+        exec macos-remote notify "$title" "$message" --sound "$sound"
+      ''
+    else if backend == "terminal-notifier" then
+      ''
+        exec terminal-notifier -title "$title" -message "$message" -sound "$sound"
+      ''
+    else
+      throw "Unsupported custom.services.agentNotify.backend: ${backend}";
+
   claudeNotify = pkgs.writeShellScriptBin "claude_notify.sh" ''
     set -euo pipefail
 
@@ -23,11 +34,7 @@ let
 
     title="Claude $notification_type"
 
-    if [ -n "''${SSH_CONNECTION:-}" ] || [ -n "''${SSH_TTY:-}" ]; then
-      exec macos-remote notify "$title" "$message" --sound "$sound"
-    fi
-
-    exec terminal-notifier -title "$title" -message "$message" -sound "$sound"
+    ${notifySnippet}
   '';
 
   claudeStop = pkgs.writeShellScriptBin "claude_stop.sh" ''
@@ -37,11 +44,7 @@ let
     message="Claude Code stopped"
     sound="task_complete"
 
-    if [ -n "''${SSH_CONNECTION:-}" ] || [ -n "''${SSH_TTY:-}" ]; then
-      exec macos-remote notify "$title" "$message" --sound "$sound"
-    fi
-
-    exec terminal-notifier -title "$title" -message "$message" -sound "$sound"
+    ${notifySnippet}
   '';
 
   codexNotify = pkgs.writeShellScriptBin "codex_notify.sh" ''
@@ -62,11 +65,7 @@ let
 
     title="Codex $notification_type"
 
-    if [ -n "''${SSH_CONNECTION:-}" ] || [ -n "''${SSH_TTY:-}" ]; then
-      macos-remote notify "$title" "$message" --sound "$sound"
-    fi
-
-    exec terminal-notifier -title "$title" -message "$message" -sound "$sound"
+    ${notifySnippet}
   '';
 in
 {
