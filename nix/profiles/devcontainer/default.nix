@@ -10,6 +10,7 @@
     ../../modules/home/cli/ripgrep/default.nix
     ../../modules/home/cli/zoxide/default.nix
     ../../modules/home/cli/direnv/default.nix
+    ../../modules/home/cli/starship/default.nix
     ../../modules/home/cli/zsh/default.nix
     ../../modules/home/dev/claude-code/default.nix
     ../../modules/home/dev/codex/default.nix

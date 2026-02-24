@@ -136,7 +136,7 @@ nix fmt
 ### devcontainer profile
 
 - `profiles/devcontainer/default.nix` は devcontainer 向けの専用 profile
-- `git` / `delta` / `git-wt` / `zsh` / `claude-code` / `codex` を含む
+- `git` / `delta` / `git-wt` / `starship` / `zsh` / `claude-code` / `codex` を含む
 - 既存の `profiles/workstation/*` や `hosts/*` には自動適用しない
 - この repo では `hosts/devcontainer` に `x86_64-linux` / `aarch64-linux` host を用意している
 - `hosts/devcontainer` 経由で使う場合、`custom.git.name` / `custom.git.email` は `host.identity.git` から自動設定される
