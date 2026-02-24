@@ -10,6 +10,7 @@
     ../../modules/home/cli/ripgrep/default.nix
     ../../modules/home/cli/zoxide/default.nix
     ../../modules/home/cli/direnv/default.nix
+    ../../modules/home/cli/starship/default.nix
     ../../modules/home/cli/zsh/default.nix
     ../../modules/home/dev/claude-code/default.nix
     ../../modules/home/dev/codex/default.nix
@@ -20,6 +21,11 @@
   custom.git = {
     delta.enable = lib.mkDefault true;
     wt.enable = lib.mkDefault true;
+
+    signing = {
+      enable = lib.mkDefault true;
+      publicKey = lib.mkDefault "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGlJMlA5F3n+RiT3Uml1RTx9RSO6A9Alw4/YQJDrLTEM";
+    };
   };
 
   programs.zsh.initContent = lib.mkAfter ''

@@ -26,3 +26,5 @@ echo "Applying Home Manager config: ${home_target}"
 nix run github:nix-community/home-manager -- switch --flake "${DOTFILES_FLAKE}#${home_target}"
 
 echo "Home Manager config applied successfully."
+
+direnv allow

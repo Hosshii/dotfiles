@@ -10,25 +10,26 @@
   "customizations": {
     "vscode": {
       "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
         "terminal.integrated.profiles.linux": {
-          "nix-devshell": {
-            "path": "/bin/zsh",
-            "args": [
-              "-lc",
-              "exec nix develop -c zsh"
-            ]
+          "bash": {
+            "path": "bash",
+            "icon": "terminal-bash"
+          },
+          "zsh": {
+            "path": "zsh"
           }
-        },
-        "terminal.integrated.defaultProfile.linux": "nix-devshell"
+        }
       },
-      "extensions": []
+      "extensions": [
+        "mkhl.direnv"
+      ]
     }
   },
   "postCreateCommand": "bash .devcontainer/postCreate.sh",
-  "postStartCommand": "nix develop -c true",
   "mounts": [
     {
-      "source": "nix-store-v1",
+      "source": "nix-store-${devcontainerId}",
       "target": "/nix",
       "type": "volume"
     },
