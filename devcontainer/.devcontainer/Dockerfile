@@ -1,18 +1,24 @@
 FROM mcr.microsoft.com/devcontainers/base:debian
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends ca-certificates curl xz-utils \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN mkdir -p /etc/nix \
-    && printf '%s\n' 'experimental-features = nix-command flakes' > /etc/nix/nix.conf
+ENV USER=vscode
+ENV HOME=/home/vscode
 
 USER vscode
 
-RUN sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --no-daemon
+# nix.conf 作成
+RUN mkdir -p $HOME/.config/nix && \
+    cat > $HOME/.config/nix/nix.conf <<'EOF'
+experimental-features = nix-command flakes
+always-allow-substitutes = true
+auto-optimise-store = true
+max-jobs = auto
+EOF
 
-ENV PATH=/home/vscode/.nix-profile/bin:/nix/var/nix/profiles/default/bin:${PATH}
+RUN curl -fsSL https://nixos.org/nix/install | sh -s -- --no-daemon
+# rootじゃないと無理なので以下は使わない
+# RUN curl -sSfL https://artifacts.nixos.org/nix-installer | sh -s -- install linux \
+#   --extra-conf "sandbox = false" --init none --no-confirm
+
+ENV PATH=${HOME}/.nix-profile/bin:/nix/var/nix/profiles/default/bin:${PATH}
 
 RUN nix --version

@@ -28,7 +28,7 @@
   "postStartCommand": "nix develop -c true",
   "mounts": [
     {
-      "source": "nix-store-v1",
+      "source": "nix-store-${devcontainerId}",
       "target": "/nix",
       "type": "volume"
     },
