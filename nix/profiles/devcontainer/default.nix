@@ -21,6 +21,11 @@
   custom.git = {
     delta.enable = lib.mkDefault true;
     wt.enable = lib.mkDefault true;
+
+    signing = {
+      enable = lib.mkDefault true;
+      publicKey = lib.mkDefault "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGlJMlA5F3n+RiT3Uml1RTx9RSO6A9Alw4/YQJDrLTEM";
+    };
   };
 
   programs.zsh.initContent = lib.mkAfter ''
