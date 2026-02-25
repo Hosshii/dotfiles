@@ -11,7 +11,8 @@ nix/          Nix 設定本体 (flake.nix がここにある)
 ├── modules/  モジュールライブラリ (darwin/home)
 ├── profiles/ モジュール組み合わせ定義
 └── hosts/    ホスト別 metadata + profile 選択
-config/       Nix 管理外の設定ファイル
+devcontainer/ 他リポジトリ展開用テンプレート (.devcontainer + README)
+script/       旧方式の補助スクリプト (現在は Nix 運用が主)
 ```
 
 Nix 構成の詳細は以下を参照:
@@ -23,11 +24,14 @@ Nix 構成の詳細は以下を参照:
 すべて `nix/` ディレクトリで実行する。
 
 ```bash
-# macOS: ビルド & 適用
+# macOS: 適用
 sudo nix run nix-darwin -- switch --flake .
 
 # Arch Linux: 適用
 nix run home-manager -- switch --flake .#hosshii@hosshiiarch
+
+# devcontainer: 適用
+nix run home-manager -- switch --flake .#vscode@devcontainer-x86_64
 
 # フォーマット (nixpkgs-fmt)
 nix fmt
@@ -51,11 +55,11 @@ nix fmt
 ## Gotchas
 
 - nix コマンドは必ず `nix/` ディレクトリで実行する（`flake.nix` がそこにある）
-- レガシーの `install.sh`、`script/`、`config/` は旧インストール方式（rhysd/dotfiles ベース）
-- `nix2/` は実験的ディレクトリで使用しない
+- `AGENTS.md` は `CLAUDE.md` への symlink
+- `_1password` の命名は維持する（ディレクトリ名・オプション名）
 
 ## Devcontainer Template
 
 他リポジトリに展開する最小テンプレートは以下:
 
-- `templates/devcontainer-nix-minimal/`
+- `devcontainer/`
