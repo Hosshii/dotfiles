@@ -1,5 +1,16 @@
 FROM mcr.microsoft.com/devcontainers/base:debian
 
+USER root
+RUN apt-get update && apt-get install -y --no-install-recommends locales \
+  && sed -i 's/# ja_JP.UTF-8 UTF-8/ja_JP.UTF-8 UTF-8/' /etc/locale.gen \
+  && locale-gen \
+  && rm -rf /var/lib/apt/lists/*
+
+ENV LANG=ja_JP.UTF-8
+ENV LC_CTYPE=ja_JP.UTF-8
+# LC_ALL は空のまま/未設定推奨（変な上書きを防ぐ）
+ENV LC_ALL=
+
 ENV USER=vscode
 ENV HOME=/home/vscode
 
