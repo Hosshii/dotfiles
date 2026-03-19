@@ -1,10 +1,10 @@
 let
   identities = import ../../lib/identities.nix;
-  username = "andouhanshirou";
+  username = "hosshii";
 in
 {
   system = "aarch64-darwin";
-  hostname = "andouhanshirous-MacBook-Air";
+  hostname = "Hoshiros-MacBook-Air";
   inherit username;
   homedir = "/Users/${username}";
   identity = identities.hosshii;
