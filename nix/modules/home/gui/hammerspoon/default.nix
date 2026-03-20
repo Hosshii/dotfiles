@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 
 let
-  hammerspoon = pkgs.callPackage ./package.nix { };
+  hammerspoon = pkgs.brewCasks.hammerspoon;
 in
 {
   config = lib.mkIf pkgs.stdenv.isDarwin {

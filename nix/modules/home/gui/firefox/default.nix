@@ -3,13 +3,19 @@
 { pkgs, ... }:
 
 let
-  addons = import ./addons.nix { inherit (pkgs) lib stdenv fetchurl; };
   isDarwin = pkgs.stdenv.isDarwin;
 in
 {
   # brew-nix の Firefox は programs.firefox.package の wrap 処理と互換性がないため
   # home.packages で直接インストールする
-  home.packages = pkgs.lib.optionals isDarwin [ pkgs.brewCasks.firefox ];
+  home.packages = pkgs.lib.optionals isDarwin [
+    (pkgs.brewCasks.firefox.overrideAttrs (oldAttrs: {
+      src = pkgs.fetchurl {
+        url = "https://download-installer.cdn.mozilla.net/pub/firefox/releases/${oldAttrs.version}/mac/ja-JP-mac/Firefox%20${oldAttrs.version}.dmg";
+        hash = "sha256-fniPxXJYi46atZfJlRyDIa9/lRw41mezgT34LrK45rk=";
+      };
+    }))
+  ];
 
   programs.firefox = {
     enable = true;
@@ -21,7 +27,6 @@ in
     profiles.default = {
       id = 0;
       isDefault = true;
-      extensions.packages = [ addons.onepassword ];
       settings = {
         # UIの言語を日本語に
         "intl.locale.requested" = "ja,en-US";
