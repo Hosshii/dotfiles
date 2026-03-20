@@ -11,6 +11,7 @@
     ./git/default.nix
     ./htop/default.nix
     ./jq/default.nix
+    ./nix-ide/default.nix
     ./onefetch/default.nix
     ./ripgrep/default.nix
     ./sccache/default.nix
