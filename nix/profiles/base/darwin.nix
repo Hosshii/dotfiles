@@ -11,6 +11,7 @@
   brew-nix.enable = true;
 
   system = {
+    startup.chime = false;
     configurationRevision = self.rev or self.dirtyRev or null;
     stateVersion = constants.darwinStateVersion;
   };

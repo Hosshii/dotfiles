@@ -1,6 +1,11 @@
 { homedir }:
 {
   system = {
+    keyboard = {
+      enableKeyMapping = true;
+      remapCapsLockToControl = true;
+    };
+
     defaults = {
       NSGlobalDomain = {
         KeyRepeat = 2;
@@ -59,6 +64,53 @@
 
       CustomUserPreferences = {
         "com.apple.desktopservices".DSDontWriteNetworkStores = true;
+
+        # macOS UI 言語を日本語優先にする
+        NSGlobalDomain = {
+          AppleLanguages = [
+            "ja-JP"
+            "en-JP"
+          ];
+          AppleLocale = "ja_JP";
+        };
+
+        # 日本語 IME のライブ変換を無効化する
+        "com.apple.inputmethod.Kotoeri".JIMPrefLiveConversionKey = false;
+
+        # 入力ソースを ABC と Apple 日本語入力に固定する
+        "com.apple.HIToolbox".AppleEnabledInputSources = [
+          {
+            InputSourceKind = "Keyboard Layout";
+            "KeyboardLayout ID" = 252;
+            "KeyboardLayout Name" = "ABC";
+          }
+          {
+            "Bundle ID" = "com.apple.inputmethod.Kotoeri.RomajiTyping";
+            InputSourceKind = "Keyboard Input Method";
+          }
+          {
+            "Bundle ID" = "com.apple.inputmethod.Kotoeri.RomajiTyping";
+            "Input Mode" = "com.apple.inputmethod.Japanese";
+            InputSourceKind = "Input Mode";
+          }
+        ];
+
+        # Ctrl+Space で入力ソース切替を有効化する
+        "com.apple.symbolichotkeys".AppleSymbolicHotKeys = {
+          "60" = {
+            enabled = true;
+            value = {
+              parameters = [
+                32
+                49
+                262144
+              ];
+              type = "standard";
+            };
+          };
+
+          "61".enabled = false;
+        };
       };
     };
   };

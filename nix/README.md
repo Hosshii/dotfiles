@@ -4,14 +4,15 @@ nix-darwin + home-manager によるマルチプラットフォーム dotfiles �
 
 ## 前提
 
-- すべての nix コマンドは `nix/` ディレクトリで実行する
+- `--flake .#...` を使うコマンドは `nix/` ディレクトリで実行する
+- `--flake "github:..."` を使うコマンドは任意ディレクトリで実行できる
 - `flake.nix` は `nix/flake.nix` にある
 
 ## 対応ホスト
 
 | ホスト | OS | 管理方式 |
 |---|---|---|
-| `andouhanshirous-MacBook-Air` | macOS (`aarch64-darwin`) | nix-darwin + home-manager |
+| `Hoshiros-MacBook-Air` | macOS (`aarch64-darwin`) | nix-darwin + home-manager |
 | `hosshiiarch` | Arch Linux (`x86_64-linux`) | standalone home-manager |
 | `devcontainer-x86_64` | Linux (`x86_64-linux`) | standalone home-manager |
 | `devcontainer-aarch64` | Linux (`aarch64-linux`) | standalone home-manager |
@@ -70,30 +71,48 @@ nix/
 
 ## 使い方
 
+### GitHub リポジトリを直接参照して適用
+
+```bash
+# macOS
+sudo nix run --refresh nix-darwin#darwin-rebuild -- switch --flake "github:Hosshii/dotfiles?dir=nix#Hoshiros-MacBook-Air"
+
+# Arch Linux
+nix run --refresh home-manager#home-manager -- switch --flake "github:Hosshii/dotfiles?dir=nix#hosshii@hosshiiarch"
+
+# devcontainer x86_64-linux
+nix run --refresh home-manager#home-manager -- switch --flake "github:Hosshii/dotfiles?dir=nix#vscode@devcontainer-x86_64"
+
+# devcontainer aarch64-linux
+nix run --refresh home-manager#home-manager -- switch --flake "github:Hosshii/dotfiles?dir=nix#vscode@devcontainer-aarch64"
+```
+
+### ローカル checkout を適用（`nix/` ディレクトリで実行）
+
 ### macOS
 
 ```bash
 # ビルド
-sudo nix run nix-darwin -- build --flake .
+sudo nix run nix-darwin#darwin-rebuild -- build --flake .#Hoshiros-MacBook-Air
 
 # 適用
-sudo nix run nix-darwin -- switch --flake .
+sudo nix run nix-darwin#darwin-rebuild -- switch --flake .#Hoshiros-MacBook-Air
 ```
 
 ### Arch Linux
 
 ```bash
-nix run home-manager -- switch --flake .#hosshii@hosshiiarch
+nix run home-manager#home-manager -- switch --flake .#hosshii@hosshiiarch
 ```
 
 ### devcontainer
 
 ```bash
 # x86_64-linux
-nix run home-manager -- switch --flake .#vscode@devcontainer-x86_64
+nix run home-manager#home-manager -- switch --flake .#vscode@devcontainer-x86_64
 
 # aarch64-linux
-nix run home-manager -- switch --flake .#vscode@devcontainer-aarch64
+nix run home-manager#home-manager -- switch --flake .#vscode@devcontainer-aarch64
 ```
 
 ### フォーマット

@@ -10,17 +10,23 @@ Nix (`nix-darwin` + `home-manager`) ベースのマルチプラットフォー�
 
 ## Quick Start
 
-すべて `nix/` ディレクトリで実行する。
+`--flake "github:..."` を使うコマンドは任意ディレクトリで実行できる。`--flake .#...` を使うコマンドは `nix/` ディレクトリで実行する。
 
 ```bash
+# apply from GitHub (macOS)
+sudo nix run --refresh nix-darwin#darwin-rebuild -- switch --flake "github:Hosshii/dotfiles?dir=nix#Hoshiros-MacBook-Air"
+
+# apply from GitHub (Arch Linux)
+nix run --refresh home-manager#home-manager -- switch --flake "github:Hosshii/dotfiles?dir=nix#hosshii@hosshiiarch"
+
 # macOS
-sudo nix run nix-darwin -- switch --flake .
+sudo nix run nix-darwin#darwin-rebuild -- switch --flake .#Hoshiros-MacBook-Air
 
 # Arch Linux
-nix run home-manager -- switch --flake .#hosshii@hosshiiarch
+nix run home-manager#home-manager -- switch --flake .#hosshii@hosshiiarch
 
 # devcontainer (x86_64)
-nix run home-manager -- switch --flake .#vscode@devcontainer-x86_64
+nix run home-manager#home-manager -- switch --flake .#vscode@devcontainer-x86_64
 
 # format
 nix fmt
