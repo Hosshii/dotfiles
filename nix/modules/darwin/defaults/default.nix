@@ -11,6 +11,7 @@
         KeyRepeat = 2;
         InitialKeyRepeat = 15;
         ApplePressAndHoldEnabled = false;
+        _HIHideMenuBar = true;
       };
 
       finder = {
@@ -60,6 +61,11 @@
         ShowDayOfWeek = true;
         # 秒は表示しない
         ShowSeconds = false;
+      };
+
+      WindowManager = {
+        # ウィジェットを表示しない
+        StandardHideWidgets = true;
       };
 
       CustomUserPreferences = {
