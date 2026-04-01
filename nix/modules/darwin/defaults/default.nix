@@ -40,7 +40,6 @@
         # ホットコーナー(右上)にDisplay Sleepを設定する
         wvous-tr-corner = 10;
         persistent-apps = [
-          "/System/Applications/Launchpad.app"
           "/System/Applications/Mail.app"
           "/System/Applications/System Settings.app"
           "${homedir}/Applications/Home Manager Apps/Firefox.app"
