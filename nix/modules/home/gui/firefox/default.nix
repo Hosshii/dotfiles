@@ -9,10 +9,11 @@ in
   # brew-nix の Firefox は programs.firefox.package の wrap 処理と互換性がないため
   # home.packages で直接インストールする
   home.packages = pkgs.lib.optionals isDarwin [
+    # brewのfirefox-jaをinstallするためにoverride
     (pkgs.brewCasks.firefox.overrideAttrs (oldAttrs: {
       src = pkgs.fetchurl {
         url = "https://download-installer.cdn.mozilla.net/pub/firefox/releases/${oldAttrs.version}/mac/ja-JP-mac/Firefox%20${oldAttrs.version}.dmg";
-        hash = "sha256-fniPxXJYi46atZfJlRyDIa9/lRw41mezgT34LrK45rk=";
+        hash = "sha256-ID9BoMQ5AB+vTL13DW0xK8Axil3MyfPq8gS2e3tNZNA=";
       };
     }))
   ];
@@ -23,6 +24,11 @@ in
     package = if isDarwin then null else pkgs.firefox;
     # languagePacks は package != null を要求するため Darwin では無効化
     languagePacks = pkgs.lib.optionals (!isDarwin) [ "ja" ];
+
+    # 自動更新を無効化
+    policies = {
+      DisableAppUpdate = true;
+    };
 
     profiles.default = {
       id = 0;
