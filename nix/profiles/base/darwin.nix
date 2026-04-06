@@ -1,4 +1,9 @@
-{ pkgs, hostConfig, constants, self, ... }:
+{ pkgs
+, hostConfig
+, constants
+, self
+, ...
+}:
 {
   environment.systemPackages = [
     pkgs.vim
@@ -11,7 +16,6 @@
   brew-nix.enable = true;
 
   system = {
-    startup.chime = false;
     configurationRevision = self.rev or self.dirtyRev or null;
     stateVersion = constants.darwinStateVersion;
   };

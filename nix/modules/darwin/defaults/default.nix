@@ -1,6 +1,15 @@
 { homedir }:
 {
+  power = {
+    sleep = {
+      display = 10;
+      computer = 10;
+    };
+  };
+
   system = {
+    startup.chime = false;
+
     keyboard = {
       enableKeyMapping = true;
       remapCapsLockToControl = true;
