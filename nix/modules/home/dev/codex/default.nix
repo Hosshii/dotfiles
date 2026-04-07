@@ -1,4 +1,8 @@
-{ pkgs, config, lib, ... }:
+{ pkgs
+, config
+, lib
+, ...
+}:
 let
   tomlFormat = pkgs.formats.toml { };
   backend = lib.attrByPath [ "custom" "services" "agentNotify" "backend" ] "macos-remote" config;
@@ -56,7 +60,17 @@ in
     source = configFile;
   };
 
+  xdg.configFile."pnpm/rc".text = ''
+    # 60 * 24 * 7
+    minimum-release-age=10080
+  '';
+
+  xdg.configFile."npm/npmrc".text = ''
+    min-release-age = 7
+  '';
+
   home.sessionVariables = {
     CODEX_HOME = "${config.xdg.configHome}/codex";
+    NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
   };
 }
