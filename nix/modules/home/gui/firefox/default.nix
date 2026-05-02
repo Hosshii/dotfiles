@@ -13,7 +13,10 @@ in
     (pkgs.brewCasks.firefox.overrideAttrs (oldAttrs: {
       src = pkgs.fetchurl {
         url = "https://download-installer.cdn.mozilla.net/pub/firefox/releases/${oldAttrs.version}/mac/ja-JP-mac/Firefox%20${oldAttrs.version}.dmg";
-        hash = "sha256-ID9BoMQ5AB+vTL13DW0xK8Axil3MyfPq8gS2e3tNZNA=";
+        # echo <brewのsha> \
+        # | xxd -r -p \
+        # | base64
+        hash = "sha256-zpugh3ygexTbyER2N6tf5UPnNS0+szQYB5Q3QyYjWls=";
       };
     }))
   ];
