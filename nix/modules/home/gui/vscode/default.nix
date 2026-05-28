@@ -25,7 +25,7 @@
         vscodevim.vim
       ];
 
-      # バグでファイルを設定できない　
+      # バグでファイルを設定できない
       # https://github.com/nix-community/home-manager/issues/7726
       userSettings = {
         "claudeCode.preferredLocation" = "panel";
@@ -39,6 +39,7 @@
         "editor.renderWhitespace" = "boundary";
         "editor.suggestSelection" = "first";
         "editor.wordWrap" = "on";
+        "extensions.autoUpdate" = false;
         "files.autoSave" = "onFocusChange";
         "files.insertFinalNewline" = true;
         "git.openRepositoryInParentFolders" = "always";
