@@ -38,9 +38,15 @@
     };
   };
 
+  custom.pmset = {
+    sleep = 10;
+    displaysleep = 10;
+  };
+
   imports = [
     ../../modules/darwin/_1password/default.nix
     ../../modules/darwin/zsh/default.nix
+    ../../modules/darwin/pmset.nix
     (import ../../modules/darwin/defaults/default.nix { homedir = hostConfig.homedir; })
   ];
 }
