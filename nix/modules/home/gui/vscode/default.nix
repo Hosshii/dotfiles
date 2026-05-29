@@ -10,25 +10,25 @@
       # バグでプロファイル内に設定できない
       # https://github.com/nix-community/home-manager/issues/7880
       extensions = with pkgs.vscode-extensions; [
+        streetsidesoftware.code-spell-checker
+        ms-vscode-remote.remote-containers
+        ms-azuretools.vscode-docker
+        tamasfe.even-better-toml
+        mhutchie.git-graph
         donjayamanne.githistory
         jnoortheen.nix-ide
-        mhutchie.git-graph
-        ms-azuretools.vscode-docker
-        ms-vscode-remote.remote-containers
         ms-vscode-remote.remote-ssh
         ms-vscode-remote.remote-ssh-edit
         ms-vscode.remote-explorer
-        redhat.vscode-yaml
         rust-lang.rust-analyzer
-        streetsidesoftware.code-spell-checker
-        tamasfe.even-better-toml
         vscodevim.vim
+        redhat.vscode-yaml
       ];
 
       # バグでファイルを設定できない
       # https://github.com/nix-community/home-manager/issues/7726
+      # importJsonすればいけるが変数とかがめんどくさいのでこのままでもいいかも
       userSettings = {
-        "claudeCode.preferredLocation" = "panel";
         "diffEditor.ignoreTrimWhitespace" = false;
         "editor.acceptSuggestionOnEnter" = "on";
         "editor.copyWithSyntaxHighlighting" = false;
@@ -40,10 +40,10 @@
         "editor.suggestSelection" = "first";
         "editor.wordWrap" = "on";
         "extensions.autoUpdate" = false;
+        "extensions.autoCheckUpdates" = false;
         "files.autoSave" = "onFocusChange";
         "files.insertFinalNewline" = true;
         "git.openRepositoryInParentFolders" = "always";
-        "lean4.alwaysAskBeforeInstallingLeanVersions" = true;
         "redhat.telemetry.enabled" = false;
         "remote.autoForwardPortsSource" = "hybrid";
         "terminal.integrated.defaultProfile.linux" = "zsh";
@@ -106,9 +106,6 @@
           "editor.formatOnSave" = true;
           "editor.formatOnPaste" = false;
           "editor.formatOnType" = false;
-        };
-        "go.alternateTools" = {
-          "go" = "\${env:HOME}/.local/share/mise/shims/go";
         };
 
         # typescript
