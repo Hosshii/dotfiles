@@ -1,12 +1,12 @@
 { ... }:
 {
-  programs.ssh.matchBlocks = {
+  programs.ssh.settings = {
     # Arch Linuxサーバー
     "arch" = {
-      hostname = "hosshiiarch.local";
-      user = "hosshii";
-      forwardAgent = true;
-      remoteForwards = [
+      HostName = "hosshiiarch.local";
+      User = "hosshii";
+      ForwardAgent = true;
+      RemoteForward = [
         {
           bind.port = 50052;
           host.address = "127.0.0.1";
