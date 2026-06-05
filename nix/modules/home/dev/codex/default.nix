@@ -9,6 +9,7 @@ let
   notifyScripts = import ../../services/agent-notify/scripts.nix {
     inherit pkgs backend;
   };
+  codexConfigDir = "${config.xdg.configHome}/codex";
   configFile = tomlFormat.generate "codex-config.toml" {
     model = "gpt-5.3-codex";
     model_reasoning_effort = "xhigh";
@@ -49,15 +50,24 @@ let
   };
 in
 {
-  home.packages = [
-    pkgs.llm-agents.codex
-    # 必要であればcoreなどに移動する
-    pkgs.nodejs
-    pkgs.pnpm
-  ];
+  home = {
+    packages = [
+      pkgs.llm-agents.codex
+      # 必要であればcoreなどに移動する
+      pkgs.nodejs
+      pkgs.pnpm
+    ];
 
-  xdg.configFile."codex/config.toml" = {
-    source = configFile;
+    activation.writeCodexConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      mkdir -p "${codexConfigDir}"
+      cp --no-preserve=mode,ownership ${configFile} "${codexConfigDir}/config.toml"
+      chmod 644 "${codexConfigDir}/config.toml"
+    '';
+
+    sessionVariables = {
+      CODEX_HOME = "${config.xdg.configHome}/codex";
+      NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
+    };
   };
 
   xdg.configFile."pnpm/rc".text = ''
@@ -68,9 +78,4 @@ in
   xdg.configFile."npm/npmrc".text = ''
     min-release-age = 7
   '';
-
-  home.sessionVariables = {
-    CODEX_HOME = "${config.xdg.configHome}/codex";
-    NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
-  };
 }
