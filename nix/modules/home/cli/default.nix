@@ -2,6 +2,7 @@
 {
   imports = [
     ./bat/default.nix
+    ./cargo/default.nix
     ./direnv/default.nix
     ./dust/default.nix
     ./expect/default.nix
@@ -14,7 +15,6 @@
     ./nix-ide/default.nix
     ./onefetch/default.nix
     ./ripgrep/default.nix
-    ./sccache/default.nix
     ./ssh/default.nix
     ./starship/default.nix
     ./tmux/default.nix
