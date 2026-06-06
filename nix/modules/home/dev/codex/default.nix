@@ -11,20 +11,10 @@ let
   };
   codexConfigDir = "${config.xdg.configHome}/codex";
   configFile = tomlFormat.generate "codex-config.toml" {
-    model = "gpt-5.3-codex";
-    model_reasoning_effort = "xhigh";
+    model = "gpt-5.5";
+    model_reasoning_effort = "medium";
     notify = [ notifyScripts.codexNotifyPath ];
     project_doc_fallback_filenames = [ "CLAUDE.md" ];
-    mcp_servers = {
-      context7 = {
-        command = "pnpm";
-        args = [
-          "dlx"
-          "@upstash/context7-mcp@2.1.1"
-        ];
-        startup_timeout_ms = 20000;
-      };
-    };
 
     projects = {
       "/workspace" = {
