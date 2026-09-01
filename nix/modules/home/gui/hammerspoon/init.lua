@@ -10,3 +10,14 @@ local toggle_alacritty = function()
 end
 -- 「Ctrl+t」のショートカットで表示／非表示を切り替える場合の設定
 hs.hotkey.bind({"ctrl"}, "t", toggle_alacritty)
+
+
+hs.hotkey.bind({ "ctrl", "alt" }, ".", function()
+    local window = hs.window.frontmostWindow()
+
+    hs.eventtap.keyStroke({}, "space", 0)
+
+    hs.timer.doAfter(0.04, function()
+        hs.eventtap.keyStroke({}, "space", 0)
+    end)
+end)
