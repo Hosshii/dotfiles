@@ -1,8 +1,9 @@
-{ pkgs
-, config
-, lib
-, llmAgentsPkgs
-, ...
+{
+  pkgs,
+  config,
+  lib,
+  llmAgentsPkgs,
+  ...
 }:
 let
   tomlFormat = pkgs.formats.toml { };
@@ -12,7 +13,7 @@ let
   };
   codexConfigDir = "${config.xdg.configHome}/codex";
   configFile = tomlFormat.generate "codex-config.toml" {
-    model = "gpt-5.5";
+    model = "gpt-5.6-sol";
     model_reasoning_effort = "medium";
     notify = [ notifyScripts.codexNotifyPath ];
     project_doc_fallback_filenames = [ "CLAUDE.md" ];
