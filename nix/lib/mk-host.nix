@@ -8,12 +8,13 @@ in
     { host, constants, homeModule, darwinModules ? [ ] }:
     let
       pkgs = mkPkgs { system = host.system; };
+      llmAgentsPkgs = inputs.llm-agents.packages.${host.system};
     in
     {
       darwinConfigurations."${host.hostname}" = inputs.nix-darwin.lib.darwinSystem {
         specialArgs = {
           hostConfig = host;
-          inherit constants;
+          inherit constants llmAgentsPkgs;
           self = inputs.self;
         };
 
@@ -31,7 +32,7 @@ in
                 useUserPackages = true;
                 extraSpecialArgs = {
                   hostConfig = host;
-                  inherit constants;
+                  inherit constants llmAgentsPkgs;
                 };
                 users."${host.username}" = homeModule;
               };
@@ -46,10 +47,11 @@ in
     { host, constants, modules }:
     let
       pkgs = mkPkgs { system = host.system; };
+      llmAgentsPkgs = inputs.llm-agents.packages.${host.system};
     in
     {
       homeConfigurations."${host.username}@${host.hostname}" = mkHome {
-        inherit pkgs constants modules;
+        inherit pkgs constants modules llmAgentsPkgs;
         hostConfig = host;
       };
 

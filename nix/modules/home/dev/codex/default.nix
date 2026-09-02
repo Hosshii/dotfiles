@@ -1,6 +1,7 @@
 { pkgs
 , config
 , lib
+, llmAgentsPkgs
 , ...
 }:
 let
@@ -42,7 +43,7 @@ in
 {
   home = {
     packages = [
-      pkgs.llm-agents.codex
+      llmAgentsPkgs.codex
       # 必要であればcoreなどに移動する
       pkgs.nodejs
       pkgs.pnpm

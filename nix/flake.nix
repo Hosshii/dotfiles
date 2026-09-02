@@ -31,15 +31,7 @@
       flake = false;
     };
 
-    claude-code-overlay = {
-      url = "github:ryoppippi/claude-code-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    llm-agents = {
-      url = "github:numtide/llm-agents.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    llm-agents.url = "github:numtide/llm-agents.nix";
 
     op-broker = {
       url = "github:Hosshii/op-broker";
@@ -54,7 +46,6 @@
     , home-manager
     , brew-nix
     , brew-api
-    , claude-code-overlay
     , llm-agents
     , op-broker
     }:

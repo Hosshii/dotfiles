@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, llmAgentsPkgs, ... }:
 let
   jsonFormat = pkgs.formats.json { };
   backend = lib.attrByPath [ "custom" "services" "agentNotify" "backend" ] "macos-remote" config;
@@ -122,7 +122,7 @@ let
   };
 in
 {
-  home.packages = [ pkgs.claude-code ];
+  home.packages = [ llmAgentsPkgs.claude-code ];
 
   xdg.configFile."claude-code/settings.json".source = settingsFile;
 
