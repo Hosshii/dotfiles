@@ -1,8 +1,9 @@
-{ pkgs
-, hostConfig
-, constants
-, self
-, ...
+{
+  pkgs,
+  hostConfig,
+  constants,
+  self,
+  ...
 }:
 {
   environment.systemPackages = [

@@ -2,7 +2,10 @@
 let
   overlaySets = import ../pkgs/overlays { inherit inputs; };
 in
-{ system, allowUnfree ? true }:
+{
+  system,
+  allowUnfree ? true,
+}:
 let
   isDarwin = builtins.match ".*-darwin" system != null;
   isLinux = builtins.match ".*-linux" system != null;

@@ -23,11 +23,7 @@ let
   };
 in
 {
-  homeConfigurations =
-    devcontainerX8664.homeConfigurations
-    // devcontainerAarch64.homeConfigurations;
+  homeConfigurations = devcontainerX8664.homeConfigurations // devcontainerAarch64.homeConfigurations;
 
-  formatter =
-    devcontainerX8664.formatter
-    // devcontainerAarch64.formatter;
+  formatter = devcontainerX8664.formatter // devcontainerAarch64.formatter;
 }

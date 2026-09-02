@@ -40,14 +40,15 @@
   };
 
   outputs =
-    inputs@{ self
-    , nixpkgs
-    , nix-darwin
-    , home-manager
-    , brew-nix
-    , brew-api
-    , llm-agents
-    , op-broker
+    inputs@{
+      self,
+      nixpkgs,
+      nix-darwin,
+      home-manager,
+      brew-nix,
+      brew-api,
+      llm-agents,
+      op-broker,
     }:
     let
       macbook = import ./hosts/macbook { inherit inputs; };

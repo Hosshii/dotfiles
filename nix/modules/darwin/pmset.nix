@@ -1,17 +1,16 @@
-{ config
-, lib
-, ...
+{
+  config,
+  lib,
+  ...
 }:
 let
   cfg = config.custom.pmset;
   pmset =
     flag: settings:
     lib.concatStringsSep "\n" (
-      lib.mapAttrsToList
-        (
-          name: value: lib.optionalString (value != null) "pmset ${flag} ${name} ${toString value}"
-        )
-        settings
+      lib.mapAttrsToList (
+        name: value: lib.optionalString (value != null) "pmset ${flag} ${name} ${toString value}"
+      ) settings
     );
 in
 {

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.custom.git;
 in
@@ -88,11 +93,11 @@ in
     })
     (lib.mkIf cfg.wt.enable {
       home.packages = [ pkgs.git-wt ];
-      programs.git.includes = [{ path = ./wt_config; }];
+      programs.git.includes = [ { path = ./wt_config; } ];
     })
     (lib.mkIf cfg.ghq.enable {
       home.packages = [ pkgs.ghq ];
-      programs.git.includes = [{ path = ./ghq_config; }];
+      programs.git.includes = [ { path = ./ghq_config; } ];
     })
   ];
 }

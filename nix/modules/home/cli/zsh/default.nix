@@ -1,11 +1,15 @@
-{ pkgs
-, config
-, lib
-, ...
+{
+  pkgs,
+  config,
+  lib,
+  ...
 }:
 let
   cfg = config.custom.sheldon;
-  pluginsList = lib.mapAttrsToList (name: p: { inherit name; inherit (p) text order; }) cfg.plugins;
+  pluginsList = lib.mapAttrsToList (name: p: {
+    inherit name;
+    inherit (p) text order;
+  }) cfg.plugins;
   sortedPlugins = lib.sort (a: b: a.order < b.order) pluginsList;
   pluginToToml = p: ''
 
@@ -18,23 +22,26 @@ let
 
     [templates]
     defer = "{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks?.post | nl }}"
-  '' + lib.concatMapStrings pluginToToml sortedPlugins;
+  ''
+  + lib.concatMapStrings pluginToToml sortedPlugins;
 in
 {
   options.custom.sheldon.plugins = lib.mkOption {
-    type = lib.types.attrsOf (lib.types.submodule {
-      options = {
-        text = lib.mkOption {
-          type = lib.types.str;
-          description = "TOML key-value pairs for this plugin";
+    type = lib.types.attrsOf (
+      lib.types.submodule {
+        options = {
+          text = lib.mkOption {
+            type = lib.types.str;
+            description = "TOML key-value pairs for this plugin";
+          };
+          order = lib.mkOption {
+            type = lib.types.int;
+            default = 500;
+            description = "Load order (lower = earlier)";
+          };
         };
-        order = lib.mkOption {
-          type = lib.types.int;
-          default = 500;
-          description = "Load order (lower = earlier)";
-        };
-      };
-    });
+      }
+    );
     default = { };
     description = "Sheldon plugins to include in plugins.toml";
   };

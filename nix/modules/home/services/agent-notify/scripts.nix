@@ -1,4 +1,7 @@
-{ pkgs, backend ? "macos-remote" }:
+{
+  pkgs,
+  backend ? "macos-remote",
+}:
 let
   notifySnippet =
     if backend == "macos-remote" then
