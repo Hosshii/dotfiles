@@ -39,7 +39,7 @@
         "editor.renderWhitespace" = "boundary";
         "editor.suggestSelection" = "first";
         "editor.wordWrap" = "on";
-        "extensions.autoUpdate" = false;
+        "extensions.autoUpdate" = "off";
         "extensions.autoCheckUpdates" = false;
         "files.autoSave" = "onFocusChange";
         "files.insertFinalNewline" = true;
