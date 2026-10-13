@@ -38,6 +38,7 @@
         "editor.minimap.enabled" = false;
         "editor.renderWhitespace" = "boundary";
         "editor.suggestSelection" = "first";
+        "editor.unicodeHighlight.nonBasicASCII" = false;
         "editor.wordWrap" = "on";
         "extensions.autoUpdate" = "off";
         "extensions.autoCheckUpdates" = false;
