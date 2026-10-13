@@ -13,7 +13,7 @@ let
   };
   codexConfigDir = "${config.xdg.configHome}/codex";
   configFile = tomlFormat.generate "codex-config.toml" {
-    model = "gpt-5.6-sol";
+    model = "gpt-6.1-sol";
     model_reasoning_effort = "medium";
     notify = [ notifyScripts.codexNotifyPath ];
     project_doc_fallback_filenames = [ "CLAUDE.md" ];
@@ -21,12 +21,6 @@ let
     projects = {
       "/workspace" = {
         trust_level = "trusted";
-      };
-    };
-
-    notice = {
-      model_migrations = {
-        "gpt-5.2-codex" = "gpt-5.3-codex";
       };
     };
 
@@ -45,9 +39,6 @@ in
   home = {
     packages = [
       llmAgentsPkgs.codex
-      # 必要であればcoreなどに移動する
-      pkgs.nodejs
-      pkgs.pnpm
     ];
 
     activation.writeCodexConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
@@ -58,16 +49,6 @@ in
 
     sessionVariables = {
       CODEX_HOME = "${config.xdg.configHome}/codex";
-      NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
     };
   };
-
-  xdg.configFile."pnpm/rc".text = ''
-    # 60 * 24 * 7
-    minimum-release-age=10080
-  '';
-
-  xdg.configFile."npm/npmrc".text = ''
-    min-release-age = 7
-  '';
 }
