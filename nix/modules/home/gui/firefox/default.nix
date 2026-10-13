@@ -16,7 +16,7 @@ in
         # echo <brewのsha> \
         # | xxd -r -p \
         # | base64
-        hash = "sha256-n+ylr9zXk+ONCpmDShK9BOIKz6tx5UMTn9DxdUIsY+Q=";
+        hash = "sha256-mtM44pp0MBZae63tJwfT/gk1FtRD20kNsD8I0qugl1Q=";
       };
     }))
   ];
