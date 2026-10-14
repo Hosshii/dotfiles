@@ -17,6 +17,12 @@ let
     model_reasoning_effort = "medium";
     notify = [ notifyScripts.codexNotifyPath ];
     project_doc_fallback_filenames = [ "CLAUDE.md" ];
+    sandbox_mode = "workspace-write";
+    approval_policy = "untrusted";
+
+    features = {
+      plugins = false;
+    };
 
     projects = {
       "/workspace" = {

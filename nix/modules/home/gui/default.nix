@@ -2,6 +2,7 @@
 {
   imports = [
     ./alacritty/default.nix
+    ./chatgpt/default.nix
     ./firefox/default.nix
     ./fonts/default.nix
     ./google-chrome/default.nix
