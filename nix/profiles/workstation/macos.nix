@@ -7,6 +7,8 @@
     ../../modules/home/security
   ];
 
+  custom.services.agentNotify.backend = "terminal-notifier";
+
   custom.git.signing = {
     enable = true;
     publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGlJMlA5F3n+RiT3Uml1RTx9RSO6A9Alw4/YQJDrLTEM";

@@ -121,6 +121,17 @@ nix run home-manager#home-manager -- switch --flake .#vscode@devcontainer-aarch6
 nix fmt
 ```
 
+### macOS のエージェント通知
+
+- macOS profile は Codex CLI / Claude Code の共通通知 backend に `terminal-notifier` を使う。Linux / devcontainer は `macos-remote` を使う。
+- Codex CLI は応答完了時に通知する。本文は最後の応答を使い、本文がない場合も完了メッセージを表示する。
+- デスクトップアプリは Settings → Notifications で応答完了通知と通知権限の要求を有効にする。
+- macOS の「システム設定 → 通知」で、使用するアプリと `terminal-notifier` の通知を許可する。
+
+設定適用後、`codex_notify.sh '{"type":"agent-turn-complete","last-assistant-message":"通知テスト"}'` で CLI 用フックを確認できる。CLI とアプリでそれぞれ応答を完了させ、通知が届くこととアプリの通知が重複しないことも確認する。
+
+外部通知フックとアプリ設定の仕様は [OpenAI Docs: Notifications](https://learn.chatgpt.com/docs/config-file/config-advanced#notifications) と [Settings](https://learn.chatgpt.com/docs/reference/settings#notifications) を参照。
+
 ## devcontainer profile の扱い
 
 - `profiles/devcontainer/default.nix` は devcontainer 専用 profile

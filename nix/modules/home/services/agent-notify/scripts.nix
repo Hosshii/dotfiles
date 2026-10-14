@@ -1,6 +1,6 @@
-{
-  pkgs,
-  backend ? "macos-remote",
+{ pkgs
+, backend ? "macos-remote"
+,
 }:
 let
   notifySnippet =
@@ -10,7 +10,7 @@ let
       ''
     else if backend == "terminal-notifier" then
       ''
-        exec terminal-notifier -title "$title" -message "$message" -sound "$sound"
+        exec ${pkgs.terminal-notifier}/bin/terminal-notifier -title "$title" -message "$message" -sound default
       ''
     else
       throw "Unsupported custom.services.agentNotify.backend: ${backend}";
@@ -53,13 +53,16 @@ let
   codexNotify = pkgs.writeShellScriptBin "codex_notify.sh" ''
     set -euo pipefail
 
-    payload="''${1:-{}}"
+    payload="''${1:-}"
+    if [ -z "$payload" ]; then
+      payload='{}'
+    fi
 
     # jqで1フィールド読む。読めない/型が違う/空ならデフォルト
-    jqs() { ${pkgs.jq}/bin/jq -er "$1" <<<"$payload" 2>/dev/null || printf '%s' "$2"; }
+    jqs() { ${pkgs.jq}/bin/jq -er "($1) | select(type == \"string\" and length > 0)" <<<"$payload" 2>/dev/null || printf '%s' "$2"; }
 
     notification_type="''$(jqs '.type' 'other')"
-    message="''$(jqs '.message' ''')"
+    message="''$(jqs '[.["last-assistant-message"], .message] | map(select(type == "string" and length > 0)) | .[0]' 'Codex の応答が完了しました')"
 
     case "$notification_type" in
       agent-turn-complete) sound="task_complete" ;;

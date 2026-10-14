@@ -18,16 +18,12 @@ let
     notify = [ notifyScripts.codexNotifyPath ];
     project_doc_fallback_filenames = [ "CLAUDE.md" ];
     sandbox_mode = "workspace-write";
-    approval_policy = "untrusted";
-
+    approval_policy = "on-request";
+    desktop = {
+      show-context-window-usage = true;
+    };
     features = {
       plugins = false;
-    };
-
-    projects = {
-      "/workspace" = {
-        trust_level = "trusted";
-      };
     };
 
     tui = {
