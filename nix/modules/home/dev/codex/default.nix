@@ -12,8 +12,9 @@ let
     inherit pkgs backend;
   };
   codexConfigDir = "${config.xdg.configHome}/codex";
+  agentSkills = import ../agent-skills/sources.nix { inherit pkgs; };
   configFile = tomlFormat.generate "codex-config.toml" {
-    model = "gpt-6.1-sol";
+    model = "gpt-6.2-sol";
     model_reasoning_effort = "medium";
     notify = [ notifyScripts.codexNotifyPath ];
     project_doc_fallback_filenames = [ "CLAUDE.md" ];
@@ -38,6 +39,22 @@ let
   };
 in
 {
+  xdg.configFile = {
+    "codex/skills/grilling".source = agentSkills.grilling;
+    # Keep the Codex entry point independent of upstream's Claude Skill tool call.
+    # Link the whole directory: Codex skips symlinked SKILL.md files.
+    "codex/skills/grill-me".source = pkgs.writeTextDir "SKILL.md" ''
+      ---
+      name: grill-me
+      description: A relentless interview to sharpen a plan or design.
+      disable-model-invocation: true
+      ---
+
+      Read `${codexConfigDir}/skills/grilling/SKILL.md` and follow its instructions
+      for the user's current plan, design, or idea.
+    '';
+  };
+
   home = {
     packages = [
       llmAgentsPkgs.codex

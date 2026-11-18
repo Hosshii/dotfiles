@@ -132,6 +132,25 @@ nix fmt
 
 外部通知フックとアプリ設定の仕様は [OpenAI Docs: Notifications](https://learn.chatgpt.com/docs/config-file/config-advanced#notifications) と [Settings](https://learn.chatgpt.com/docs/reference/settings#notifications) を参照。
 
+## エージェントのスキル
+
+Codex と Claude Code の各モジュールは、[Matt Pocock のスキル](https://github.com/mattpocock/skills)から `grill-me` と依存する `grilling` を Home Manager で配置する。macOS・Arch Linux・devcontainer で共通のソースを使う。
+
+- Codex: `$CODEX_HOME/skills/`（`~/.config/codex/skills/`）に配置。新しいセッションで `$grill-me` を呼び出す。
+- Claude Code: `$CLAUDE_CONFIG_DIR/skills/`（`~/.config/claude-code/skills/`）に配置。新しいセッションで `/grill-me` を呼び出す。
+
+Codex の `grill-me` は、`grilling/SKILL.md` を読んで実行する入口を Nix で生成する。Claude Code の入口と、両エージェントの質問手順 `grilling` は上流のまま使う。上流本文を置換しないため、通常の更新では Codex の入口を手動調整する必要はない。
+
+Codex 向けにはスキルのディレクトリ全体をリンクする。`SKILL.md` 単体を Home Manager の `.text` で配置するとファイル自体がシンボリックリンクになり、Codex の探索で読み飛ばされるため、生成する入口にも `pkgs.writeTextDir` を使う。
+
+取得元は `modules/home/dev/agent-skills/sources.nix` のコミットとハッシュで固定する。更新時は GitHub で対象コミットを確認し、`nix/` で以下を実行する。
+
+```bash
+nix store prefetch-file --unpack --json https://github.com/mattpocock/skills/archive/<commit>.tar.gz
+```
+
+取得定義の `rev` を対象コミット、`hash` を出力の `hash` に変更して、通常の適用コマンドを実行する。上流でディレクトリ構成や依存スキルが変わった場合は取得定義も見直す。スキルディレクトリには Nix store へのリンクが含まれるため、直接編集せず Nix 側で管理する。
+
 ## devcontainer profile の扱い
 
 - `profiles/devcontainer/default.nix` は devcontainer 専用 profile

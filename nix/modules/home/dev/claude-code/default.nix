@@ -7,6 +7,7 @@
 }:
 let
   jsonFormat = pkgs.formats.json { };
+  agentSkills = import ../agent-skills/sources.nix { inherit pkgs; };
   backend = lib.attrByPath [ "custom" "services" "agentNotify" "backend" ] "macos-remote" config;
   notifyScripts = import ../../services/agent-notify/scripts.nix {
     inherit pkgs backend;
@@ -130,7 +131,13 @@ in
 {
   home.packages = [ llmAgentsPkgs.claude-code ];
 
-  xdg.configFile."claude-code/settings.json".source = settingsFile;
+  xdg.configFile =
+    lib.mapAttrs' (
+      name: source: lib.nameValuePair "claude-code/skills/${name}" { inherit source; }
+    ) agentSkills
+    // {
+      "claude-code/settings.json".source = settingsFile;
+    };
 
   home.sessionVariables = {
     CLAUDE_CONFIG_DIR = "${config.xdg.configHome}/claude-code";
