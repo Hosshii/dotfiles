@@ -4,6 +4,16 @@ let
   mkHome = import ./mk-home.nix { inherit inputs; };
 in
 {
+  mkNixosHost = { host, modules }: {
+    nixosConfigurations."${host.hostname}" = inputs.nixpkgs.lib.nixosSystem {
+      specialArgs.hostConfig = host;
+      modules = [
+        { nixpkgs.hostPlatform = host.system; }
+      ]
+      ++ modules;
+    };
+  };
+
   mkDarwinHost =
     {
       host,
