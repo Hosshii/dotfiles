@@ -1,5 +1,5 @@
 {
-  description = "dotfiles managed with nix-darwin and home-manager";
+  description = "dotfiles managed with NixOS, nix-darwin and Home Manager";
 
   nixConfig = {
     extra-substituters = [ "https://cache.numtide.com" ];
@@ -7,7 +7,7 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
@@ -54,9 +54,11 @@
       macbook = import ./hosts/macbook { inherit inputs; };
       archlinux = import ./hosts/archlinux { inherit inputs; };
       devcontainer = import ./hosts/devcontainer { inherit inputs; };
+      nixos = import ./hosts/hosshii-nixos { inherit inputs; };
     in
     {
       inherit (macbook) darwinConfigurations;
+      inherit (nixos) nixosConfigurations;
       homeConfigurations = archlinux.homeConfigurations // devcontainer.homeConfigurations;
       homeManagerModules.devcontainer = import ./profiles/devcontainer/default.nix;
       formatter = macbook.formatter // archlinux.formatter // devcontainer.formatter;

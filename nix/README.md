@@ -1,6 +1,6 @@
 # nix
 
-nix-darwin + home-manager によるマルチプラットフォーム dotfiles 管理。
+NixOS、nix-darwin、Home Manager によるマルチプラットフォーム dotfiles 管理。
 
 ## 前提
 
@@ -13,6 +13,7 @@ nix-darwin + home-manager によるマルチプラットフォーム dotfiles �
 | ホスト | OS | 管理方式 |
 |---|---|---|
 | `Hoshiros-MacBook-Air` | macOS (`aarch64-darwin`) | nix-darwin + home-manager |
+| `hosshii-nixos` | NixOS (`x86_64-linux`) | NixOS |
 | `hosshiiarch` | Arch Linux (`x86_64-linux`) | standalone home-manager |
 | `devcontainer-x86_64` | Linux (`x86_64-linux`) | standalone home-manager |
 | `devcontainer-aarch64` | Linux (`aarch64-linux`) | standalone home-manager |
@@ -22,6 +23,7 @@ nix-darwin + home-manager によるマルチプラットフォーム dotfiles �
 `nix/flake.nix` が公開する主な outputs:
 
 - `darwinConfigurations`
+- `nixosConfigurations`
 - `homeConfigurations`
 - `homeManagerModules.devcontainer`
 - `formatter`
@@ -44,6 +46,7 @@ nix/
 │   └── devcontainer/
 └── hosts/
     ├── macbook/
+    ├── hosshii-nixos/
     ├── archlinux/
     └── devcontainer/
 ```
@@ -54,7 +57,8 @@ nix/
 - `system` 判定は `lib/mk-pkgs.nix` に集約し、overlay 側に分散させない
 - Git identity は `host.identity.git` を単一ソースとして使う
 - `_1password` の命名は維持する
-- `home.stateVersion` / `system.stateVersion` は `lib/constants.nix` で一元管理する
+- Home Manager と nix-darwin の state version は `lib/constants.nix` で管理する
+- NixOS の `system.stateVersion` は初回インストール時の値をホスト構成に保持する
 
 ## ホストごとの profile 構成
 
@@ -65,6 +69,9 @@ nix/
 - Arch Linux (`hosts/archlinux/home.nix`)
   - `profiles/base/home.nix`
   - `profiles/workstation/linux.nix`
+- NixOS (`hosts/hosshii-nixos/default.nix`)
+  - `profiles/workstation/nixos.nix`
+  - ホスト固有の起動・ネットワーク・ユーザー設定とハードウェア設定
 - devcontainer (`hosts/devcontainer/home.nix`)
   - `profiles/devcontainer/default.nix`
   - `custom.git.name` / `custom.git.email` は `host.identity.git` から注入
@@ -88,6 +95,23 @@ nix run --refresh home-manager#home-manager -- switch --flake "github:Hosshii/do
 ```
 
 ### ローカル checkout を適用（`nix/` ディレクトリで実行）
+
+### NixOS
+
+最初の切り替えは `hosshii-nixos` のローカルコンソールから行う。新規ファイルを含む変更は Git が認識できる状態にしてから実行する。
+
+```bash
+nixos-rebuild build --flake .#hosshii-nixos
+sudo nixos-rebuild test --flake .#hosshii-nixos
+```
+
+`test` の後にローカルログイン、有線ネットワーク、`/` と `/boot` のマウントを確認する。
+
+```bash
+sudo nixos-rebuild switch --flake .#hosshii-nixos
+```
+
+再起動して同じ項目を確認する。
 
 ### macOS
 
