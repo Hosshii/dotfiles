@@ -1,6 +1,6 @@
 # dotfiles
 
-Nix (`nix-darwin` + `home-manager`) ベースのマルチプラットフォーム dotfiles 管理。
+NixOS、nix-darwin、Home Manager によるマルチプラットフォーム dotfiles 管理。
 
 ## Repository Layout
 
@@ -16,14 +16,14 @@ Nix (`nix-darwin` + `home-manager`) ベースのマルチプラットフォー�
 # apply from GitHub (macOS)
 sudo nix run --refresh nix-darwin#darwin-rebuild -- switch --flake "github:Hosshii/dotfiles?dir=nix#Hoshiros-MacBook-Air"
 
-# apply from GitHub (Arch Linux)
-nix run --refresh home-manager#home-manager -- switch --flake "github:Hosshii/dotfiles?dir=nix#hosshii@hosshiiarch"
+# apply from GitHub (NixOS)
+sudo nixos-rebuild switch --flake "github:Hosshii/dotfiles?dir=nix#hosshii-nixos"
 
 # macOS
 sudo nix run nix-darwin#darwin-rebuild -- switch --flake .#Hoshiros-MacBook-Air
 
-# Arch Linux
-nix run home-manager#home-manager -- switch --flake .#hosshii@hosshiiarch
+# NixOS
+sudo nixos-rebuild switch --flake .#hosshii-nixos
 
 # devcontainer (x86_64)
 nix run home-manager#home-manager -- switch --flake .#vscode@devcontainer-x86_64

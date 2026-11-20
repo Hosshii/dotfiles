@@ -8,7 +8,6 @@ alias lla='ls -lgha --git'
 alias lal='ls -lgha --git'
 alias ls='eza --icons=auto --git'
 alias cat='bat'
-alias code-arch='code --remote ssh-remote+arch'
 
 alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an" "$@"'
 _gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"

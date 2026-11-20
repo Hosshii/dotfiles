@@ -1,6 +1,6 @@
 # dotfiles
 
-Nix (nix-darwin + home-manager) ベースのマルチプラットフォーム dotfiles 管理。
+NixOS、nix-darwin、Home Manager によるマルチプラットフォーム dotfiles 管理。
 
 ## Architecture
 
@@ -27,8 +27,8 @@ Nix 構成の詳細は以下を参照:
 # macOS: 適用
 sudo nix run nix-darwin -- switch --flake .
 
-# Arch Linux: 適用
-nix run home-manager -- switch --flake .#hosshii@hosshiiarch
+# NixOS: 適用
+sudo nixos-rebuild switch --flake .#hosshii-nixos
 
 # devcontainer: 適用
 nix run home-manager -- switch --flake .#vscode@devcontainer-x86_64

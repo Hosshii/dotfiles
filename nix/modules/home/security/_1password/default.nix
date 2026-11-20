@@ -23,6 +23,11 @@ in
     gui.enable = lib.mkEnableOption "1Password GUI application";
 
     sshIntegration.enable = lib.mkEnableOption "1Password SSH agent integration";
+    sshIntegration.hosts = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      description = "SSH host aliases that use the 1Password agent explicitly.";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -34,13 +39,9 @@ in
       enable = true;
       includes = [ "~/.ssh/1Password/config" ];
 
-      settings = {
-        "arch" = {
-          IdentityAgent = [
-            ''"${sshAuthSock}"''
-          ];
-        };
-      };
+      settings = lib.genAttrs cfg.sshIntegration.hosts (_: {
+        IdentityAgent = [ ''"${sshAuthSock}"'' ];
+      });
     };
 
     programs.zsh.sessionVariables = lib.mkIf cfg.sshIntegration.enable {

@@ -1,18 +1,15 @@
 { ... }:
+let
+  server = import ../hosshii-nixos/host.nix;
+  alias = "nixos";
+in
 {
-  programs.ssh.settings = {
-    # Arch Linuxサーバー
-    "arch" = {
-      HostName = "hosshiiarch.local";
-      User = "hosshii";
-      ForwardAgent = true;
-      RemoteForward = [
-        {
-          bind.port = 50052;
-          host.address = "127.0.0.1";
-          host.port = 50052;
-        }
-      ];
-    };
+  programs._1password.sshIntegration.hosts = [ alias ];
+  programs.zsh.shellAliases."code-${alias}" = "code --remote ssh-remote+${alias}";
+
+  programs.ssh.settings.${alias} = {
+    HostName = "${server.hostname}.local";
+    User = server.username;
+    ForwardAgent = true;
   };
 }

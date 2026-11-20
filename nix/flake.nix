@@ -52,15 +52,14 @@
     }:
     let
       macbook = import ./hosts/macbook { inherit inputs; };
-      archlinux = import ./hosts/archlinux { inherit inputs; };
       devcontainer = import ./hosts/devcontainer { inherit inputs; };
       nixos = import ./hosts/hosshii-nixos { inherit inputs; };
     in
     {
       inherit (macbook) darwinConfigurations;
       inherit (nixos) nixosConfigurations;
-      homeConfigurations = archlinux.homeConfigurations // devcontainer.homeConfigurations;
+      inherit (devcontainer) homeConfigurations;
       homeManagerModules.devcontainer = import ./profiles/devcontainer/default.nix;
-      formatter = macbook.formatter // archlinux.formatter // devcontainer.formatter;
+      formatter = macbook.formatter // devcontainer.formatter;
     };
 }
