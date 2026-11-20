@@ -14,7 +14,6 @@ NixOS、nix-darwin、Home Manager によるマルチプラットフォーム dot
 |---|---|---|
 | `Hoshiros-MacBook-Air` | macOS (`aarch64-darwin`) | nix-darwin + home-manager |
 | `hosshii-nixos` | NixOS (`x86_64-linux`) | NixOS |
-| `hosshiiarch` | Arch Linux (`x86_64-linux`) | standalone home-manager |
 | `devcontainer-x86_64` | Linux (`x86_64-linux`) | standalone home-manager |
 | `devcontainer-aarch64` | Linux (`aarch64-linux`) | standalone home-manager |
 
@@ -47,7 +46,6 @@ nix/
 └── hosts/
     ├── macbook/
     ├── hosshii-nixos/
-    ├── archlinux/
     └── devcontainer/
 ```
 
@@ -66,9 +64,6 @@ nix/
   - `profiles/base/home.nix`
   - `profiles/workstation/macos.nix`
   - `hosts/macbook/ssh.nix`
-- Arch Linux (`hosts/archlinux/home.nix`)
-  - `profiles/base/home.nix`
-  - `profiles/workstation/linux.nix`
 - NixOS (`hosts/hosshii-nixos/default.nix`)
   - `profiles/workstation/nixos.nix`
   - ホスト固有の起動・ネットワーク・ユーザー設定とハードウェア設定
@@ -84,8 +79,8 @@ nix/
 # macOS
 sudo nix run --refresh nix-darwin#darwin-rebuild -- switch --flake "github:Hosshii/dotfiles?dir=nix#Hoshiros-MacBook-Air"
 
-# Arch Linux
-nix run --refresh home-manager#home-manager -- switch --flake "github:Hosshii/dotfiles?dir=nix#hosshii@hosshiiarch"
+# NixOS
+sudo nixos-rebuild switch --flake "github:Hosshii/dotfiles?dir=nix#hosshii-nixos"
 
 # devcontainer x86_64-linux
 nix run --refresh home-manager#home-manager -- switch --flake "github:Hosshii/dotfiles?dir=nix#vscode@devcontainer-x86_64"
@@ -113,6 +108,18 @@ sudo nixos-rebuild switch --flake .#hosshii-nixos
 
 再起動して同じ項目を確認する。
 
+#### Mac から SSH で接続
+
+`ssh nixos` は `hosshii-nixos.local` に接続する。NixOS が有線 LAN に mDNS で名前を公開するため、IP アドレスが変わっても同じ名前を使える。
+
+Mac に nix-darwin の設定を適用し、NixOS が許可する公開鍵に対応した 1Password の SSH Key アイテムに `ssh://nixos` を一度だけ登録する。1Password が生成する SSH 設定を読み込む設定は Home Manager に含まれている。 [1Password SSH Bookmarks](https://www.1password.dev/ssh/bookmarks)
+
+NixOS はシステム設定で宣言した公開鍵を認証に使う。鍵の追加と交換はホストの SSH 設定で行う。
+
+初回接続では、NixOS のローカルコンソールで `ssh-keygen -lf /etc/ssh/ssh_host_ed25519_key.pub` を実行し、Mac に表示されるホスト鍵の指紋と照合する。
+
+この接続では 1Password SSH エージェントを転送する。接続中は NixOS 上のプロセスが転送先のソケット経由で署名を要求できる。TCP と Unix ソケットの転送は、VS Code Remote SSH が使う Mac 側からのローカル転送に限定する。
+
 ### macOS
 
 ```bash
@@ -121,12 +128,6 @@ sudo nix run nix-darwin#darwin-rebuild -- build --flake .#Hoshiros-MacBook-Air
 
 # 適用
 sudo nix run nix-darwin#darwin-rebuild -- switch --flake .#Hoshiros-MacBook-Air
-```
-
-### Arch Linux
-
-```bash
-nix run home-manager#home-manager -- switch --flake .#hosshii@hosshiiarch
 ```
 
 ### devcontainer
@@ -158,7 +159,7 @@ nix fmt
 
 ## エージェントのスキル
 
-Codex と Claude Code の各モジュールは、[Matt Pocock のスキル](https://github.com/mattpocock/skills)から `grill-me` と依存する `grilling` を Home Manager で配置する。macOS・Arch Linux・devcontainer で共通のソースを使う。
+Codex と Claude Code の各モジュールは、[Matt Pocock のスキル](https://github.com/mattpocock/skills)から `grill-me` と依存する `grilling` を Home Manager で配置する。macOS と devcontainer で共通のソースを使う。
 
 - Codex: `$CODEX_HOME/skills/`（`~/.config/codex/skills/`）に配置。新しいセッションで `$grill-me` を呼び出す。
 - Claude Code: `$CLAUDE_CONFIG_DIR/skills/`（`~/.config/claude-code/skills/`）に配置。新しいセッションで `/grill-me` を呼び出す。
