@@ -1,6 +1,6 @@
 { constants, ... }:
 {
-  imports = [ ../../modules/home/cli/ripgrep/default.nix ];
+  imports = [ ../../profiles/workstation/nixos-home.nix ];
 
   home.stateVersion = constants.homeStateVersion;
 }
