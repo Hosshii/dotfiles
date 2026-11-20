@@ -13,12 +13,15 @@ mkHost.mkNixosHost {
     ../../profiles/workstation/nixos.nix
     inputs.home-manager.nixosModules.home-manager
     {
+      nixpkgs.overlays = import ../../pkgs/overlays/features/ai.nix { inherit inputs; };
+
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
         extraSpecialArgs = {
           hostConfig = host;
           inherit constants;
+          llmAgentsPkgs = inputs.llm-agents.packages.${host.system};
         };
         users."${host.username}" = import ./home.nix;
       };
