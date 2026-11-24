@@ -1,5 +1,8 @@
 { hostConfig, ... }:
 {
+  # Run the upstream VS Code Server binaries installed by Remote - SSH.
+  programs.nix-ld.enable = true;
+
   services.openssh = {
     enable = true;
     openFirewall = false;
