@@ -2,6 +2,7 @@
 {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelParams = [ "module_blacklist=nouveau" ];
 
   networking.hostName = hostConfig.hostname;
   networking.networkmanager.enable = true;
