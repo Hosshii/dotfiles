@@ -4,7 +4,7 @@
     ../base/home.nix
     ../../modules/home/dev
     ../../modules/home/services/agent-notify/default.nix
-    ../../modules/home/services/macos-remote/default.nix
+    ../../modules/home/cli/localtools/default.nix
   ];
 
   programs.zsh.initContent = lib.mkAfter ''

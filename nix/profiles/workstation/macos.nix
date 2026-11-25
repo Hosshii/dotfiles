@@ -1,6 +1,7 @@
 { hostConfig, ... }:
 {
   imports = [
+    ../../modules/home/cli/localtools/default.nix
     ../../modules/home/gui
     ../../modules/home/dev
     ../../modules/home/services
