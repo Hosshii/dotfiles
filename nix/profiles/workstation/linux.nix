@@ -10,6 +10,6 @@
     ../../modules/home/dev/pstree/default.nix
     ../../modules/home/dev/time/default.nix
     ../../modules/home/services/agent-notify/default.nix
-    ../../modules/home/services/macos-remote/default.nix
+    ../../modules/home/cli/localtools/default.nix
   ];
 }

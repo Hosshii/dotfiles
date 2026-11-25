@@ -148,7 +148,7 @@ nix fmt
 
 ### macOS のエージェント通知
 
-- macOS profile は Codex CLI / Claude Code の共通通知 backend に `terminal-notifier` を使う。Linux / devcontainer は `macos-remote` を使う。
+- macOS profile は Codex CLI / Claude Code の共通通知 backend に `terminal-notifier` を使う。Linux / devcontainer は `localtools op-broker notify` を使う。
 - Codex CLI は応答完了時に通知する。本文は最後の応答を使い、本文がない場合も完了メッセージを表示する。
 - デスクトップアプリは Settings → Notifications で応答完了通知と通知権限の要求を有効にする。
 - macOS の「システム設定 → 通知」で、使用するアプリと `terminal-notifier` の通知を許可する。

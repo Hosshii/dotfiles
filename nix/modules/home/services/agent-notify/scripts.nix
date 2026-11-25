@@ -6,7 +6,7 @@ let
   notifySnippet =
     if backend == "macos-remote" then
       ''
-        exec macos-remote notify "$title" "$message" --sound "$sound"
+        exec ${pkgs.localtools}/bin/localtools op-broker notify "$title" "$message" --sound "$sound"
       ''
     else if backend == "terminal-notifier" then
       ''

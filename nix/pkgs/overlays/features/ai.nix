@@ -1,7 +1,6 @@
 { inputs }:
 [
   (final: _: {
-    macos-remote = inputs.op-broker.packages.${final.system}.client;
-    macos-remote-server = inputs.op-broker.packages.${final.system}.server;
+    localtools = inputs.op-broker.packages.${final.stdenv.hostPlatform.system}.localtools;
   })
 ]
