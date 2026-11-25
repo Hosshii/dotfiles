@@ -176,6 +176,21 @@ nix store prefetch-file --unpack --json https://github.com/mattpocock/skills/arc
 
 取得定義の `rev` を対象コミット、`hash` を出力の `hash` に変更して、通常の適用コマンドを実行する。上流でディレクトリ構成や依存スキルが変わった場合は取得定義も見直す。スキルディレクトリには Nix store へのリンクが含まれるため、直接編集せず Nix 側で管理する。
 
+## Starship の配色
+
+`hosshii-nixos` は `hosts/hosshii-nixos/home.nix` で、暗い端末背景向けに彩度を抑えた `muted-dark` を選択する。テーマ指定を省略したホストでは、従来の配色 `terminal` が使われる。
+
+選択したテーマの一部は、ホストの Home Manager 設定で上書きできる。
+
+```nix
+custom.starship = {
+  theme = "muted-dark";
+  colors.directory = "#829ab5";
+};
+```
+
+テーマを追加するには `modules/home/cli/starship/themes.nix` に名前と色を定義し、ホストで `custom.starship.theme` にその名前を指定する。省略した項目には `terminal` の色が使われる。
+
 ## devcontainer profile の扱い
 
 - `profiles/devcontainer/default.nix` は devcontainer 専用 profile
