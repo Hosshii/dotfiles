@@ -40,16 +40,7 @@
   };
 
   outputs =
-    inputs@{
-      self,
-      nixpkgs,
-      nix-darwin,
-      home-manager,
-      brew-nix,
-      brew-api,
-      llm-agents,
-      op-broker,
-    }:
+    inputs@{ nixpkgs, ... }:
     let
       macbook = import ./hosts/macbook { inherit inputs; };
       devcontainer = import ./hosts/devcontainer { inherit inputs; };
@@ -61,5 +52,7 @@
       inherit (devcontainer) homeConfigurations;
       homeManagerModules.devcontainer = import ./profiles/devcontainer/default.nix;
       formatter = macbook.formatter // devcontainer.formatter;
+
+      checks = nixpkgs.lib.recursiveUpdate macbook.checks devcontainer.checks;
     };
 }

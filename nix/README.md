@@ -26,6 +26,7 @@ NixOS、nix-darwin、Home Manager によるマルチプラットフォーム dot
 - `homeConfigurations`
 - `homeManagerModules.devcontainer`
 - `formatter`
+- `checks`
 
 `pkgs/overlays` は内部実装であり outputs では公開しない。
 
@@ -144,6 +145,14 @@ nix run home-manager#home-manager -- switch --flake .#vscode@devcontainer-aarch6
 
 ```bash
 nix fmt
+```
+
+### 構成の評価チェック
+
+`nix/` で以下を実行すると、CI と同じように NixOS、macOS、両アーキテクチャの devcontainer 構成を評価できる。
+
+```bash
+nix flake check --all-systems --no-build --keep-going --no-update-lock-file --no-accept-flake-config .
 ```
 
 ### macOS のエージェント通知

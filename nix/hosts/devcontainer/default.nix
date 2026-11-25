@@ -1,29 +1,16 @@
 { inputs }:
 let
+  inherit (inputs.nixpkgs.lib) recursiveUpdate;
   constants = import ../../lib/constants.nix;
   mkHost = import ../../lib/mk-host.nix { inherit inputs; };
 
-  hostX8664 = import ./host-x86_64.nix;
-  hostAarch64 = import ./host-aarch64.nix;
-
-  devcontainerX8664 = mkHost.mkHomeHost {
-    host = hostX8664;
-    inherit constants;
-    modules = [
-      ./home.nix
-    ];
-  };
-
-  devcontainerAarch64 = mkHost.mkHomeHost {
-    host = hostAarch64;
-    inherit constants;
-    modules = [
-      ./home.nix
-    ];
-  };
+  mkDevcontainer =
+    host:
+    mkHost.mkHomeHost {
+      inherit host constants;
+      modules = [ ./home.nix ];
+    };
 in
-{
-  homeConfigurations = devcontainerX8664.homeConfigurations // devcontainerAarch64.homeConfigurations;
-
-  formatter = devcontainerX8664.formatter // devcontainerAarch64.formatter;
-}
+recursiveUpdate (mkDevcontainer (import ./host-x86_64.nix)) (
+  mkDevcontainer (import ./host-aarch64.nix)
+)

@@ -2,6 +2,11 @@
 let
   mkPkgs = import ./mk-pkgs.nix { inherit inputs; };
   mkHome = import ./mk-home.nix { inherit inputs; };
+
+  # Force the configuration's derivation without adding it as a build dependency.
+  mkEvaluationCheck =
+    pkgs: name: configuration:
+    builtins.seq configuration.drvPath (pkgs.writeText "evaluate-${name}" "");
 in
 {
   mkNixosHost = { host, modules }: {
@@ -24,9 +29,7 @@ in
     let
       pkgs = mkPkgs { system = host.system; };
       llmAgentsPkgs = inputs.llm-agents.packages.${host.system};
-    in
-    {
-      darwinConfigurations."${host.hostname}" = inputs.nix-darwin.lib.darwinSystem {
+      configuration = inputs.nix-darwin.lib.darwinSystem {
         specialArgs = {
           hostConfig = host;
           inherit constants llmAgentsPkgs;
@@ -53,7 +56,12 @@ in
           }
         ];
       };
-
+    in
+    {
+      darwinConfigurations.${host.hostname} = configuration;
+      checks.${host.system}."evaluate-${host.hostname}" =
+        mkEvaluationCheck pkgs host.hostname
+          configuration.system;
       formatter.${host.system} = pkgs.nixfmt-tree;
     };
 
@@ -66,9 +74,8 @@ in
     let
       pkgs = mkPkgs { system = host.system; };
       llmAgentsPkgs = inputs.llm-agents.packages.${host.system};
-    in
-    {
-      homeConfigurations."${host.username}@${host.hostname}" = mkHome {
+      name = "${host.username}@${host.hostname}";
+      configuration = mkHome {
         inherit
           pkgs
           constants
@@ -77,7 +84,12 @@ in
           ;
         hostConfig = host;
       };
-
+    in
+    {
+      homeConfigurations.${name} = configuration;
+      checks.${host.system}."evaluate-${name}" =
+        mkEvaluationCheck pkgs name
+          configuration.activationPackage;
       formatter.${host.system} = pkgs.nixfmt-tree;
     };
 }
