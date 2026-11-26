@@ -4,6 +4,8 @@ updates:
     directory: /nix
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 3
     groups:
       flake-inputs:
         patterns:
@@ -12,3 +14,5 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 3
