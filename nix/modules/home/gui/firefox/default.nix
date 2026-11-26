@@ -1,24 +1,13 @@
 # mac にインストールする場合、デフォルトのパッケージだとfirefoxのバイナリがbash scriptになってしまい署名の検証が通らない。
-# その結果1password拡張とdesktop appの通信ができないため、brew-nix経由でバイナリを入れることで解決する
+# 1Password 拡張との連携に必要な署名を維持するため、macOS では brew-nix で Mozilla 配布のアプリを展開する。
 { pkgs, ... }:
 
 let
-  isDarwin = pkgs.stdenv.isDarwin;
+  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
 in
 {
-  # brew-nix の Firefox は programs.firefox.package の wrap 処理と互換性がないため
-  # home.packages で直接インストールする
   home.packages = pkgs.lib.optionals isDarwin [
-    # brewのfirefox-jaをinstallするためにoverride
-    (pkgs.brewCasks.firefox.overrideAttrs (oldAttrs: {
-      src = pkgs.fetchurl {
-        url = "https://download-installer.cdn.mozilla.net/pub/firefox/releases/${oldAttrs.version}/mac/ja-JP-mac/Firefox%20${oldAttrs.version}.dmg";
-        # echo <brewのsha> \
-        # | xxd -r -p \
-        # | base64
-        hash = "sha256-jR2lApRYOmVPa0SvcJNrbwWMhiBAlW92zZNYhTG7Ydo=";
-      };
-    }))
+    (import ./package.nix { inherit pkgs; })
   ];
 
   programs.firefox = {

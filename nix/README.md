@@ -155,6 +155,26 @@ nix fmt
 nix flake check --all-systems --no-build --keep-going --no-update-lock-file --no-accept-flake-config .
 ```
 
+### macOS Firefox の更新
+
+brew-nix が Mozilla 公式の日本語版 DMG を展開する。更新するには `nix/` で次のコマンドを実行する。スクリプトは Mozilla の安定版と日本語版 DMG の SHA-256 を取得し、新しい版があれば `modules/home/gui/firefox/source.json` を更新する。実行には `curl`、`jq`、`xxd` が必要。
+
+```bash
+bash modules/home/gui/firefox/update-source.sh
+```
+
+Apple Silicon の Mac でビルドし、Mozilla の署名とアプリのバージョンを確認してから、`source.json` の変更を手動で PR にする。
+
+```bash
+output=$(nix build --no-link --print-out-paths --no-update-lock-file --no-accept-flake-config .#checks.aarch64-darwin.firefox-ja)
+app="$output/Applications/Firefox.app"
+requirement='identifier "org.mozilla.firefox" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] exists and certificate leaf[field.1.2.840.113635.100.6.1.13] exists and certificate leaf[subject.OU] = "43AQ936H96"'
+/usr/bin/codesign --verify --deep --strict --test-requirement="$requirement" "$app"
+test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$app/Contents/Info.plist")" = "$(jq -r '.version' modules/home/gui/firefox/source.json)"
+```
+
+切り替え後は日本語で表示され、Firefox の 1Password 拡張がデスクトップアプリに接続できることを実機で確認する。
+
 ### macOS のエージェント通知
 
 - macOS profile は Codex CLI / Claude Code の共通通知 backend に `terminal-notifier` を使う。Linux / devcontainer は `localtools op-broker notify` を使う。
